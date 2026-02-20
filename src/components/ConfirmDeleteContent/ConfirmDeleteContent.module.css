@@ -1,0 +1,65 @@
+.wrapper {
+  padding: 20px;
+  margin: 0 auto;
+  max-width: 360px;
+}
+
+.title {
+  font-size: 20px;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.text {
+  text-align: center;
+
+  font-size: 16px;
+  color: var(--text);
+  margin-bottom: 20px;
+}
+
+.buttonsRow {
+  display: flex;
+  gap: 10px;
+}
+
+.saveButton {
+  border-radius: 8px;
+  padding: 6px 12px;
+  background: var(--color-royal-blue);
+  width: 100%;
+  height: 48px;
+  font-family: var(--font-family);
+  font-size: 16px;
+  color: var(--color-white);
+  transition: 0.3s all ease;
+}
+
+.saveButton:hover:enabled,
+.saveButton:focus:enabled {
+  background: var(--color-royal-blue-lighter);
+  border: 1px solid var(--color-royal-blue);
+  color: #000;
+}
+
+.deleteButton {
+  border-radius: 8px;
+  padding: 6px 12px;
+  background-color: var(--button);
+  width: 100%;
+  height: 48px;
+  font-family: var(--font-family);
+  font-size: 16px;
+  color: var(--text);
+  border: 1px solid var(--button-border);
+  transition: 0.3s all ease;
+}
+
+.deleteButton:hover {
+  background-color: var(--button-hover);
+  color: var(--button-hover-text);
+}
+
+.deleteButton:active {
+  background-color: var(--button-active);
+}

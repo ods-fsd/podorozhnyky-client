@@ -1,0 +1,138 @@
+/* Styles for Mobile devices */
+@media screen and (min-width: 320px) and (max-width: 374px) {
+  .container {
+    width: 100%;
+    padding: 0 20px;
+    margin: 0 auto;
+  }
+}
+
+@media screen and (min-width: 375px) {
+  .container {
+    width: 100%;
+    padding: 0 20px;
+    margin: 0 auto;
+    max-width: 375px;
+  }
+}
+
+/* Styles for Tablet devices */
+@media screen and (min-width: 768px) {
+  .container {
+    max-width: 768px;
+    padding: 0 32px;
+  }
+}
+
+/* Styles for Desktop devices */
+@media screen and (min-width: 1440px) {
+  .container {
+    max-width: 1440px;
+    padding: 0 64px;
+  }
+}
+
+.categoryTitle {
+  margin-bottom: 8px;
+}
+
+.mobileCategories {
+  margin-bottom: 40px;
+}
+
+.categoriesList {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 5px;
+  margin-bottom: 40px;
+}
+
+.categoriesItem {
+  outline: 1px solid var(--opacity-transparent);
+  border-radius: 8px;
+  transition: outline 0.2s ease;
+}
+
+.categoriesItem:hover {
+  outline: 1px solid var(--border);
+}
+
+.categoriesButton {
+  border: 1px solid var(--opacity-transparent);
+  border-radius: 8px;
+  padding: 6px 12px;
+  font-weight: 500;
+  font-size: 16px;
+  color: var(--text);
+}
+
+.categoriesSelected {
+  background-color: var(--foreground);
+}
+
+.paginationButton {
+  border: 1px solid var(--button-solid);
+  border-radius: 8px;
+  padding: 12px;
+  background-color: var(--button-solid);
+  width: 100%;
+  font-weight: 500;
+  font-size: 16px;
+  color: var(--text-invert);
+  margin-bottom: 64px;
+}
+
+.paginationButton:hover,
+.paginationButton:focus {
+  background-color: var(--button-solid-hover);
+  color: var(--text);
+}
+
+.paginationButton:active {
+  background-color: var(--button-solid-active);
+  color: var(--text);
+}
+
+.paginationButton:disabled {
+  opacity: 0.3;
+}
+
+.title {
+  font-size: 32px;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  text-align: center;
+  margin-bottom: 40px;
+  margin-top: 32px;
+}
+
+@media screen and (min-width: 768px) {
+  .paginationButton {
+    font-size: 18px;
+    width: auto;
+    display: block;
+    margin: 0 auto;
+    margin-bottom: 64px;
+  }
+
+  .title {
+    font-size: 48px;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .paginationButton {
+    font-size: 18px;
+    margin-bottom: 72px;
+  }
+
+  .title {
+    font-size: 56px;
+    margin-top: 48px;
+  }
+
+  .categoriesButton {
+    font-size: 18px;
+  }
+}
