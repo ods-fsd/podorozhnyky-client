@@ -1,0 +1,35 @@
+.toggleWrapper {
+  display: flex;
+  justify-content: center;
+  gap: 0;
+  margin: 20px 0;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.tab {
+  padding: 12px 24px;
+  text-decoration: none;
+  font-weight: 500;
+  color: #666;
+  border-bottom: 3px solid transparent;
+  transition: all 0.3s ease;
+}
+
+/* Активний стан - синій колір за ТЗ */
+.tab.active {
+  color: var(--primary-color, #007bff);
+  border-bottom-color: var(--primary-color, #007bff);
+}
+
+.tab:hover {
+  color: var(--primary-color, #007bff);
+}
+
+@media (max-width: 480px) {
+  .tab {
+    flex: 1;
+    text-align: center;
+    padding: 10px 5px;
+    font-size: 14px;
+  }
+}
