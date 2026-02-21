@@ -4,7 +4,7 @@ export const dynamic = 'force-dynamic'; // Забороняє Next.js кешув
 import { isAxiosError } from 'axios';
 import { NextResponse, NextRequest } from 'next/server';
 import { logErrorResponse } from '../_utils/utils';
-import { api } from '../api'; // Це, скоріш за все, налаштований axios, який дивиться на твій localhost:3000
+import { api } from '@/lib/api/api';
 import { cookies } from 'next/headers';
 
 // Твій GET запит на отримання всіх історій (feature/stories-get-all)
@@ -50,3 +50,4 @@ export async function GET(req: NextRequest) {
 export async function POST(request: Request) {
     // логіка запиту збережена без змін
     // ...
+}

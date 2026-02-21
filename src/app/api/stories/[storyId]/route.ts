@@ -2,7 +2,7 @@ import { isAxiosError } from 'axios';
 import { cookies } from 'next/headers';
 import { NextRequest, NextResponse } from 'next/server';
 import { logErrorResponse } from '../../_utils/utils';
-import { api } from '../../api';
+import { api } from '@/lib/api/api';
 
 export async function GET(
   request: NextRequest,

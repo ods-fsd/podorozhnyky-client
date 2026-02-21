@@ -1,10 +1,13 @@
 import { create } from 'zustand';
+import { IUser } from '@/types/user';
 
 // Тимчасові типи для заглушки
 interface AuthState {
-  user: any | null;
+  user: IUser | null;
   isAuthenticated: boolean;
-  updateFavorites: (favorites: any) => void;
+  updateFavorites: (favorites: IUser['favorites']) => void;
+  setUser: (user: IUser) => void;
+  clearIsAuthenticated: () => void;
 }
 
 // Створюємо фейковий стор авторизації
@@ -14,4 +17,6 @@ export const useAuthStore = create<AuthState>((set) => ({
   updateFavorites: (favorites) => set((state) => ({ 
       user: state.user ? { ...state.user, favorites } : null 
   })),
+  setUser: (user) => set({ user, isAuthenticated: true }),
+  clearIsAuthenticated: () => set({ user: null, isAuthenticated: false }),
 }));

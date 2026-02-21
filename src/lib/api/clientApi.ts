@@ -61,8 +61,12 @@ export const logout = async (): Promise<AuthResponseLogout> => {
 };
 
 export const checkSession = async (): Promise<boolean> => {
-  const { data } = await nextServer.post<AuthResponseRefresh>('/auth/session');
-  return data.success;
+  try {
+    const { data } = await nextServer.post<AuthResponseRefresh>('/auth/session');
+    return data.success;
+  } catch {
+    return false;
+  }
 };
 
 export const getGoogleAuthUrl = async () => {
