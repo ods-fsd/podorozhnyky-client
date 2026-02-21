@@ -154,6 +154,13 @@
   --tabs-active-background: var(--color-scheme-3-background);
 }
 
+
+*, *::before, *::after {
+  transition-property: background-color, border-color, color, fill, stroke, box-shadow;
+  transition-duration: 0.3s;
+  transition-timing-function: ease;
+}
+
 html,
 body {
   margin: 0;
@@ -168,6 +175,7 @@ body {
   transition:
     background-color 0.3s ease,
     color 0.3s ease;
+    
 }
 
 h1,
@@ -216,6 +224,7 @@ img {
   height: auto;
 }
 
+/* Клас залишено на випадок, якщо він потрібен в інших лейаутах */
 .main {
   flex: 1;
 }
