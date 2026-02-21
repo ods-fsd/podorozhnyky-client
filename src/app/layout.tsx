@@ -4,7 +4,6 @@ import TanStackProvider from '@/components/TanStackProvider/TanStackProvider';
 import 'modern-normalize';
 import type { Metadata } from 'next';
 import { Toaster } from 'react-hot-toast';
-import ThemeSync from '../components/ThemeSync/ThemeSync';
 import ThemeToggle from '../components/ThemeToggle/ThemeToggle';
 import { nunitoSans } from './fonts';
 import './globals.css';
@@ -77,7 +76,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
         />
       </head>
       <body className={`${nunitoSans.variable}`}>
-        <ThemeSync />
+        
         <ThemeToggle />
         <TanStackProvider>
           <Toaster position="top-right" />
