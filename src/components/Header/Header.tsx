@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import toast from 'react-hot-toast';
@@ -16,29 +16,23 @@ import mainCss from '@/app/Home.module.css';
 import css from './Header.module.css';
 
 export default function Header() {
-  const { user, isAuthenticated, clearIsAuthenticated } = useAuthStore();
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const { user, isAuthenticated, clearIsAuthenticated } = useAuthStore() as any;
+  
   const [isOpenConfirmModal, setIsOpenConfirmModal] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [mounted, setMounted] = useState(false);
 
   const pathname = usePathname();
   const isHomePage = pathname === '/';
-
-  
-  useEffect(() => {
-    const rafId = requestAnimationFrame(() => {
-      setMounted(true);
-    });
-
-    return () => cancelAnimationFrame(rafId);
-  }, []);
 
   const handleLogout = async () => {
     try {
       const res = await logout();
       if (res?.message) {
-        clearIsAuthenticated();
+        if (clearIsAuthenticated) clearIsAuthenticated();
         toast.success('Ви успішно вийшли з системи');
+        
+        window.location.href = '/';
       }
       setIsOpenConfirmModal(false);
       if (isMobileMenuOpen) {
@@ -63,8 +57,8 @@ export default function Header() {
     ? `${css.mobileMenuButtonNoTransparent} ${css.mobileMenuButtonTransparent}`
     : css.mobileMenuButtonNoTransparent;
   const finalStoryTabButton = isHomePage
-    ? `${css.storyTabMain} ${css.storyTabTransp}`
-    : css.storyTabMain;
+    ? `${css.storyTabletLinkBase} ${css.storyTabletTransparent}`
+    : css.storyTabletLinkBase;
 
   return (
     <>
@@ -101,50 +95,47 @@ export default function Header() {
                 </ul>
 
                 <ul className={css.navigationItemProfile}>
-                  {/* Запобігаємо рендеру кнопок авторизації до гідратації */}
-                  {mounted && (
-                    isAuthenticated ? (
-                      <>
-                        <AuthNavigation />
-                        <li className={css.LogoutListSvg}>
-                          <button
-                            className={css.logoutButtonSvg}
-                            onClick={() => setIsOpenConfirmModal(true)}
-                            aria-label="Вийти з акаунта"
-                          >
-                            <svg width="24" height="24" aria-hidden="true">
-                              <use href="/sprite.svg#icon-logout" />
-                            </svg>
-                          </button>
-                        </li>
-                      </>
-                    ) : (
-                      <>
-                        <li className={`${css.navigationAuth} ${finalNavigationLog}`}>
-                          <Link
-                            href="/auth/login"
-                            prefetch={false}
-                            className={css.linkAuth}
-                          >
-                            Вхід
-                          </Link>
-                        </li>
-                        <li className={`${css.navigationAuth} ${finalNavigationReg}`}>
-                          <Link
-                            href="/auth/register"
-                            prefetch={false}
-                            className={css.linkAuth}
-                          >
-                            Реєстрація
-                          </Link>
-                        </li>
-                      </>
-                    )
+                  {isAuthenticated ? (
+                    <>
+                      <AuthNavigation />
+                      <li className={css.LogoutListSvg}>
+                        <button
+                          className={css.logoutButtonSvg}
+                          onClick={() => setIsOpenConfirmModal(true)}
+                          aria-label="Вийти з акаунта"
+                        >
+                          <svg width="24" height="24" aria-hidden="true">
+                            <use href="/sprite.svg#icon-logout" />
+                          </svg>
+                        </button>
+                      </li>
+                    </>
+                  ) : (
+                    <>
+                      <li className={`${css.navigationAuth} ${finalNavigationLog}`}>
+                        <Link
+                          href="/auth/login"
+                          prefetch={false}
+                          className={css.linkAuth}
+                        >
+                          Вхід
+                        </Link>
+                      </li>
+                      <li className={`${css.navigationAuth} ${finalNavigationReg}`}>
+                        <Link
+                          href="/auth/register"
+                          prefetch={false}
+                          className={css.linkAuth}
+                        >
+                          Реєстрація
+                        </Link>
+                      </li>
+                    </>
                   )}
                 </ul>
               </nav>
 
-              {mounted && isAuthenticated && (
+              {isAuthenticated && (
                 <div className={`${css.storyTablet} ${finalStoryTabButton}`}>
                   <Link
                     href="/stories/create/"

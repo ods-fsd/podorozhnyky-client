@@ -10,9 +10,12 @@ export default function MainLayout({
 }) {
   return (
     <div className={css.pageWrapper}>
+      
       <Header />
-      {/* Клас mainContent гарантує, що футер завжди буде внизу екрана */}
+      
+     
       <main className={css.mainContent}>{children}</main>
+      
       <Footer />
     </div>
   );
