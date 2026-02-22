@@ -15,16 +15,14 @@ import {
   PaginatedUsersResponse,
   UpdateUser,
 } from '@/types/user';
-import { cookies } from 'next/headers'; // Next.js утиліта для доступу до cookies на сервері
+import { cookies } from 'next/headers';
 import { nextServer } from './api';
 
-// === AUTH ===
 export const logout = async (): Promise<AuthResponseLogout> => {
   const { data } = await nextServer.post<AuthResponseLogout>('/auth/logout');
   return data;
 };
 
-// Перевірка сесії (чи залогінений користувач), передаючи cookies
 export const checkServerSession = async () => {
   const cookieStore = await cookies();
 
@@ -33,16 +31,15 @@ export const checkServerSession = async () => {
     {},
     {
       headers: {
-        Cookie: cookieStore.toString(), // Прикріплюємо куки для авторизації
+        Cookie: cookieStore.toString(),
       },
-      validateStatus: () => true, // Не "кидати" помилку, якщо статус не 2xx
+      validateStatus: () => true,
     }
   );
 
   return res;
 };
 
-// /me
 export const fetchCurrentUser = async (): Promise<IApiResponse> => {
   const cookieStore = await cookies();
   const { data } = await nextServer.get<IApiResponse>('/users/me', {
@@ -53,11 +50,6 @@ export const fetchCurrentUser = async (): Promise<IApiResponse> => {
   return data;
 };
 
-// ==========================================
-// === STORIES (Твоя зона) ===
-// ==========================================
-
-// Отримання всіх історій для серверного рендерингу (в page.tsx)
 export const fetchServerStories = async (
   perPage: number,
   page: number,
@@ -67,8 +59,7 @@ export const fetchServerStories = async (
     params: {
       perPage,
       page,
-      // Якщо категорія обрана - передаємо її назву, інакше undefined
-      category: category?.name, 
+      category: category?.name,
     },
   });
 
@@ -103,7 +94,6 @@ export const updateStory = async (
   return data;
 };
 
-// === USERS (AUTHORS) ===
 export const fetchAuthors = async (
   page: number,
   perPage: number
@@ -140,7 +130,6 @@ export const removeFavorite = async (storyId: string): Promise<IUser> => {
   return data;
 };
 
-// === CATEGORIES ===
 export const fetchServerCategories = async (): Promise<ICategory[]> => {
   const { data } = await nextServer.get('/categories');
   return data.data;

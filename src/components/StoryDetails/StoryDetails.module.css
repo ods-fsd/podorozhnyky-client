@@ -1,0 +1,135 @@
+/* === BASIC INFO BLOCK === */
+.info {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.infoDetails {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.storyDetails {
+  margin-bottom: 96px;
+}
+
+.item {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.label,
+.value {
+  font-family: var(--font-family);
+  line-height: 1.5;
+  color: var(--text);
+  font-size: 16px;
+}
+
+.label {
+  font-weight: 700;
+}
+
+.value {
+  font-weight: 400;
+}
+
+/* === CATEGORY BADGE === */
+.infoCategory {
+  display: inline-block;
+  width: fit-content;
+  padding: 4px 10px;
+  border: 1px solid var(--opacity-transparent);
+  border-radius: 6px;
+  background: var(--background-footer);
+
+  font-family: var(--font-family);
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--text);
+}
+
+/* === IMAGE === */
+.image {
+  margin-top: 16px;
+  margin-bottom: 32px;
+  width: 100%;
+  height: 223px;
+  object-fit: cover;
+  border-radius: 24px;
+}
+
+/* === ARTICLE TEXT === */
+.article {
+  margin-top: 32px;
+  margin-bottom: 24px;
+
+  font-family: var(--font-family);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--text);
+}
+
+/* === TABLET 768px === */
+@media screen and (min-width: 768px) {
+  .info {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .infoDetails {
+    flex-direction: row;
+    gap: 48px;
+  }
+
+  .infoCategory {
+    margin-left: auto;
+  }
+
+  .image {
+    height: 469px;
+    margin-bottom: 48px;
+  }
+}
+
+/* === DESKTOP 1440px === */
+@media screen and (min-width: 1440px) {
+
+  .label,
+  .value {
+    font-size: 18px;
+  }
+
+  .infoCategory {
+    font-size: 16px;
+    font-weight: 600;
+    width: auto;
+  }
+
+  .image {
+    height: 874px;
+  }
+
+  .storyDetails {
+    margin-bottom: 120px;
+  }
+
+  .content {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 0;
+  }
+
+  .article {
+    max-width: 865px;
+    margin-top: 48px;
+    margin-right: 24px;
+  }
+}

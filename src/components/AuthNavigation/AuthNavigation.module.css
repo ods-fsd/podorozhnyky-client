@@ -9,7 +9,7 @@
   height: 32px;
   border-radius: 50%;
   object-fit: cover;
-  background-color: var(--opacity-neutral-darkest-10); 
+  background-color: var(--opacity-neutral-darkest-10);
 }
 
 .userDefaultPhoto {
@@ -25,13 +25,12 @@
   background-color: var(--opacity-neutral-darkest-10);
 }
 
-
 .line {
   display: block;
   background-color: var(--border, rgba(0, 0, 0, 0.15));
   width: 1px;
   height: 24px;
-  margin: 0 8px; 
+  margin: 0 8px;
 }
 
 .storyButtonElAuth {
@@ -73,33 +72,52 @@
   opacity: 0.7;
 }
 
+.logoutButton {
+  background: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logoutIcon {
+  stroke: var(--text);
+  fill: transparent;
+  transition: stroke 0.2s ease;
+}
+
+.logoutButton:hover .logoutIcon {
+  stroke: var(--color-royal-blue);
+}
 
 @media (min-width: 768px) {
+
   .navigationItem,
   .headerLinkNav {
     display: flex;
   }
-  
+
   .navigationItem {
     flex-wrap: nowrap;
     gap: 8px;
     align-items: center;
     margin-left: 16px;
   }
-  
+
   .headerLinkNav {
     padding: 4px 0;
     flex-wrap: nowrap;
   }
 }
 
-
 @media (min-width: 1440px) {
   .storyButtonElAuth {
     display: flex;
     width: auto;
-    flex-shrink: 0; 
+    flex-shrink: 0;
     white-space: nowrap;
-    margin-left: 32px; 
+    margin-left: 32px;
   }
 }

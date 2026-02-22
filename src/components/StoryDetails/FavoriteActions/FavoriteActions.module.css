@@ -1,0 +1,95 @@
+.saveSection {
+  padding: 32px 20px;
+  background: var(--background-footer);
+  border-radius: 24px;
+  width: 100%;
+}
+
+.buttonsRow {
+  display: flex;
+  gap: 10px;
+}
+
+.deleteButton {
+  border-radius: 8px;
+  padding: 6px 12px;
+  background-color: var(--button);
+  width: 100%;
+  height: 48px;
+  font-family: var(--font-family);
+  font-size: 16px;
+  color: var(--text);
+  border: 1px solid var(--button-border);
+  transition: 0.3s all ease;
+}
+
+.deleteButton:hover {
+  background-color: var(--button-hover);
+  color: var(--button-hover-text);
+}
+
+.deleteButton:active {
+  background-color: var(--button-active);
+}
+
+.saveTitle {
+  font-family: var(--second-family);
+  font-size: 18px;
+  text-align: left;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--text);
+  margin-bottom: 16px;
+}
+
+.saveText {
+  font-family: var(--font-family);
+  font-size: 16px;
+  line-height: 1.5;
+  text-align: left;
+  font-weight: 400;
+  color: var(--text);
+  margin-bottom: 16px;
+}
+
+.saveButton {
+  border-radius: 8px;
+  padding: 6px 12px;
+  background: var(--color-royal-blue);
+  width: 100%;
+  height: 48px;
+  font-family: var(--font-family);
+  font-size: 16px;
+  color: var(--color-white);
+  transition: 0.3s all ease;
+}
+
+.saveButton:hover:enabled,
+.saveButton:focus:enabled {
+  background: var(--color-royal-blue-lighter);
+  border: 1px solid var(--color-royal-blue);
+  color: #000;
+}
+
+@media screen and (min-width: 768px) {
+  .saveSection {
+    max-width: 418px;
+    padding: 32px 32px;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .saveSection {
+    max-width: 418px;
+    flex-shrink: 0;
+    margin-top: 48px;
+  }
+
+  .saveTitle {
+    font-size: 26px;
+  }
+
+  .saveText {
+    font-size: 18px;
+  }
+}

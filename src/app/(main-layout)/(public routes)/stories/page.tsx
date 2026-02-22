@@ -13,12 +13,10 @@ import { ICategory } from '@/types/category';
 const StoriesPage = async () => {
   const queryClient = new QueryClient();
 
-  // Налаштування для початкового завантаження: 9 карток на першій сторінці, без категорії
   const perPage = 9;
   const page = 1;
   const category: ICategory | null = null;
 
-  // Серверно "прогріваємо" (prefetch) запит історій, щоб вони одразу були в HTML
   await queryClient.prefetchInfiniteQuery({
     queryKey: [
       'stories',
@@ -29,13 +27,11 @@ const StoriesPage = async () => {
     initialPageParam: 1,
   });
 
-  // Також серверно завантажуємо список категорій для фільтра
   await queryClient.prefetchQuery({
     queryKey: ['categories'],
     queryFn: () => fetchCategories(),
   });
 
-  // HydrationBoundary "передає" ці завантажені дані з сервера на клієнтський компонент
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
       <StoriesClient />

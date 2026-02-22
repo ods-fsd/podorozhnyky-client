@@ -1,24 +1,24 @@
-'use client'; // Вказуємо, що це клієнтський компонент (бо є useState, onClick тощо)
+'use client';
 
 import { addFavorite, deleteStory, removeFavorite } from '@/lib/api/clientApi';
 import { useAuthStore } from '@/lib/store/authStore';
-import { IStory } from '../../types/story';
+import { IStory } from '@/types/story';
 import { IFavoritesResponse } from '@/types/user';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import toast from 'react-hot-toast'; // Бібліотека для красивих спливаючих сповіщень
+import toast from 'react-hot-toast';
 import css from './TravellersStoriesItem.module.css';
 
 import ConfirmDeleteContent from '@/components/ConfirmDeleteContent/ConfirmDeleteContent';
 import Modal from '@/components/Modal/Modal';
+// ЗМІНЕНО: Використовуємо відносний шлях замість @/
+import AuthNavModal from '../AuthNavModal/AuthNavModal';
 import { useQueryClient } from '@tanstack/react-query';
-import ConfirmModal from '../ConfirmModal/ConfirmModal';
 
-// Типізація пропсів (даних), які приймає ця картка
 interface TravellersStoriesItemProps {
-  story: IStory | undefined; // Сама історія
-  isOwn?: boolean; // Чи є поточний користувач автором цієї історії
+  story: IStory | undefined;
+  isOwn?: boolean;
   storyId?: string;
 }
 
@@ -28,21 +28,17 @@ export const TravellersStoriesItem = ({
 }: TravellersStoriesItemProps) => {
   const router = useRouter();
   
-  // --- ЛОКАЛЬНІ СТАНИ (STATE) ---
-  const [isLoading, setIsLoading] = useState(false); // Стан завантаження для кнопки лайку
-  const [bookmarkCounter, setBookmarkCounter] = useState(story?.favoriteCount); // Лічильник лайків
-  const [showDeleteModal, setShowDeleteModal] = useState(false); // Чи показувати модалку видалення
-  const [showConfirmModal, setShowConfirmModal] = useState(false); // Чи показувати модалку "Увійдіть, щоб лайкнути"
+  const [isLoading, setIsLoading] = useState(false);
+  const [bookmarkCounter, setBookmarkCounter] = useState(story?.favoriteCount);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [showAuthModal, setShowAuthModal] = useState(false);
 
-  // --- ГЛОБАЛЬНИЙ СТАН (ZUSTAND/REDUX) ---
   const user = useAuthStore(state => state.user);
   const isAuthenticated = useAuthStore(state => state.isAuthenticated);
   const updateFavorites = useAuthStore(state => state.updateFavorites);
 
-  // Функція для перетворення технічної дати (ISO) у читабельний формат (ДД.ММ.РРРР)
   const ISODateToDate = (isoDate: string) => {
     const date = new Date(isoDate);
-
     const day = String(date.getDate()).padStart(2, '0');
     const month = String(date.getMonth() + 1).padStart(2, '0');
     const year = date.getFullYear();
@@ -50,32 +46,26 @@ export const TravellersStoriesItem = ({
     return `${day}.${month}.${year}`;
   };
 
-  // Перехід на сторінку повної історії при кліку "Переглянути статтю"
   const handleClick = (storyId: string) => {
     router.push(`/stories/${storyId}`);
   };
 
-  // Перехід на сторінку редагування (якщо це власна історія)
   const handlePencilClick = (storyId: string) => {
     if (!isAuthenticated) {
-      setShowConfirmModal(true);
+      setShowAuthModal(true);
       return;
     }
     router.push(`/stories/${storyId}/edit`);
   };
 
-  // Перевіряємо, чи ця історія вже є у збережених (лайкнутих) у поточного користувача
   const isFavorite = user?.favorites?.some(fav => fav._id === story?._id);
 
-  // --- ОБРОБНИК ЛАЙКІВ (ЗБЕРЕЖЕННЯ) ---
   const handleBookmarkClick = async (storyId: string) => {
-    // Якщо не авторизований - просимо увійти
     if (!isAuthenticated) {
-      setShowConfirmModal(true);
+      setShowAuthModal(true);
       return;
     }
 
-    // Забороняємо лайкати власні історії
     if (story?.ownerId._id === user?._id) {
       toast.error('Ви не можете додати у вибране власну історію');
       return;
@@ -85,30 +75,26 @@ export const TravellersStoriesItem = ({
       let updated: IFavoritesResponse;
       setIsLoading(true);
 
-      // Якщо вже лайкнуто - видаляємо з улюблених і зменшуємо лічильник
       if (isFavorite) {
         updated = await removeFavorite(storyId);
-        if (bookmarkCounter) {
+        if (bookmarkCounter !== undefined) {
           setBookmarkCounter(bookmarkCounter - 1);
         }
       } else {
-        // Якщо не лайкнуто - додаємо в улюблені і збільшуємо лічильник
         updated = await addFavorite(storyId);
         if (bookmarkCounter !== undefined) {
           setBookmarkCounter(bookmarkCounter + 1);
         }
       }
 
-      // Оновлюємо глобальний стейт користувача
       updateFavorites(updated.favorites);
     } catch {
-      // Тут можна додати обробку помилки запиту
+      toast.error('Сталася помилка під час збереження');
     } finally {
       setIsLoading(false);
     }
   };
 
-  // --- ОБРОБНИК ВИДАЛЕННЯ ІСТОРІЇ ---
   const queryClient = useQueryClient();
   const handleDeleteStory = async () => {
     if (!story) return;
@@ -118,7 +104,6 @@ export const TravellersStoriesItem = ({
 
       if (res?.message || res?.success) {
         toast.success('Історію видалено');
-        // Оновлюємо дані на сторінці профілю після видалення
         await queryClient.invalidateQueries({ queryKey: ['profile'] });
         return;
       }
@@ -127,13 +112,12 @@ export const TravellersStoriesItem = ({
     } catch {
       toast.error('Помилка при видаленні');
     } finally {
-      setShowDeleteModal(false); // Ховаємо модалку у будь-якому випадку
+      setShowDeleteModal(false);
     }
   };
 
   return (
     <>
-      {/* МОДАЛКА ПІДТВЕРДЖЕННЯ ВИДАЛЕННЯ */}
       {showDeleteModal && (
         <Modal onClose={() => setShowDeleteModal(false)}>
           <ConfirmDeleteContent
@@ -143,9 +127,11 @@ export const TravellersStoriesItem = ({
         </Modal>
       )}
 
-      {/* САМА КАРТКА ІСТОРІЇ */}
+      {showAuthModal && (
+        <AuthNavModal onClose={() => setShowAuthModal(false)} />
+      )}
+
       <li className={css.storyCard}>
-        {/* БЛОК З КАРТИНКОЮ (якщо є своя - показуємо, інакше заглушку) */}
         {story?.img ? (
           <Image
             className={css.mainImage}
@@ -169,7 +155,6 @@ export const TravellersStoriesItem = ({
         <div className={css.contentWrapper}>
           {story && (
             <div>
-              {/* КАТЕГОРІЯ, ЗАГОЛОВОК, ТА ТЕКСТ */}
               <p className={css.category}>
                 {story?.category?.name ?? 'Немає категорії'}
               </p>
@@ -180,7 +165,6 @@ export const TravellersStoriesItem = ({
 
           {story && (
             <div>
-              {/* БЛОК З ІНФОРМАЦІЄЮ ПРО АВТОРА */}
               <div className={css.userWrapper}>
                 <Image
                   className={css.avatarImage}
@@ -204,7 +188,6 @@ export const TravellersStoriesItem = ({
                 </div>
               </div>
 
-              {/* БЛОК З КНОПКАМИ ДІЙ */}
               <div className={css.buttonsWrapper}>
                 <button
                   className={css.showStory}
@@ -213,7 +196,6 @@ export const TravellersStoriesItem = ({
                   Переглянути статтю
                 </button>
 
-                {/* Якщо історія ВЛАСНА - показуємо кнопки "Редагувати" та "Видалити" */}
                 {isOwn ? (
                   <>
                     <button
@@ -237,7 +219,6 @@ export const TravellersStoriesItem = ({
                     </button>
                   </>
                 ) : (
-                  // Якщо історія ЧУЖА - показуємо кнопку "Додати в збережені (Лайк)"
                   <button
                     className={`${css.bookmarkStory} ${
                       isFavorite ? css.bookmarkStoryActive : ''
@@ -261,20 +242,6 @@ export const TravellersStoriesItem = ({
           )}
         </div>
       </li>
-
-      {/* МОДАЛКА "НЕ АВТОРИЗОВАНИЙ" (спливає, якщо гість хоче лайкнути) */}
-      {showConfirmModal && (
-        <ConfirmModal
-          onConfirm={() => {
-            router.push('/auth/login');
-          }}
-          onCancel={() => setShowConfirmModal(false)}
-          title="Помилка під час збереження"
-          text="Щоб зберегти статтю вам треба увійти, якщо ще немає облікового запису зареєструйтесь"
-          confirmButtonText="Увійти"
-          cancelButtonText="Скасувати"
-        />
-      )}
     </>
   );
 };

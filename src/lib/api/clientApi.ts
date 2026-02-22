@@ -1,4 +1,3 @@
-// lib/api/clientApi.ts
 import {
   AuthResetPwdCredentials,
   AuthResponseLogin,
@@ -26,7 +25,6 @@ import {
 } from '@/types/user';
 import { nextServer } from './api';
 
-// === AUTH ===
 export const login = async (credentials: LoginCredentials) => {
   const { data } = await nextServer.post<AuthResponseLogin>(
     '/auth/login',
@@ -81,26 +79,20 @@ export async function updateEmail(newEmail: string) {
   const res = await nextServer.post('/auth/send-change-email', { newEmail });
   return res.data;
 }
+
 export async function confirmEmail(token: string, newEmail: string) {
   const { data } = await nextServer.post('/auth/confirm-email', {
     token,
     newEmail,
   });
-  console.log(data);
   return data.data;
 }
 
-// /me/current
 export const fetchCurrentUser = async (): Promise<IApiResponse> => {
   const { data } = await nextServer.get<IApiResponse>('/users/me');
   return data;
 };
 
-// ==========================================
-// === STORIES (Твоя основна зона роботи) ===
-// ==========================================
-
-// Отримання всіх історій (з пагінацією та фільтром по категорії)
 export const fetchStories = async (
   perPage: number,
   page: number,
@@ -113,7 +105,7 @@ export const fetchStories = async (
       category,
     },
   });
-  return data.data; // Повертає об'єкт з data (масив історій) та даними пагінації
+  return data.data;
 };
 
 export const fetchStoryById = async (storyId: string): Promise<IStory> => {
@@ -147,7 +139,6 @@ export const deleteStory = async (storyId: string) => {
   return res.data;
 };
 
-// === USERS (AUTHORS) ===
 export const fetchAuthors = async (
   page = 1,
   perPage = 12
@@ -198,13 +189,11 @@ export const removeFavorite = async (
   return data;
 };
 
-// === CATEGORIES (Отримання категорій для фільтрації) ===
 export const fetchCategories = async (): Promise<ICategory[]> => {
   const { data } = await nextServer.get('/categories');
   return data.data;
 };
 
-// === PROFILE / ME STORIES ===
 export const fetchUserWithOwnFavorites = async (
   perPage: string,
   page: string
