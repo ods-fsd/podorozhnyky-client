@@ -1,3 +1,14 @@
+.title {
+  font-family: var(--second-family);
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 110%;
+  letter-spacing: -0.01em;
+  text-align: center;
+  color: var(--text);
+  margin: 32px auto 24px;
+}
+
 .section {
   width: 100%;
 }
@@ -109,6 +120,10 @@
 
 /* Tablet */
 @media screen and (min-width: 768px) {
+  .title {
+    font-size: 48px;
+  }
+
   .list {
     flex-direction: row;
     flex-wrap: wrap;
@@ -124,6 +139,10 @@
 
 /* Desktop */
 @media screen and (min-width: 1440px) {
+  .title {
+    font-size: 56px;
+  }
+
   .card {
     width: calc((100% - 72px) / 4);
     min-height: 384px;

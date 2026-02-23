@@ -1,10 +1,11 @@
-import { fetchAuthors } from '@/lib/api/serverApi';
+import { fetchAuthors } from "@/lib/api/serverApi";
 import {
   dehydrate,
   HydrationBoundary,
   QueryClient,
-} from '@tanstack/react-query';
-import OurTravellers from '@/components/OurTravellers/OurTravellers';
+} from "@tanstack/react-query";
+import css from "@/components/TravellersList/TravellersList.module.css";
+import TravellersClient from "./travellers.client";
 
 export default async function TravellersPage() {
   const queryClient = new QueryClient();
@@ -13,16 +14,15 @@ export default async function TravellersPage() {
   const page = 1;
 
   await queryClient.prefetchInfiniteQuery({
-    queryKey: ['authors', 'list', perPage],
+    queryKey: ["authors", "list", perPage],
     queryFn: () => fetchAuthors(page, perPage),
     initialPageParam: 1,
   });
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <div style={{ paddingTop: '80px', paddingBottom: '80px' }}>
-         <OurTravellers showLoadMore={true} />
-      </div>
+      <h1 className={css.title}>Мандрівники</h1>
+      <TravellersClient />
     </HydrationBoundary>
   );
 }
