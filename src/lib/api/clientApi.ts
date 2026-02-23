@@ -21,6 +21,7 @@ import {
   IOwnStoriesResponse,
   IUser,
   PaginatedUsersResponse,
+  GetUserByIdResponse,
 } from '@/types/user';
 import { nextServer } from './api';
 
@@ -154,8 +155,8 @@ export const fetchAuthors = async (
 
 export const fetchAuthorById = async (
   userId: string
-): Promise<IApiResponse> => {
-  const { data } = await nextServer.get(`/users/${userId}`);
+): Promise<GetUserByIdResponse> => {
+  const { data } = await nextServer.get<GetUserByIdResponse>(`/users/${userId}`);
   return data;
 };
 

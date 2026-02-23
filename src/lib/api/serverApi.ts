@@ -12,8 +12,9 @@ import {
 import {
   IApiResponse,
   IUser,
-  PaginatedUsersResponse,
   UpdateUser,
+  PaginatedUsersResponse,
+  GetUserByIdResponse,
 } from '@/types/user';
 import { cookies } from 'next/headers';
 import { nextServer } from './api';
@@ -108,8 +109,8 @@ export const fetchAuthors = async (
   return data;
 };
 
-export const fetchAuthorById = async (userId: string): Promise<IUser> => {
-  const { data } = await nextServer.get<IUser>(`/users/${userId}`);
+export const fetchAuthorById = async (userId: string): Promise<GetUserByIdResponse> => {
+  const { data } = await nextServer.get<GetUserByIdResponse>(`/users/${userId}`);
   return data;
 };
 
