@@ -1,4 +1,4 @@
-import Select, { SingleValue } from 'react-select';
+import Select, { SingleValue } from "react-select";
 
 interface OptionType {
   value: string | null;
@@ -27,90 +27,90 @@ const SelectInput = ({ options, onChange, value }: SelectInputProps) => {
       styles={{
         control: (base, state) => ({
           ...base,
-          backgroundColor: 'var(--background)',
+          backgroundColor: "var(--background)",
           border: state.isFocused
-            ? '1px solid var(--accent)'
-            : '1px solid var(--border)',
-          boxShadow: 'none',
-          borderRadius: '8px',
-          padding: '4px 8px',
-          minHeight: '44px',
-          transition: 'border-color 0.3s ease, box-shadow 0.3s ease',
-          '&:hover': {
-            borderColor: 'var(--accent)',
+            ? "1px solid var(--accent)"
+            : "1px solid var(--border)",
+          boxShadow: "none",
+          borderRadius: "8px",
+          padding: "4px 8px",
+          minHeight: "44px",
+          transition: "border-color 0.3s ease, box-shadow 0.3s ease",
+          "&:hover": {
+            borderColor: "var(--accent)",
           },
         }),
 
-        valueContainer: base => ({
+        valueContainer: (base) => ({
           ...base,
           padding: 0,
-          color: 'var(--text)',
-          fontSize: '16px',
+          color: "var(--text)",
+          fontSize: "16px",
           fontWeight: 500,
         }),
 
-        input: base => ({
+        input: (base) => ({
           ...base,
           margin: 0,
           padding: 0,
-          color: 'var(--text)',
+          color: "var(--text)",
         }),
 
-        singleValue: base => ({
+        singleValue: (base) => ({
           ...base,
-          color: 'var(--text)',
+          color: "var(--text)",
           fontWeight: 400,
-          fontSize: '18px',
+          fontSize: "18px",
         }),
 
-        placeholder: base => ({
+        placeholder: (base) => ({
           ...base,
-          color: 'var(--input-text)',
+          color: "var(--input-text)",
           fontWeight: 400,
-          fontSize: '18px',
+          fontSize: "18px",
         }),
 
         dropdownIndicator: (base, state) => ({
           ...base,
-          padding: '0 4px',
-          color: state.isFocused ? 'var(--accent)' : 'var(--input-text)',
-          transition: 'transform 0.3s ease, color 0.3s ease',
-          transform: state.selectProps.menuIsOpen ? 'rotate(180deg)' : 'none',
+          padding: "0 4px",
+          color: state.isFocused ? "var(--accent)" : "var(--input-text)",
+          transition: "transform 0.3s ease, color 0.3s ease",
+          transform: state.selectProps.menuIsOpen ? "rotate(180deg)" : "none",
         }),
 
-        indicatorsContainer: base => ({
+        indicatorsContainer: (base) => ({
           ...base,
           padding: 0,
         }),
 
-        menu: base => ({
+        menu: (base) => ({
           ...base,
-          backgroundColor: 'var(--background)',
-          border: '1px solid var(--border)',
-          borderRadius: '8px',
-          marginTop: '4px',
-          boxShadow: '0 4px 10px var(--opacity-neutral-darkest-10)',
-          overflow: 'hidden',
+          backgroundColor: "var(--background)",
+          border: "1px solid var(--border)",
+          borderRadius: "8px",
+          marginTop: "4px",
+          boxShadow: "0 4px 10px var(--opacity-neutral-darkest-10)",
+          overflow: "hidden",
         }),
 
-        menuList: base => ({
+        menuList: (base) => ({
           ...base,
-          padding: '4px',
+          padding: "4px",
         }),
 
         option: (base, state) => ({
           ...base,
           backgroundColor: state.isSelected
-            ? 'var(--accent)'
+            ? "var(--accent)"
             : state.isFocused
-              ? 'var(--opacity-neutral-darkest-5)'
-              : 'transparent',
-          color: state.isSelected ? 'var(--color-white)' : 'var(--text)',
-          padding: '8px 12px',
-          borderRadius: '4px',
-          fontSize: '16px',
-          cursor: 'pointer',
-          transition: 'background-color 0.3s ease',
+              ? "var(--opacity-neutral-darkest-5)"
+              : "transparent",
+          color: state.isSelected ? "var(--color-white)" : "var(--text)",
+          padding: "8px 12px",
+          borderRadius: "4px",
+          fontSize: "16px",
+          cursor: "pointer",
+          transition: "background-color 0.3s ease",
         }),
       }}
     />

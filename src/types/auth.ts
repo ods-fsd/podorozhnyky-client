@@ -1,4 +1,4 @@
-import { IUser } from './user';
+import { IUser } from "./user";
 
 export interface LoginCredentials {
   email: string;

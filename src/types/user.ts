@@ -1,5 +1,5 @@
-import { IPagination } from './pagination';
-import { IStory } from './story';
+import { IPagination } from "./pagination";
+import { IStory } from "./story";
 export interface IUser {
   _id: string;
   name: string;

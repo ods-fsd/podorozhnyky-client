@@ -1,9 +1,9 @@
-import { useEffect } from 'react';
-import Link from 'next/link';
-import Image from 'next/image';
+import { useEffect } from "react";
+import Link from "next/link";
+import Image from "next/image";
 
-import { IUser } from '@/types/user';
-import css from './MobileMenu.module.css';
+import { IUser } from "@/types/user";
+import css from "./MobileMenu.module.css";
 
 interface MobileMenuProps {
   isOpen: boolean;
@@ -24,11 +24,11 @@ export default function MobileMenu({
 }: MobileMenuProps) {
   useEffect(() => {
     if (isOpen) {
-      document.body.style.overflow = 'hidden';
+      document.body.style.overflow = "hidden";
     }
 
     return () => {
-      document.body.style.overflow = '';
+      document.body.style.overflow = "";
     };
   }, [isOpen]);
 
@@ -39,19 +39,24 @@ export default function MobileMenu({
     : css.storyButtonElMob;
 
   return (
-    <div 
-      className={css.menuOverlay} 
+    <div
+      className={css.menuOverlay}
       onClick={onClose}
       role="dialog"
       aria-modal="true"
       aria-label="Мобільне меню"
     >
-      <div className={css.menuContent} onClick={e => e.stopPropagation()}>
+      <div className={css.menuContent} onClick={(e) => e.stopPropagation()}>
         <div className={css.menuInnerWrapper}>
           <div className={css.menuHeader}>
             <Link className={css.headerLinkLogo} href="/" onClick={onClose}>
               <div className={css.logo_icon}>
-                <svg className={css.logo_iconSvg} width="23" height="23" aria-hidden="true">
+                <svg
+                  className={css.logo_iconSvg}
+                  width="23"
+                  height="23"
+                  aria-hidden="true"
+                >
                   <use href="/sprite.svg#icon-plant_logo" />
                 </svg>
               </div>
@@ -119,7 +124,10 @@ export default function MobileMenu({
                         className={css.userPhoto}
                       />
                     ) : (
-                      <div className={css.userDefaultPhoto} aria-hidden="true"></div>
+                      <div
+                        className={css.userDefaultPhoto}
+                        aria-hidden="true"
+                      ></div>
                     )}
                     <span className={css.mobUserName}>
                       {user?.name || "Ім'я"}

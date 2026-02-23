@@ -100,7 +100,6 @@
 
 /* === DESKTOP 1440px === */
 @media screen and (min-width: 1440px) {
-
   .label,
   .value {
     font-size: 18px;

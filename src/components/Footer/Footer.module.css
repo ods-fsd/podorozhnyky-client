@@ -2,7 +2,7 @@
   padding: 48px 0px;
   background-color: var(--background-footer);
   text-align: center;
-  min-width: 320px; 
+  min-width: 320px;
   margin-top: auto;
 }
 
@@ -30,7 +30,7 @@
 }
 
 .logo_text {
-  font-family: var(--second-family, 'Sora', sans-serif);
+  font-family: var(--second-family, "Sora", sans-serif);
   font-weight: 400;
   font-size: 17px;
   line-height: 1.1;
@@ -60,7 +60,9 @@
   fill: var(--text);
   width: 32px;
   height: 32px;
-  transition: fill 0.2s ease, transform 0.2s ease;
+  transition:
+    fill 0.2s ease,
+    transform 0.2s ease;
 }
 
 .nav {
@@ -80,7 +82,7 @@
 }
 
 .nav_link {
-  font-family: var(--font-family, 'Nunito Sans', sans-serif);
+  font-family: var(--font-family, "Nunito Sans", sans-serif);
   font-weight: 400;
   font-size: 16px;
   line-height: 1.5;
@@ -101,7 +103,7 @@
 
 .text {
   text-align: center;
-  font-family: var(--font-family, 'Nunito Sans', sans-serif);
+  font-family: var(--font-family, "Nunito Sans", sans-serif);
   font-weight: 400;
   font-size: 12px;
   line-height: 1.5;
@@ -174,7 +176,7 @@
   .content {
     margin-bottom: 0px;
     justify-content: center;
-    gap: 454px; 
+    gap: 454px;
   }
 
   .links_list {

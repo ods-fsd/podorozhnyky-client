@@ -1,14 +1,14 @@
 import {
   fetchServerCategories as fetchCategories,
   fetchServerStories as fetchStories,
-} from '@/lib/api/serverApi';
+} from "@/lib/api/serverApi";
 import {
   dehydrate,
   HydrationBoundary,
   QueryClient,
-} from '@tanstack/react-query';
-import StoriesClient from './Stories.client';
-import { ICategory } from '@/types/category';
+} from "@tanstack/react-query";
+import StoriesClient from "./Stories.client";
+import { ICategory } from "@/types/category";
 
 const StoriesPage = async () => {
   const queryClient = new QueryClient();
@@ -19,8 +19,8 @@ const StoriesPage = async () => {
 
   await queryClient.prefetchInfiniteQuery({
     queryKey: [
-      'stories',
-      (category as ICategory | null)?._id ?? 'all',
+      "stories",
+      (category as ICategory | null)?._id ?? "all",
       perPage,
     ],
     queryFn: () => fetchStories(perPage, page, category),
@@ -28,7 +28,7 @@ const StoriesPage = async () => {
   });
 
   await queryClient.prefetchQuery({
-    queryKey: ['categories'],
+    queryKey: ["categories"],
     queryFn: () => fetchCategories(),
   });
 

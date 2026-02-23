@@ -1,5 +1,5 @@
-import ReactPagination from 'react-paginate';
-import css from './Pagination.module.css';
+import ReactPagination from "react-paginate";
+import css from "./Pagination.module.css";
 
 interface PaginationProps {
   totalPages: number; // Загальна кількість сторінок

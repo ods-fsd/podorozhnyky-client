@@ -1,20 +1,20 @@
-'use client';
+"use client";
 
-import { addFavorite, deleteStory, removeFavorite } from '@/lib/api/clientApi';
-import { useAuthStore } from '@/lib/store/authStore';
-import { IStory } from '@/types/story';
-import { IFavoritesResponse } from '@/types/user';
-import Image from 'next/image';
-import { useRouter } from 'next/navigation';
-import { useState } from 'react';
-import toast from 'react-hot-toast';
-import css from './TravellersStoriesItem.module.css';
+import { addFavorite, deleteStory, removeFavorite } from "@/lib/api/clientApi";
+import { useAuthStore } from "@/lib/store/authStore";
+import { IStory } from "@/types/story";
+import { IFavoritesResponse } from "@/types/user";
+import Image from "next/image";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import toast from "react-hot-toast";
+import css from "./TravellersStoriesItem.module.css";
 
-import ConfirmDeleteContent from '@/components/ConfirmDeleteContent/ConfirmDeleteContent';
-import Modal from '@/components/Modal/Modal';
+import ConfirmDeleteContent from "@/components/ConfirmDeleteContent/ConfirmDeleteContent";
+import Modal from "@/components/Modal/Modal";
 // ЗМІНЕНО: Використовуємо відносний шлях замість @/
-import AuthNavModal from '../AuthNavModal/AuthNavModal';
-import { useQueryClient } from '@tanstack/react-query';
+import AuthNavModal from "../AuthNavModal/AuthNavModal";
+import { useQueryClient } from "@tanstack/react-query";
 
 interface TravellersStoriesItemProps {
   story: IStory | undefined;
@@ -27,20 +27,20 @@ export const TravellersStoriesItem = ({
   isOwn,
 }: TravellersStoriesItemProps) => {
   const router = useRouter();
-  
+
   const [isLoading, setIsLoading] = useState(false);
   const [bookmarkCounter, setBookmarkCounter] = useState(story?.favoriteCount);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [showAuthModal, setShowAuthModal] = useState(false);
 
-  const user = useAuthStore(state => state.user);
-  const isAuthenticated = useAuthStore(state => state.isAuthenticated);
-  const updateFavorites = useAuthStore(state => state.updateFavorites);
+  const user = useAuthStore((state) => state.user);
+  const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
+  const updateFavorites = useAuthStore((state) => state.updateFavorites);
 
   const ISODateToDate = (isoDate: string) => {
     const date = new Date(isoDate);
-    const day = String(date.getDate()).padStart(2, '0');
-    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, "0");
+    const month = String(date.getMonth() + 1).padStart(2, "0");
     const year = date.getFullYear();
 
     return `${day}.${month}.${year}`;
@@ -58,7 +58,7 @@ export const TravellersStoriesItem = ({
     router.push(`/stories/${storyId}/edit`);
   };
 
-  const isFavorite = user?.favorites?.some(fav => fav._id === story?._id);
+  const isFavorite = user?.favorites?.some((fav) => fav._id === story?._id);
 
   const handleBookmarkClick = async (storyId: string) => {
     if (!isAuthenticated) {
@@ -67,7 +67,7 @@ export const TravellersStoriesItem = ({
     }
 
     if (story?.ownerId._id === user?._id) {
-      toast.error('Ви не можете додати у вибране власну історію');
+      toast.error("Ви не можете додати у вибране власну історію");
       return;
     }
 
@@ -89,7 +89,7 @@ export const TravellersStoriesItem = ({
 
       updateFavorites(updated.favorites);
     } catch {
-      toast.error('Сталася помилка під час збереження');
+      toast.error("Сталася помилка під час збереження");
     } finally {
       setIsLoading(false);
     }
@@ -103,14 +103,14 @@ export const TravellersStoriesItem = ({
       const res = await deleteStory(story._id);
 
       if (res?.message || res?.success) {
-        toast.success('Історію видалено');
-        await queryClient.invalidateQueries({ queryKey: ['profile'] });
+        toast.success("Історію видалено");
+        await queryClient.invalidateQueries({ queryKey: ["profile"] });
         return;
       }
 
-      toast.error('Не вдалося видалити історію');
+      toast.error("Не вдалося видалити історію");
     } catch {
-      toast.error('Помилка при видаленні');
+      toast.error("Помилка при видаленні");
     } finally {
       setShowDeleteModal(false);
     }
@@ -136,7 +136,7 @@ export const TravellersStoriesItem = ({
           <Image
             className={css.mainImage}
             src={story.img}
-            alt={story.title ?? 'Story Image'}
+            alt={story.title ?? "Story Image"}
             width={335}
             height={223}
             priority={true}
@@ -145,7 +145,7 @@ export const TravellersStoriesItem = ({
           <Image
             className={css.mainImage}
             src="/placeholder-image.png"
-            alt={story?.title ?? 'Placeholder Image'}
+            alt={story?.title ?? "Placeholder Image"}
             width={335}
             height={223}
             priority={true}
@@ -156,7 +156,7 @@ export const TravellersStoriesItem = ({
           {story && (
             <div>
               <p className={css.category}>
-                {story?.category?.name ?? 'Немає категорії'}
+                {story?.category?.name ?? "Немає категорії"}
               </p>
               <h2 className={css.title}>{story?.title}</h2>
               <p className={css.description}>{story?.article}</p>
@@ -168,7 +168,7 @@ export const TravellersStoriesItem = ({
               <div className={css.userWrapper}>
                 <Image
                   className={css.avatarImage}
-                  src={story.ownerId.avatarUrl || '/placeholder-image.png'}
+                  src={story.ownerId.avatarUrl || "/placeholder-image.png"}
                   alt={story.ownerId.name}
                   width={48}
                   height={48}
@@ -221,11 +221,11 @@ export const TravellersStoriesItem = ({
                 ) : (
                   <button
                     className={`${css.bookmarkStory} ${
-                      isFavorite ? css.bookmarkStoryActive : ''
+                      isFavorite ? css.bookmarkStoryActive : ""
                     }`}
                     onClick={() => handleBookmarkClick(story._id)}
                     aria-label={
-                      isFavorite ? 'Remove from favorites' : 'Add to favorites'
+                      isFavorite ? "Remove from favorites" : "Add to favorites"
                     }
                   >
                     {isLoading ? (

@@ -13,8 +13,10 @@
 }
 
 .text {
-  font-family: var(--second-family,
-      var(--font-nunito-sans, 'Nunito Sans', sans-serif));
+  font-family: var(
+    --second-family,
+    var(--font-nunito-sans, "Nunito Sans", sans-serif)
+  );
   font-weight: 700;
   font-size: 18px;
   line-height: 1.4;

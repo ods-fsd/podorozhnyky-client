@@ -1,6 +1,6 @@
-import Link from 'next/link';
-import mainCss from '@/app/Home.module.css';
-import css from './Footer.module.css';
+import Link from "next/link";
+import mainCss from "@/app/Home.module.css";
+import css from "./Footer.module.css";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -12,7 +12,12 @@ export default function Footer() {
           <div className={css.content}>
             <div className={css.logo}>
               <Link className={css.logo_link} href="/">
-                <svg className={css.logo_icon} width="23" height="23" aria-hidden="true">
+                <svg
+                  className={css.logo_icon}
+                  width="23"
+                  height="23"
+                  aria-hidden="true"
+                >
                   <use href="/sprite.svg#icon-plant_logo" />
                 </svg>
                 <p className={css.logo_text}>Подорожники</p>
@@ -29,7 +34,12 @@ export default function Footer() {
                     href="https://www.facebook.com/"
                     aria-label="Перейти на Facebook"
                   >
-                    <svg className={css.footer_icon} width="32" height="32" aria-hidden="true">
+                    <svg
+                      className={css.footer_icon}
+                      width="32"
+                      height="32"
+                      aria-hidden="true"
+                    >
                       <use href="/sprite.svg#icon-Facebook" />
                     </svg>
                   </a>
@@ -42,7 +52,12 @@ export default function Footer() {
                     href="https://www.instagram.com/"
                     aria-label="Перейти на Instagram"
                   >
-                    <svg className={css.footer_icon} width="32" height="32" aria-hidden="true">
+                    <svg
+                      className={css.footer_icon}
+                      width="32"
+                      height="32"
+                      aria-hidden="true"
+                    >
                       <use href="/sprite.svg#icon-Instagram" />
                     </svg>
                   </a>
@@ -55,7 +70,12 @@ export default function Footer() {
                     href="https://x.com/"
                     aria-label="Перейти на X (Twitter)"
                   >
-                    <svg className={css.footer_icon} width="32" height="32" aria-hidden="true">
+                    <svg
+                      className={css.footer_icon}
+                      width="32"
+                      height="32"
+                      aria-hidden="true"
+                    >
                       <use href="/sprite.svg#icon-X" />
                     </svg>
                   </a>
@@ -68,7 +88,12 @@ export default function Footer() {
                     href="https://www.youtube.com/"
                     aria-label="Перейти на YouTube"
                   >
-                    <svg className={css.footer_icon} width="32" height="32" aria-hidden="true">
+                    <svg
+                      className={css.footer_icon}
+                      width="32"
+                      height="32"
+                      aria-hidden="true"
+                    >
                       <use href="/sprite.svg#icon-Youtube" />
                     </svg>
                   </a>
@@ -98,7 +123,9 @@ export default function Footer() {
           </nav>
         </div>
         <div className={css.inscription}>
-          <p className={css.text}>© {currentYear} Подорожники. Усі права захищені.</p>
+          <p className={css.text}>
+            © {currentYear} Подорожники. Усі права захищені.
+          </p>
         </div>
       </div>
     </footer>

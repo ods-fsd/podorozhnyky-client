@@ -1,17 +1,17 @@
-'use client';
+"use client";
 
-import React from 'react';
-import Link from 'next/link';
-import Image from 'next/image';
-import { usePathname } from 'next/navigation';
+import React from "react";
+import Link from "next/link";
+import Image from "next/image";
+import { usePathname } from "next/navigation";
 
-import { useAuthStore } from '@/lib/store/authStore';
-import css from './AuthNavigation.module.css';
+import { useAuthStore } from "@/lib/store/authStore";
+import css from "./AuthNavigation.module.css";
 
 export default function AuthNavigation() {
   const { user } = useAuthStore();
   const pathname = usePathname();
-  const isHomePage = pathname === '/';
+  const isHomePage = pathname === "/";
 
   const finalStoryButtonEl = isHomePage
     ? `${css.storyButtonElAuth} ${css.storyButtonElTransparentAuth}`
@@ -24,7 +24,7 @@ export default function AuthNavigation() {
           Мій Профіль
         </Link>
       </li>
-      
+
       <li className={finalStoryButtonEl}>
         <Link href="/stories/create/" className={css.storyLinkElAuth}>
           Опублікувати Історію
@@ -32,11 +32,15 @@ export default function AuthNavigation() {
       </li>
 
       <li className={css.navigationItem}>
-        <Link href="/profile" className={css.navigationLink} aria-label="Перейти до профілю">
+        <Link
+          href="/profile"
+          className={css.navigationLink}
+          aria-label="Перейти до профілю"
+        >
           {user?.avatarUrl ? (
             <Image
               src={user.avatarUrl}
-              alt={`Аватар ${user.name || 'користувача'}`}
+              alt={`Аватар ${user.name || "користувача"}`}
               width={32}
               height={32}
               className={css.userPhoto}

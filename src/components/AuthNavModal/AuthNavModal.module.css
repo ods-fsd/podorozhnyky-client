@@ -3,12 +3,15 @@
   flex-direction: column;
 }
 
-.btnButton {
+.closeBtn {
   fill: var(--text);
   position: absolute;
   top: 20px;
   right: 20px;
   padding: 4px;
+  background: none;
+  border: none;
+  cursor: pointer;
 }
 
 .icon {
@@ -26,7 +29,6 @@
   font-size: 26px;
   line-height: 120%;
   letter-spacing: -0.01em;
-  text-align: center;
   color: var(--text);
   margin-bottom: 16px;
 }
@@ -36,45 +38,45 @@
   font-weight: 400;
   font-size: 16px;
   line-height: 150%;
-  text-align: center;
   color: var(--text);
 }
 
-.btnCancel {
-  padding: 12px 123px;
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.btnLogin {
+  padding: 12px;
   background: var(--opacity-neutral-darkest-5);
   border: 1px solid var(--border);
   border-radius: 8px;
-  font-family: var(--font-family);
   font-weight: 500;
   font-size: 16px;
-  line-height: 150%;
   color: var(--text);
-  margin-bottom: 24px;
-  max-width: 295px;
+  text-decoration: none;
   display: inline-flex;
   align-items: center;
   justify-content: center;
 }
 
-.btnConfirm {
-  padding: 12px 124px;
+.btnRegister {
+  padding: 12px;
   border: 1px solid var(--color-royal-blue);
   border-radius: 8px;
   background: var(--color-royal-blue);
-  font-family: var(--font-family);
   font-weight: 500;
   font-size: 16px;
-  line-height: 150%;
   color: var(--color-white);
-  max-width: 295px;
+  text-decoration: none;
   display: inline-flex;
   align-items: center;
   justify-content: center;
 }
 
 @media (min-width: 768px) {
-  .btnButton {
+  .closeBtn {
     top: 16px;
     right: 16px;
   }
@@ -83,46 +85,25 @@
     font-size: 32px;
   }
 
-  .twoBtn {
-    display: flex;
+  .actions {
+    flex-direction: row;
     justify-content: center;
-    align-items: center;
     gap: 24px;
   }
 
-  .btnCancel {
-    padding: 12px 77px;
-    margin-bottom: 0px;
-    max-width: 203px;
-  }
-
-  .btnConfirm {
-    padding: 12px 78px;
-    max-width: 203px;
+  .btnLogin,
+  .btnRegister {
+    padding: 12px 30px;
+    min-width: 200px;
   }
 }
 
 @media (min-width: 1440px) {
-  .btnButton {
-    top: 24px;
-    right: 24px;
-  }
-
   .title {
-    font-size: 48px;
+    font-size: 40px;
   }
 
   .text {
     font-size: 20px;
-  }
-
-  .btnCancel {
-    padding: 11px 74px;
-    font-size: 18px;
-  }
-
-  .btnConfirm {
-    padding: 11px 75px;
-    font-size: 18px;
   }
 }

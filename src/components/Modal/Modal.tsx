@@ -1,14 +1,13 @@
-import css from './Modal.module.css';
-import { createPortal } from 'react-dom';
-import { useEffect } from 'react';
+import css from "./Modal.module.css";
+import { createPortal } from "react-dom";
+import { useEffect } from "react";
 
 interface ModalProps {
-  onClose: () => void; // Функція закриття модалки
-  children: React.ReactNode; // Внутрішній контент (може бути будь-яким)
+  onClose: () => void;
+  children: React.ReactNode;
 }
 
 export default function Modal({ onClose, children }: ModalProps) {
-  // Закриття при кліку на затемнений фон (backdrop)
   const handleBackdropClick = (event: React.MouseEvent<HTMLDivElement>) => {
     if (event.target === event.currentTarget) {
       onClose();
@@ -16,26 +15,22 @@ export default function Modal({ onClose, children }: ModalProps) {
   };
 
   useEffect(() => {
-    // Закриття при натисканні клавіші Escape
     const handleEscapeClick = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') {
+      if (event.key === "Escape") {
         onClose();
       }
     };
 
-    document.addEventListener('keydown', handleEscapeClick);
-    
-    // Забороняємо скролінг сторінки, поки відкрита модалка
-    document.body.style.overflow = 'hidden';
+    document.addEventListener("keydown", handleEscapeClick);
+
+    document.body.style.overflow = "hidden";
 
     return () => {
-      // Прибираємо слухач і повертаємо скролінг при закритті
-      document.removeEventListener('keydown', handleEscapeClick);
-      document.body.style.overflow = 'auto';
+      document.removeEventListener("keydown", handleEscapeClick);
+      document.body.style.overflow = "auto";
     };
   }, [onClose]);
 
-  // createPortal малює цей шматок HTML не там, де він викликаний у коді, а прямо в document.body
   return createPortal(
     <div
       onClick={handleBackdropClick}
@@ -45,6 +40,6 @@ export default function Modal({ onClose, children }: ModalProps) {
     >
       <div className={css.modal}>{children}</div>
     </div>,
-    document.body
+    document.body,
   );
 }

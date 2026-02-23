@@ -1,5 +1,5 @@
-import { AuthResponseLogout } from '@/types/auth';
-import { ICategory } from '@/types/category';
+import { AuthResponseLogout } from "@/types/auth";
+import { ICategory } from "@/types/category";
 import {
   CreateStory,
   CreateStoryResponse,
@@ -8,19 +8,17 @@ import {
   PaginatedStoriesResponse,
   UpdateStory,
   UpdateStoryResponse,
-} from '@/types/story';
+} from "@/types/story";
 import {
   IApiResponse,
   IUser,
   UpdateUser,
-  PaginatedUsersResponse,
-  GetUserByIdResponse,
-} from '@/types/user';
-import { cookies } from 'next/headers';
-import { nextServer } from './api';
+} from "@/types/user";
+import { cookies } from "next/headers";
+import { nextServer } from "./api";
 
 export const logout = async (): Promise<AuthResponseLogout> => {
-  const { data } = await nextServer.post<AuthResponseLogout>('/auth/logout');
+  const { data } = await nextServer.post<AuthResponseLogout>("/auth/logout");
   return data;
 };
 
@@ -28,14 +26,14 @@ export const checkServerSession = async () => {
   const cookieStore = await cookies();
 
   const res = await nextServer.post(
-    '/auth/session',
+    "/auth/session",
     {},
     {
       headers: {
         Cookie: cookieStore.toString(),
       },
       validateStatus: () => true,
-    }
+    },
   );
 
   return res;
@@ -43,7 +41,7 @@ export const checkServerSession = async () => {
 
 export const fetchCurrentUser = async (): Promise<IApiResponse> => {
   const cookieStore = await cookies();
-  const { data } = await nextServer.get<IApiResponse>('/users/me', {
+  const { data } = await nextServer.get<IApiResponse>("/users/me", {
     headers: {
       Cookie: cookieStore.toString(),
     },
@@ -54,9 +52,9 @@ export const fetchCurrentUser = async (): Promise<IApiResponse> => {
 export const fetchServerStories = async (
   perPage: number,
   page: number,
-  category: ICategory | null
+  category: ICategory | null,
 ): Promise<PaginatedStoriesResponse> => {
-  const { data } = await nextServer.get('/stories', {
+  const { data } = await nextServer.get("/stories", {
     params: {
       perPage,
       page,
@@ -69,41 +67,41 @@ export const fetchServerStories = async (
 
 export const fetchStoryById = async (storyId: string): Promise<IStory> => {
   const { data } = await nextServer.get<IStoryByIdResponse>(
-    `/stories/${storyId}`
+    `/stories/${storyId}`,
   );
   return data.data;
 };
 
 export const createStory = async (
-  storyData: CreateStory
+  storyData: CreateStory,
 ): Promise<CreateStoryResponse> => {
   const { data } = await nextServer.post<CreateStoryResponse>(
-    '/stories',
-    storyData
+    "/stories",
+    storyData,
   );
   return data;
 };
 
 export const updateStory = async (
   storyId: string,
-  storyData: UpdateStory
+  storyData: UpdateStory,
 ): Promise<UpdateStoryResponse> => {
   const { data } = await nextServer.put<UpdateStoryResponse>(
     `/stories/${storyId}`,
-    storyData
+    storyData,
   );
   return data;
 };
 
 export const fetchAuthors = async (
   page: number,
-  perPage: number
+  perPage: number,
 ): Promise<PaginatedUsersResponse> => {
   const params = new URLSearchParams({
     page: String(page),
     perPage: String(perPage),
   });
-  const { data } = await nextServer.get<PaginatedUsersResponse>('/users', {
+  const { data } = await nextServer.get<PaginatedUsersResponse>("/users", {
     params,
   });
   return data;
@@ -115,9 +113,9 @@ export const fetchAuthorById = async (userId: string): Promise<GetUserByIdRespon
 };
 
 export const updateProfile = async (
-  profileData: UpdateUser
+  profileData: UpdateUser,
 ): Promise<IUser> => {
-  const { data } = await nextServer.put<IUser>('/users/me', profileData);
+  const { data } = await nextServer.put<IUser>("/users/me", profileData);
   return data;
 };
 
@@ -132,6 +130,6 @@ export const removeFavorite = async (storyId: string): Promise<IUser> => {
 };
 
 export const fetchServerCategories = async (): Promise<ICategory[]> => {
-  const { data } = await nextServer.get('/categories');
+  const { data } = await nextServer.get("/categories");
   return data.data;
 };

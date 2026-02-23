@@ -53,14 +53,16 @@
   align-items: center;
   justify-content: center;
   fill: var(--text);
-  border: 1px solid var(--border, rgba(0,0,0,0.15));
+  border: 1px solid var(--border, rgba(0, 0, 0, 0.15));
   border-radius: 8px;
   padding: 4px;
   width: 32px;
   height: 32px;
   background: var(--opacity-neutral-darkest-5);
   cursor: pointer;
-  transition: opacity 0.2s ease, background-color 0.2s ease;
+  transition:
+    opacity 0.2s ease,
+    background-color 0.2s ease;
 }
 
 .closeButton:hover,
@@ -92,7 +94,7 @@
 }
 
 .authButtonsWrapper {
-  margin-top: auto; 
+  margin-top: auto;
 }
 
 .authButtons {
@@ -110,8 +112,10 @@
   cursor: pointer;
   font-size: 16px;
   font-weight: 500;
-  padding: 12px 0; 
-  transition: opacity 0.2s ease, background-color 0.2s ease;
+  padding: 12px 0;
+  transition:
+    opacity 0.2s ease,
+    background-color 0.2s ease;
 }
 
 .menuButton:hover {
@@ -121,7 +125,7 @@
 .menuButtonLogin {
   background-color: var(--color-white);
   color: var(--color-neutral-darkest);
-  border: 1px solid var(--border, rgba(0,0,0,0.15));
+  border: 1px solid var(--border, rgba(0, 0, 0, 0.15));
 }
 
 .menuButtonRegister {
@@ -179,9 +183,9 @@
   gap: 8px;
   margin-right: 8px;
   text-decoration: none;
-  color: var(--text); 
+  color: var(--text);
   font-weight: 400;
-  font-size: 14px; 
+  font-size: 14px;
   transition: opacity 0.2s ease;
 }
 
@@ -197,7 +201,7 @@
 }
 
 .userDefaultPhoto {
-  background-image: url('/placeholder-image.png');
+  background-image: url("/placeholder-image.png");
   background-position: center;
   background-size: cover;
   border-radius: 50%;
@@ -209,13 +213,12 @@
   background-color: var(--opacity-neutral-darkest-10);
 }
 
-
 .line {
   display: block;
   background-color: var(--border, rgba(0, 0, 0, 0.15));
   width: 1px;
   height: 24px;
-  margin: 0 16px; 
+  margin: 0 16px;
 }
 
 .logoutButtonSvg {

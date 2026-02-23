@@ -1,11 +1,11 @@
-'use client';
+"use client";
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 
 type PerPageConfig = {
   desktop?: number; // >=1440
-  tablet?: number;  // 768–1439
-  mobile?: number;  // <768
+  tablet?: number; // 768–1439
+  mobile?: number; // <768
 };
 
 const DEFAULT_CONFIG: Required<PerPageConfig> = {
@@ -19,14 +19,13 @@ export function useStoriesPerPageMain(config?: PerPageConfig) {
 
   const [perPage, setPerPage] = useState<number>(settings.desktop);
   const [isMobile, setIsMobile] = useState<boolean>(false);
-  
-  
+
   const [isMounted, setIsMounted] = useState<boolean>(false);
 
   useEffect(() => {
     const calc = () => {
       const width = window.innerWidth;
-      
+
       setIsMobile(width < 768);
 
       if (width >= 1440) {
@@ -39,13 +38,12 @@ export function useStoriesPerPageMain(config?: PerPageConfig) {
     };
 
     calc();
-    
-    
+
     const rafId = requestAnimationFrame(() => setIsMounted(true));
 
-    window.addEventListener('resize', calc);
+    window.addEventListener("resize", calc);
     return () => {
-      window.removeEventListener('resize', calc);
+      window.removeEventListener("resize", calc);
       cancelAnimationFrame(rafId);
     };
   }, [settings.desktop, settings.tablet, settings.mobile]);

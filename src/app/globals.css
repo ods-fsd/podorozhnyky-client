@@ -42,9 +42,9 @@
   --opacity-neutral-darkest-60: rgba(0, 0, 0, 0.6);
 
   /* === Font === */
-  --font-nunito-sans: 'Nunito Sans', sans-serif;
-  --font-family: 'Nunito Sans', sans-serif;
-  --second-family: 'Sora', sans-serif;
+  --font-nunito-sans: "Nunito Sans", sans-serif;
+  --font-family: "Nunito Sans", sans-serif;
+  --second-family: "Sora", sans-serif;
 
   /* === Color Scheme 1 (Light) === */
   --color-scheme-1-background: var(--color-white);
@@ -53,7 +53,7 @@
   --color-scheme-1-accent: var(--color-royal-blue);
   --color-scheme-1-foreground: var(--color-neutral-lightest);
   --color-scheme-1-input-text: var(--opacity-neutral-darkest-60);
-  
+
   /* === Color Scheme 2 (Blue) === */
   --color-scheme-2-background: var(--color-royal-blue-lightest);
   --color-scheme-2-text: var(--color-neutral-darkest);
@@ -64,7 +64,7 @@
   --color-scheme-2-background-footer: var(--color-royal-blue-lighter);
   --color-scheme-2-button-cancel-color: var(--color-neutral-dark);
   --color-scheme-2-tabs-background: var(--color-royal-blue-lighter);
-  
+
   /* === Color Scheme 3 (Dark) === */
   /* Прибрано зайвий дубль --color-scheme-3-background: var(--color-white); */
   --color-scheme-3-background: var(--color-neutral-darker);
@@ -81,7 +81,7 @@
 /* =========================================
              Theme Activation
    ========================================= */
-:root[data-theme='color-scheme-1'] {
+:root[data-theme="color-scheme-1"] {
   --background: var(--color-scheme-1-background);
   --text: var(--color-scheme-1-text);
   --border: var(--color-scheme-1-border);
@@ -104,7 +104,7 @@
   --input-text-color: var(--color-scheme-2-input-text);
 }
 
-:root[data-theme='color-scheme-2'] {
+:root[data-theme="color-scheme-2"] {
   --background: var(--color-scheme-2-background);
   --text: var(--color-scheme-2-text);
   --border: var(--color-scheme-2-border);
@@ -129,7 +129,7 @@
   --tabs-active-background: var(--color-scheme-2-background);
 }
 
-:root[data-theme='color-scheme-3'] {
+:root[data-theme="color-scheme-3"] {
   --background: var(--color-scheme-3-background);
   --text: var(--color-scheme-3-text);
   --border: var(--color-scheme-3-border);
@@ -154,9 +154,11 @@
   --tabs-active-background: var(--color-scheme-3-background);
 }
 
-
-*, *::before, *::after {
-  transition-property: background-color, border-color, color, fill, stroke, box-shadow;
+*,
+*::before,
+*::after {
+  transition-property:
+    background-color, border-color, color, fill, stroke, box-shadow;
   transition-duration: 0.3s;
   transition-timing-function: ease;
 }
@@ -175,7 +177,6 @@ body {
   transition:
     background-color 0.3s ease,
     color 0.3s ease;
-    
 }
 
 h1,

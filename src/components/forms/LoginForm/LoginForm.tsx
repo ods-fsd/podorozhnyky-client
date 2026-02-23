@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import { useFormik } from 'formik';
 import { loginSchema } from '@/schemas/authSchemas';
@@ -13,8 +13,8 @@ export const LoginForm = () => {
 
   const formik = useFormik({
     initialValues: {
-      email: '',
-      password: '',
+      email: "",
+      password: "",
     },
     validationSchema: loginSchema,
     onSubmit: async (values) => {
@@ -34,7 +34,7 @@ export const LoginForm = () => {
   return (
     <form onSubmit={formik.handleSubmit} className={styles.formContainer}>
       <h2 className={styles.title}>Вхід</h2>
-      
+
       <div className={styles.inputGroup}>
         <label htmlFor="email">Email</label>
         <input
@@ -46,7 +46,7 @@ export const LoginForm = () => {
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
           value={formik.values.email}
-          className={`${styles.input} ${formik.touched.email && formik.errors.email ? styles.inputError : ''}`}
+          className={`${styles.input} ${formik.touched.email && formik.errors.email ? styles.inputError : ""}`}
         />
         {formik.touched.email && formik.errors.email ? (
           <div className={styles.errorText}>{formik.errors.email}</div>
@@ -64,14 +64,18 @@ export const LoginForm = () => {
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
           value={formik.values.password}
-          className={`${styles.input} ${formik.touched.password && formik.errors.password ? styles.inputError : ''}`}
+          className={`${styles.input} ${formik.touched.password && formik.errors.password ? styles.inputError : ""}`}
         />
         {formik.touched.password && formik.errors.password ? (
           <div className={styles.errorText}>{formik.errors.password}</div>
         ) : null}
       </div>
 
-      <button type="submit" className={styles.submitBtn} disabled={!formik.isValid || !formik.dirty}>
+      <button
+        type="submit"
+        className={styles.submitBtn}
+        disabled={!formik.isValid || !formik.dirty}
+      >
         Увійти
       </button>
     </form>

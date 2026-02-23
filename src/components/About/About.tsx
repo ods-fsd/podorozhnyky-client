@@ -2,7 +2,6 @@ import React from "react";
 import globalCss from "@/app/Home.module.css";
 import css from "./About.module.css";
 
-
 const ABOUT_FEATURES = [
   {
     id: "mission",
@@ -51,7 +50,7 @@ const About: React.FC = () => {
                 className={css.icon}
                 width="48"
                 height="48"
-                aria-hidden="true" 
+                aria-hidden="true"
                 focusable="false"
               >
                 <use href={`/sprite.svg#${feature.icon}`} />

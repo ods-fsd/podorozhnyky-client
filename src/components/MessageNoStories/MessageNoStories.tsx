@@ -1,10 +1,10 @@
-'use client';
+"use client";
 
-import React from 'react';
-import { useCallback } from 'react';
-import styles from './MessageNoStories.module.css';
+import React from "react";
+import { useCallback } from "react";
+import styles from "./MessageNoStories.module.css";
 
-import { useRouter } from 'next/navigation';
+import { useRouter } from "next/navigation";
 
 export type MessageNoStoriesProps = {
   /**
@@ -18,7 +18,7 @@ export type MessageNoStoriesProps = {
   /**
    * Маршрут для навігації (використовується, якщо не передано onClick).
    */
-  route?: '/stories' | '/stories-create/create' | string;
+  route?: "/stories" | "/stories-create/create" | string;
   /**
    * Опціональний обробник кліку. Якщо передано, використовуємо його замість навігації.
    */
@@ -30,9 +30,9 @@ export type MessageNoStoriesProps = {
 };
 
 const MessageNoStories = ({
-  text = 'Цей користувач ще не публікував історій',
-  buttonText = 'До історій',
-  route = '/stories',
+  text = "Цей користувач ще не публікував історій",
+  buttonText = "До історій",
+  route = "/stories",
   onClick,
   className,
 }: MessageNoStoriesProps) => {
@@ -49,7 +49,7 @@ const MessageNoStories = ({
 
   const wrapperClassName = [styles.container, className]
     .filter(Boolean)
-    .join(' ');
+    .join(" ");
 
   return (
     <section className={wrapperClassName} role="alert">

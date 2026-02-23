@@ -1,38 +1,38 @@
-'use client';
+"use client";
 
-import React, { useState } from 'react';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import toast from 'react-hot-toast';
+import React, { useState } from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import toast from "react-hot-toast";
 
-import { logout } from '@/lib/api/clientApi';
-import { useAuthStore } from '@/lib/store/authStore';
+import { logout } from "@/lib/api/clientApi";
+import { useAuthStore } from "@/lib/store/authStore";
 
-import AuthNavigation from '../AuthNavigation/AuthNavigation';
-import MobileMenu from '../MobileMenu/MobileMenu';
-import ConfirmModal from '../ConfirmModal/ConfirmModal';
+import AuthNavigation from "../AuthNavigation/AuthNavigation";
+import MobileMenu from "../MobileMenu/MobileMenu";
+import ConfirmModal from "../ConfirmModal/ConfirmModal";
 
-import mainCss from '@/app/Home.module.css';
-import css from './Header.module.css';
+import mainCss from "@/app/Home.module.css";
+import css from "./Header.module.css";
 
 export default function Header() {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const { user, isAuthenticated, clearIsAuthenticated } = useAuthStore() as any;
-  
+
   const [isOpenConfirmModal, setIsOpenConfirmModal] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const pathname = usePathname();
-  const isHomePage = pathname === '/';
+  const isHomePage = pathname === "/";
 
   const handleLogout = async () => {
     try {
       const res = await logout();
       if (res?.message) {
         if (clearIsAuthenticated) clearIsAuthenticated();
-        toast.success('Ви успішно вийшли з системи');
-        
-        window.location.href = '/';
+        toast.success("Ви успішно вийшли з системи");
+
+        window.location.href = "/";
       }
       setIsOpenConfirmModal(false);
       if (isMobileMenuOpen) {
@@ -40,7 +40,7 @@ export default function Header() {
       }
     } catch (error) {
       console.error(error);
-      toast.error('Сталася помилка при виході');
+      toast.error("Сталася помилка при виході");
     }
   };
 
@@ -67,7 +67,12 @@ export default function Header() {
           <div className={css.headerContainer}>
             <Link className={css.headerLinkLogo} href="/">
               <div className={css.logo_icon}>
-                <svg className={css.logo_iconSvg} width="23" height="23" aria-hidden="true">
+                <svg
+                  className={css.logo_iconSvg}
+                  width="23"
+                  height="23"
+                  aria-hidden="true"
+                >
                   <use href="/sprite.svg#icon-plant_logo" />
                 </svg>
               </div>
@@ -112,7 +117,9 @@ export default function Header() {
                     </>
                   ) : (
                     <>
-                      <li className={`${css.navigationAuth} ${finalNavigationLog}`}>
+                      <li
+                        className={`${css.navigationAuth} ${finalNavigationLog}`}
+                      >
                         <Link
                           href="/auth/login"
                           prefetch={false}
@@ -121,7 +128,9 @@ export default function Header() {
                           Вхід
                         </Link>
                       </li>
-                      <li className={`${css.navigationAuth} ${finalNavigationReg}`}>
+                      <li
+                        className={`${css.navigationAuth} ${finalNavigationReg}`}
+                      >
                         <Link
                           href="/auth/register"
                           prefetch={false}

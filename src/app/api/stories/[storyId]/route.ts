@@ -1,12 +1,12 @@
-import { isAxiosError } from 'axios';
-import { cookies } from 'next/headers';
-import { NextRequest, NextResponse } from 'next/server';
-import { logErrorResponse } from '../../_utils/utils';
-import { api } from '@/lib/api/api';
+import { isAxiosError } from "axios";
+import { cookies } from "next/headers";
+import { NextRequest, NextResponse } from "next/server";
+import { logErrorResponse } from "../../_utils/utils";
+import { api } from "@/lib/api/api";
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: Promise<{ storyId: string }> }
+  { params }: { params: Promise<{ storyId: string }> },
 ) {
   try {
     const cookieStore = await cookies();
@@ -25,29 +25,29 @@ export async function GET(
       logErrorResponse(error.response?.data);
       return NextResponse.json(
         { error: error.message, response: error.response?.data },
-        { status: error.status }
+        { status: error.status },
       );
     }
 
     logErrorResponse({ message: (error as Error).message });
     return NextResponse.json(
-      { error: 'Internal Server Error' },
-      { status: 500 }
+      { error: "Internal Server Error" },
+      { status: 500 },
     );
   }
 }
 
 export async function PATCH(
   request: NextRequest,
-  { params }: { params: Promise<{ storyId: string }> }
+  { params }: { params: Promise<{ storyId: string }> },
 ) {
   try {
     const cookieStore = await cookies();
     const { storyId } = await params;
 
-    const accessToken = cookieStore.get('accessToken');
+    const accessToken = cookieStore.get("accessToken");
     if (!accessToken) {
-      return NextResponse.json({ message: 'Unauthorized' }, { status: 401 });
+      return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
     }
 
     const formData = await request.formData();
@@ -65,29 +65,29 @@ export async function PATCH(
       logErrorResponse(error.response?.data);
       return NextResponse.json(
         { error: error.message, response: error.response?.data },
-        { status: error.status }
+        { status: error.status },
       );
     }
 
     logErrorResponse({ message: (error as Error).message });
     return NextResponse.json(
-      { error: 'Internal Server Error' },
-      { status: 500 }
+      { error: "Internal Server Error" },
+      { status: 500 },
     );
   }
 }
 
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: Promise<{ storyId: string }> }
+  { params }: { params: Promise<{ storyId: string }> },
 ) {
   try {
     const cookieStore = await cookies();
     const { storyId } = await params;
 
-    const accessToken = cookieStore.get('accessToken');
+    const accessToken = cookieStore.get("accessToken");
     if (!accessToken) {
-      return NextResponse.json({ message: 'Unauthorized' }, { status: 401 });
+      return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
     }
 
     const res = await api.delete(`/stories/${storyId}`, {
@@ -103,14 +103,14 @@ export async function DELETE(
       logErrorResponse(error.response?.data);
       return NextResponse.json(
         { error: error.message, response: error.response?.data },
-        { status: error.status }
+        { status: error.status },
       );
     }
 
     logErrorResponse({ message: (error as Error).message });
     return NextResponse.json(
-      { error: 'Internal Server Error' },
-      { status: 500 }
+      { error: "Internal Server Error" },
+      { status: 500 },
     );
   }
 }

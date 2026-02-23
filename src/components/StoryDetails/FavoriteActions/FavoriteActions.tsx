@@ -1,10 +1,10 @@
-'use client';
+"use client";
 
-import { useRouter } from 'next/navigation';
-import { useState } from 'react';
-import ConfirmDeleteContent from '@/components/ConfirmDeleteContent/ConfirmDeleteContent';
-import Modal from '@/components/Modal/Modal';
-import css from './FavoriteActions.module.css';
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import ConfirmDeleteContent from "@/components/ConfirmDeleteContent/ConfirmDeleteContent";
+import Modal from "@/components/Modal/Modal";
+import css from "./FavoriteActions.module.css";
 
 type Props = {
   storyId: string;
@@ -80,7 +80,7 @@ export default function FavoriteActions({
 
         <button
           className={css.saveButton}
-          onClick={() => router.push('/auth/login')}
+          onClick={() => router.push("/auth/login")}
         >
           Увійти
         </button>
@@ -98,7 +98,7 @@ export default function FavoriteActions({
         </p>
 
         <button className={css.saveButton} onClick={onToggle} disabled={saving}>
-          {saving ? 'Збереження...' : 'Зберегти'}
+          {saving ? "Збереження..." : "Зберегти"}
         </button>
       </div>
     );
@@ -113,7 +113,7 @@ export default function FavoriteActions({
       </p>
 
       <button className={css.saveButton} onClick={onToggle} disabled={saving}>
-        {saving ? 'Видалення...' : 'Видалити'}
+        {saving ? "Видалення..." : "Видалити"}
       </button>
     </div>
   );

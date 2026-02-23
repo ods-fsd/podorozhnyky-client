@@ -15,7 +15,9 @@
 
   background-color: var(--header-bg);
   color: var(--header-text);
-  transition: background-color 0.3s ease, color 0.3s ease;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
 }
 
 .headerContainer {
@@ -67,7 +69,9 @@
   cursor: pointer;
   border: none;
   background: none;
-  transition: opacity 0.2s ease, background-color 0.2s ease;
+  transition:
+    opacity 0.2s ease,
+    background-color 0.2s ease;
 }
 
 .mobileMenuButtonBase:hover,
@@ -92,7 +96,7 @@
     padding: 32px 0;
     max-width: 1439px;
   }
-  
+
   .storyTablet {
     display: flex;
     align-items: center;
@@ -103,26 +107,26 @@
     padding: 4px 10px;
     transition: opacity 0.2s ease;
   }
-  
+
   .storyTablet:hover {
     opacity: 0.85;
   }
-  
+
   .storyTabletLink {
     text-decoration: none;
     color: inherit;
   }
-  
+
   .storyTabMain {
     background-color: var(--color-royal-blue);
     color: var(--color-white);
   }
-  
+
   .storyTabTransp {
     background-color: var(--color-white);
     color: var(--color-neutral-darkest);
   }
-  
+
   .navAndMenuControls {
     display: flex;
     align-items: center;
@@ -143,23 +147,23 @@
     font-size: 18px;
     line-height: 1.5;
   }
-  
+
   .logoName {
     font-size: 18px;
     line-height: 1.5;
   }
-  
+
   .navAndMenuControls {
     display: flex;
   }
-  
+
   .navigation {
     display: flex;
     align-items: center;
     gap: 32px;
     margin-left: 32px;
   }
-  
+
   .navList {
     display: flex;
     gap: 32px;
@@ -167,7 +171,7 @@
     padding: 0;
     margin: 0;
   }
-  
+
   .headerLinkNav {
     padding: 4px 0;
     display: flex;
@@ -176,11 +180,11 @@
     color: inherit;
     transition: opacity 0.2s ease;
   }
-  
+
   .headerLinkNav:hover {
     opacity: 0.7;
   }
-  
+
   .navigationItemProfile {
     display: flex;
     align-items: center;
@@ -190,11 +194,11 @@
     margin: 0;
     flex-wrap: nowrap;
   }
-  
+
   .navigationItemProfile > li {
     flex-shrink: 0;
   }
-  
+
   .logoutButtonSvg {
     display: flex;
     align-items: center;
@@ -205,44 +209,44 @@
     padding: 4px;
     transition: opacity 0.2s ease;
   }
-  
+
   .logoutButtonSvg:hover {
     opacity: 0.7;
   }
-  
+
   .linkAuth {
     display: block;
     padding: 4px 10px;
     text-decoration: none;
     color: inherit;
   }
-  
+
   .navigationAuth {
     border-radius: 8px;
     transition: opacity 0.2s ease;
   }
-  
+
   .navigationAuth:hover {
     opacity: 0.85;
   }
-  
+
   .navigationLog {
     border: 1px solid rgba(0, 0, 0, 0.15);
     background-color: rgba(0, 0, 0, 0.05);
     color: var(--header-text);
     margin-right: 16px;
   }
-  
+
   .navTransparentLog {
     background: rgba(255, 255, 255, 0.1);
     margin-right: 16px;
   }
-  
+
   .navigationReg {
     background-color: var(--color-royal-blue);
     color: var(--color-white);
   }
-  
+
   .navTransparentReg {
     background-color: var(--color-white);
     color: var(--color-neutral-darkest);

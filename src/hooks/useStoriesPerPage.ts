@@ -1,19 +1,19 @@
 // hooks/useStoriesPerPage.ts
-'use client'; // Вказує Next.js, що цей код виконується в браузері (бо ми слухаємо ширину вікна)
+"use client"; // Вказує Next.js, що цей код виконується в браузері (бо ми слухаємо ширину вікна)
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 
 // Налаштування: скільки карток показувати на різних екранах
 type PerPageConfig = {
   desktop?: number; // >=1440px
-  tablet?: number;  // 768–1439px
-  mobile?: number;  // <768px
+  tablet?: number; // 768–1439px
+  mobile?: number; // <768px
 };
 
 const DEFAULT_CONFIG: Required<PerPageConfig> = {
   desktop: 6, // 6 карток на великому екрані
-  tablet: 4,  // 4 на планшеті
-  mobile: 4,  // 4 на телефоні
+  tablet: 4, // 4 на планшеті
+  mobile: 4, // 4 на телефоні
 };
 
 // Цей хук автоматично перераховує кількість карток для завантаження при зміні розміру вікна
@@ -25,7 +25,7 @@ export function useStoriesPerPage(config?: PerPageConfig) {
 
   const [perPage, setPerPage] = useState(() => {
     // Запобіжник для серверного рендерингу (SSR), де немає об'єкта window
-    if (typeof window === 'undefined') return settings.desktop;
+    if (typeof window === "undefined") return settings.desktop;
 
     const width = window.innerWidth;
     if (width >= 1440) return settings.desktop;
@@ -43,10 +43,9 @@ export function useStoriesPerPage(config?: PerPageConfig) {
       else setPerPage(settings.mobile);
     };
 
-    window.addEventListener('resize', calc);
-    return () => window.removeEventListener('resize', calc); // Очищення при видаленні компонента
+    window.addEventListener("resize", calc);
+    return () => window.removeEventListener("resize", calc); // Очищення при видаленні компонента
   }, [settings.desktop, settings.tablet, settings.mobile]);
 
   return perPage;
 }
-

@@ -1,31 +1,30 @@
-
-import AuthProvider from '@/components/AuthProvider/AuthProvider';
-import TanStackProvider from '@/components/TanStackProvider/TanStackProvider';
-import 'modern-normalize';
-import type { Metadata } from 'next';
-import { Toaster } from 'react-hot-toast';
-import ThemeToggle from '../components/ThemeToggle/ThemeToggle';
-import { nunitoSans } from './fonts';
-import './globals.css';
+import AuthProvider from "@/components/AuthProvider/AuthProvider";
+import TanStackProvider from "@/components/TanStackProvider/TanStackProvider";
+import "modern-normalize";
+import type { Metadata } from "next";
+import { Toaster } from "react-hot-toast";
+import ThemeToggle from "../components/ThemeToggle/ThemeToggle";
+import { nunitoSans } from "./fonts";
+import "./globals.css";
 
 export const metadata: Metadata = {
-  title: 'Podorozhnyky',
+  title: "Podorozhnyky",
   description:
-    'A platform for searching travel places and sharing your own experience',
+    "A platform for searching travel places and sharing your own experience",
   icons: {
-    icon: '/favicon.ico',
+    icon: "/favicon.ico",
   },
   openGraph: {
-    title: 'Podorozhnyky',
+    title: "Podorozhnyky",
     description:
-      'A platform for searching travel places and sharing your own experience',
-    url: 'https://localhost:3000',
+      "A platform for searching travel places and sharing your own experience",
+    url: "https://localhost:3000",
     images: [
       {
-        url: '', // placeholder
+        url: "", // placeholder
         width: 1200,
         height: 630,
-        alt: 'Podorozhnyky - A platform for searching travel places and sharing your own experience',
+        alt: "Podorozhnyky - A platform for searching travel places and sharing your own experience",
       },
     ],
   },
@@ -76,7 +75,6 @@ export default function RootLayout({ children }: RootLayoutProps) {
         />
       </head>
       <body className={`${nunitoSans.variable}`}>
-        
         <ThemeToggle />
         <TanStackProvider>
           <Toaster position="top-right" />

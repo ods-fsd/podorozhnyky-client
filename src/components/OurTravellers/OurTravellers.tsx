@@ -1,23 +1,24 @@
-'use client';
+"use client";
 
-import React, { useEffect, useState } from 'react';
-import Link from 'next/link';
-import { useInfiniteQuery } from '@tanstack/react-query';
+import React, { useEffect, useState } from "react";
+import Link from "next/link";
+import { useInfiniteQuery } from "@tanstack/react-query";
 
-import TravellersList from '@/components/TravellersList/TravellersList';
-import { fetchAuthors } from '@/lib/api/clientApi';
-import Loader from '@/components/Loader/Loader';
-import ErrorMessage from '@/components/ErrorMessage/ErrorMessage';
+import TravellersList from "@/components/TravellersList/TravellersList";
+import { fetchAuthors } from "@/lib/api/clientApi";
+import Loader from "@/components/Loader/Loader";
+import ErrorMessage from "@/components/ErrorMessage/ErrorMessage";
 
-import mainCss from '@/app/Home.module.css';
-import css from './OurTravellers.module.css';
+import mainCss from "@/app/Home.module.css";
+import css from "./OurTravellers.module.css";
 
 type OurTravellersProps = {
   showLoadMore?: boolean;
 };
 
-const OurTravellers: React.FC<OurTravellersProps> = ({ showLoadMore = false }) => {
-  
+const OurTravellers: React.FC<OurTravellersProps> = ({
+  showLoadMore = false,
+}) => {
   const perPage = 4;
   const [isMounted, setIsMounted] = useState<boolean>(false);
 
@@ -26,22 +27,31 @@ const OurTravellers: React.FC<OurTravellersProps> = ({ showLoadMore = false }) =
     return () => cancelAnimationFrame(rafId);
   }, []);
 
-  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading, error } =
-    useInfiniteQuery({
-      queryKey: ['authors', 'list', perPage],
-      queryFn: ({ pageParam = 1 }) => fetchAuthors(pageParam, perPage),
-      initialPageParam: 1,
-      getNextPageParam: lastPage =>
-        lastPage.data.hasNextPage
-          ? lastPage.data.page + 1
-          : undefined,
-      enabled: isMounted,
-    });
+  const {
+    data,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+    isLoading,
+    error,
+  } = useInfiniteQuery({
+    queryKey: ["authors", "list", perPage],
+    queryFn: ({ pageParam = 1 }) => fetchAuthors(pageParam, perPage),
+    initialPageParam: 1,
+    getNextPageParam: (lastPage) =>
+      lastPage.data.pageInfo.hasNextPage
+        ? lastPage.data.pageInfo.page + 1
+        : undefined,
+    enabled: isMounted,
+  });
 
-  const allAuthors = data?.pages.flatMap(page => page.data.data) ?? [];
+  const allAuthors = data?.pages.flatMap((page) => page.data.users) ?? [];
 
   return (
-    <section className={css.ourTravellersSection} aria-labelledby="our-travellers">
+    <section
+      className={css.ourTravellersSection}
+      aria-labelledby="our-travellers"
+    >
       <div className={mainCss.container}>
         <h2 className={css.title} id="our-travellers">
           Наші Мандрівники
@@ -51,7 +61,6 @@ const OurTravellers: React.FC<OurTravellersProps> = ({ showLoadMore = false }) =
           <>
             <TravellersList users={allAuthors} />
 
-            
             {showLoadMore ? (
               hasNextPage && (
                 <button
@@ -60,7 +69,7 @@ const OurTravellers: React.FC<OurTravellersProps> = ({ showLoadMore = false }) =
                   disabled={isFetchingNextPage}
                   aria-busy={isFetchingNextPage}
                 >
-                  {isFetchingNextPage ? 'Завантаження...' : 'Показати ще'}
+                  {isFetchingNextPage ? "Завантаження..." : "Показати ще"}
                 </button>
               )
             ) : (

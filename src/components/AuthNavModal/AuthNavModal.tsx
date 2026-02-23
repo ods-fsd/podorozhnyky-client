@@ -1,6 +1,8 @@
-'use client';
+"use client";
 
-import Modal from '@/components/Modal/Modal';
+import Link from "next/link";
+import Modal from "@/components/Modal/Modal";
+import css from "./AuthNavModal.module.css";
 
 interface AuthNavModalProps {
   onClose: () => void;
@@ -9,24 +11,33 @@ interface AuthNavModalProps {
 export default function AuthNavModal({ onClose }: AuthNavModalProps) {
   return (
     <Modal onClose={onClose}>
-      <div style={{ textAlign: 'center', padding: '20px' }}>
-        <h2 style={{ marginBottom: '16px' }}>Помилка під час збереження</h2>
-        <p style={{ marginBottom: '24px' }}>
-          Заглушка: тут будуть кнопки для входу та реєстрації.
-        </p>
-        <button 
-          onClick={onClose}
-          style={{
-            padding: '10px 20px',
-            backgroundColor: 'var(--color-royal-blue, #2A6DFF)',
-            color: '#fff',
-            border: 'none',
-            borderRadius: '8px',
-            cursor: 'pointer'
-          }}
-        >
-          Закрити
+      <div className={css.content}>
+        <button className={css.closeBtn} onClick={onClose} aria-label="Закрити">
+          <svg className={css.icon} width="24" height="24">
+            <use href="/sprite.svg#icon-close" />
+          </svg>
         </button>
+
+        <div className={css.info}>
+          <h2 className={css.title}>Помилка під час збереження</h2>
+          <p className={css.text}>
+            Щоб зберегти статтю вам треба увійти, якщо ще немає облікового
+            запису зареєструйтесь
+          </p>
+        </div>
+
+        <div className={css.actions}>
+          <Link href="/auth/login" className={css.btnLogin} onClick={onClose}>
+            Увійти
+          </Link>
+          <Link
+            href="/auth/register"
+            className={css.btnRegister}
+            onClick={onClose}
+          >
+            Зареєструватись
+          </Link>
+        </div>
       </div>
     </Modal>
   );

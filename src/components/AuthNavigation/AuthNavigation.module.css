@@ -13,7 +13,7 @@
 }
 
 .userDefaultPhoto {
-  background-image: url('/placeholder-image.png');
+  background-image: url("/placeholder-image.png");
   background-position: center;
   background-size: cover;
   border-radius: 50%;
@@ -40,7 +40,9 @@
   background-color: var(--color-royal-blue);
   color: var(--color-white);
   border-radius: 8px;
-  transition: opacity 0.2s ease, background-color 0.2s ease;
+  transition:
+    opacity 0.2s ease,
+    background-color 0.2s ease;
 }
 
 .storyButtonElAuth:hover {
@@ -93,7 +95,6 @@
 }
 
 @media (min-width: 768px) {
-
   .navigationItem,
   .headerLinkNav {
     display: flex;
