@@ -13,22 +13,25 @@ export default async function TravellerProfilePage({ params }: Props) {
   let res;
   try {
     res = await fetchAuthorById(userId);
-  } catch (error) {
+  } catch {
     return notFound();
   }
 
-  if (!res || !res.data || (!res.data.user && !(res.data as any).name)) return notFound();
+  if (!res || !res.data) return notFound();
+
+  const data = res.data as Record<string, unknown>;
+  if (!data.user && !data.name) return notFound();
 
   // Handle potential nested data structure differences
-  const user = res.data.user ? res.data.user : (res.data as any);
+  const user = (data.user ? data.user : data) as Record<string, unknown>;
   const stories = res.data.articles || [];
 
   return (
     <div style={{ maxWidth: '1440px', margin: '0 auto', padding: '80px 24px', minHeight: '80vh' }}>
       <TravellerInfo 
-        name={user.name!} 
-        description={user.description!} 
-        avatarUrl={user.avatarUrl!} 
+        name={user.name as string} 
+        description={user.description as string} 
+        avatarUrl={user.avatarUrl as string} 
       />
       <div style={{ marginTop: '80px' }}>
          <h2 style={{ fontSize: '32px', marginBottom: '40px', fontWeight: 600 }}>Історії мандрівника</h2>
