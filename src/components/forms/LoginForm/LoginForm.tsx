@@ -1,11 +1,12 @@
 "use client";
 
-import { useFormik } from "formik";
-import { loginSchema } from "@/schemas/authSchemas";
-import { useRouter } from "next/navigation";
-// Тут підключи свій toast з бібліотеки (напр., react-hot-toast)
-// import toast from 'react-hot-toast';
-import styles from "./LoginForm.module.css";
+import { useFormik } from 'formik';
+import { loginSchema } from '@/schemas/authSchemas';
+import { useRouter } from 'next/navigation';
+import toast from 'react-hot-toast';
+import styles from './LoginForm.module.css';
+import { api } from '@/lib/api/api';
+import { useAuthStore } from '@/lib/store/authStore';
 
 export const LoginForm = () => {
   const router = useRouter();
@@ -18,15 +19,14 @@ export const LoginForm = () => {
     validationSchema: loginSchema,
     onSubmit: async (values) => {
       try {
-        // Тут буде твій POST запит до /app/api/auth/login через проксі
-        console.log("Дані на відправку:", values);
-
-        // Симуляція успішного запиту
-        // toast.success('Успішний вхід!');
-        router.push("/");
-      } catch (error) {
-        // toast.error('Помилка входу. Перевірте дані.');
-        console.error("Помилка логінізації", error);
+        const { data } = await api.post('/auth/login', values);
+        if (data && data.data && data.data.user) {
+          useAuthStore.getState().setUser(data.data.user);
+        }
+        toast.success('Успішний вхід!');
+        router.push('/');
+      } catch {
+        toast.error('Помилка входу. Перевірте дані.');
       }
     },
   });

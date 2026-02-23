@@ -98,13 +98,12 @@ export const fetchStories = async (
   page: number,
   category: string | null | undefined,
 ): Promise<PaginatedStoriesResponse> => {
-  const { data } = await nextServer.get("/stories", {
-    params: {
-      perPage,
-      page,
-      category,
-    },
-  });
+  const params: Record<string, string | number> = { perPage, page };
+  if (category) {
+    params.category = category;
+  }
+
+  const { data } = await nextServer.get('/stories', { params });
   return data.data;
 };
 

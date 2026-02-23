@@ -1,7 +1,8 @@
 import axios from "axios";
 
 export const nextServer = axios.create({
-  baseURL: "http://localhost:3000", // Адреса твого бекенду (підстав свою, якщо інша)
+
+  baseURL: process.env.NEXT_PUBLIC_API_URL || '/app/api',
   withCredentials: true,
 });
 
