@@ -11,7 +11,7 @@ export default function SavedStoriesPage() {
         <MessageNoStories
           text="У вас ще немає збережених історій"
           buttonText="Переглянути історії"
-          targetRoute="/"
+          route="/"
         />
       ) : (
         <p>Тут буде список ваших збережених історій (StoryList)</p>

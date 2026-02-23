@@ -21,16 +21,16 @@
 .input {
     width: 100%;
     padding: 12px;
-    border: 1px solid var(--border-color);
+    border: 1px solid var(--opacity-neutral-darkest-15);
     border-radius: 8px;
 }
 
 .inputError {
-    border: 1px solid var(--error-color);
+    border: 1px solid var(--color-red);
 }
 
 .errorText {
-    color: var(--error-color);
+    color: var(--color-red);
     font-size: 12px;
     margin-top: 4px;
 }
@@ -38,16 +38,20 @@
 .submitBtn {
     width: 100%;
     padding: 14px;
-    background-color: var(--accent-color);
-    color: white;
+    background-color: var(--color-royal-blue);
+    color: var(--color-white);
     border: none;
     border-radius: 8px;
     cursor: pointer;
 }
 
-.submitBtn:hover:not(:disabled) {
-    background-color: var(--accent-hover-color);
+.submitBtn:disabled {
+    background-color: var(--color-royal-blue);
+    opacity: 0.5;
+    cursor: not-allowed;
 }
+
+
 
 @media screen and (min-width: 768px) {
     .formContainer {

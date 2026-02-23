@@ -3,9 +3,9 @@
 import { useFormik } from 'formik';
 import { loginSchema } from '@/schemas/authSchemas';
 import { useRouter } from 'next/navigation';
-// Тут підключи свій toast з бібліотеки (напр., react-hot-toast)
-// import toast from 'react-hot-toast';
+import toast from 'react-hot-toast';
 import styles from './LoginForm.module.css';
+import { api } from '@/lib/api/api';
 
 export const LoginForm = () => {
   const router = useRouter();
@@ -18,15 +18,11 @@ export const LoginForm = () => {
     validationSchema: loginSchema,
     onSubmit: async (values) => {
       try {
-        // Тут буде твій POST запит до /app/api/auth/login через проксі
-        console.log('Дані на відправку:', values);
-        
-        // Симуляція успішного запиту
-        // toast.success('Успішний вхід!');
+        await api.post('/auth/login', values);     
+        toast.success('Успішний вхід!');
         router.push('/');
-      } catch (error) {
-        // toast.error('Помилка входу. Перевірте дані.');
-        console.error('Помилка логінізації', error);
+      } catch {
+        toast.error('Помилка входу. Перевірте дані.');
       }
     },
   });
@@ -41,6 +37,8 @@ export const LoginForm = () => {
           id="email"
           name="email"
           type="email"
+          placeholder='hello@podorozhnyky.ua'
+          autoComplete="email"
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
           value={formik.values.email}
@@ -57,6 +55,8 @@ export const LoginForm = () => {
           id="password"
           name="password"
           type="password"
+          placeholder='********'
+          autoComplete="current-password"
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
           value={formik.values.password}

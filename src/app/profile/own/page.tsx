@@ -8,7 +8,7 @@ export default function MyStoriesPage() {
       <MessageNoStories
         text="У вас ще немає створених історій"
         buttonText="Створити історію"
-        targetRoute="/create-story"
+        route="/create-story"
       />
     );
   }

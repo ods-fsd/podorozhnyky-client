@@ -3,7 +3,9 @@
 import { useFormik } from 'formik';
 import { registerSchema } from '@/schemas/authSchemas';
 import { useRouter } from 'next/navigation';
-import styles from '../LoginForm/LoginForm.module.css'; // Перевикористовуємо стилі
+import styles from '../LoginForm/LoginForm.module.css';
+import { api } from '@/lib/api/api';
+import toast from 'react-hot-toast';
 
 export const RegistrationForm = () => {
   const router = useRouter();
@@ -13,10 +15,11 @@ export const RegistrationForm = () => {
     validationSchema: registerSchema,
     onSubmit: async (values) => {
       try {
-        console.log('Дані реєстрації:', values);
-        // Тут буде POST /app/api/auth/register
-        router.push('/');
+        await api.post('/auth/register', values);
+        toast.success('Успішна реєстрація!');
+        router.push('/auth/login');
       } catch (error) {
+        toast.error('Помилка реєстрації. Перевірте дані.');
         console.error('Помилка реєстрації', error);
       }
     },
@@ -31,6 +34,8 @@ export const RegistrationForm = () => {
         <label htmlFor="name">Ім&apos;я</label>
         <input
           id="name" name="name" type="text"
+          placeholder='Ваше імʼя та прізвище'
+          autoComplete="name"
           onChange={formik.handleChange} onBlur={formik.handleBlur} value={formik.values.name}
           className={`${styles.input} ${formik.touched.name && formik.errors.name ? styles.inputError : ''}`}
         />
@@ -42,6 +47,8 @@ export const RegistrationForm = () => {
         <label htmlFor="email">Email</label>
         <input
           id="email" name="email" type="email"
+          placeholder='hello@podorozhnyky.ua'
+          autoComplete="email"
           onChange={formik.handleChange} onBlur={formik.handleBlur} value={formik.values.email}
           className={`${styles.input} ${formik.touched.email && formik.errors.email ? styles.inputError : ''}`}
         />
@@ -53,6 +60,8 @@ export const RegistrationForm = () => {
         <label htmlFor="password">Пароль</label>
         <input
           id="password" name="password" type="password"
+          placeholder='********'
+          autoComplete="new-password"
           onChange={formik.handleChange} onBlur={formik.handleBlur} value={formik.values.password}
           className={`${styles.input} ${formik.touched.password && formik.errors.password ? styles.inputError : ''}`}
         />
