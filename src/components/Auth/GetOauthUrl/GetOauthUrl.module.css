@@ -1,0 +1,39 @@
+.overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background-color: var(--background);
+    opacity: 0.95;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.loaderBox {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+}
+
+.text {
+    font-size: 1.2rem;
+    color: var(--text);
+    font-weight: 500;
+}
+
+.spinner {
+    width: 48px;
+    height: 48px;
+    border: 5px solid var(--accent);
+    border-top-color: var(--border);
+    border-radius: 50%;
+    animation: spin 0.9s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}

@@ -1,0 +1,36 @@
+.googleBtn {
+    background-color: var(--background);
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 16px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: background 0.3s ease;
+    width: 100%;
+}
+
+.text {
+    font-family: var(--second-family);
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.5;
+    margin: 16px auto 8px;
+}
+
+.googleBtn:hover:not(:disabled) {
+    background-color: var(--foreground);
+}
+
+.googleBtn:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+.googleIcon {
+    width: 20px;
+    height: 20px;
+}

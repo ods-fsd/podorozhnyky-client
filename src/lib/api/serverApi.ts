@@ -13,6 +13,8 @@ import {
   IApiResponse,
   IUser,
   UpdateUser,
+  PaginatedUsersResponse,
+  GetUserByIdResponse
 } from "@/types/user";
 import { cookies } from "next/headers";
 import { nextServer } from "./api";
@@ -65,11 +67,15 @@ export const fetchServerStories = async (
   return data.data;
 };
 
-export const fetchStoryById = async (storyId: string): Promise<IStory> => {
-  const { data } = await nextServer.get<IStoryByIdResponse>(
-    `/stories/${storyId}`,
-  );
-  return data.data;
+export const fetchStoryById = async (storyId: string): Promise<IStory | null> => {
+  try {
+    const { data } = await nextServer.get<IStoryByIdResponse>(
+      `/stories/${storyId}`,
+    );
+    return data.data;
+  } catch {
+    return null;
+  }
 };
 
 export const createStory = async (

@@ -46,38 +46,42 @@
 
 
 .button {
-    display: none; 
-    flex-direction: row;
+    display: flex;
     justify-content: center;
     align-items: center;
-    padding: 6px 12px;
-    gap: 8px;
-    width: 147px;
-    height: 48px;
-    background: #4169E1;
-    border: 1px solid #4169E1;
-    border-radius: 8px;
-    margin: 0 auto 64px auto;
-    
-    /* Текст */
+    font-family: var(--font-family);
     font-weight: 500;
     font-size: 16px;
-    color: #FFFFFF;
-    text-decoration: none;
-    transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+    line-height: 150%;
+    color: var(--text-invert);
+    border: 1px solid var(--button-solid);
+    border-radius: 8px;
+    padding: 6px 32px;
+    width: fit-content;
+    min-width: 180px;
+    height: 48px;
+    background-color: var(--button-solid);
+    margin: 0 auto;
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease, opacity 0.2s ease;
 }
 
 .button:hover,
 .button:focus {
-    background-color: #365fce;
-    border-color: #365fce;
-    color: #FFFFFF;
+    background-color: var(--button-solid-hover);
+    color: var(--text);
     outline: none;
 }
 
 .button:active {
-    background-color: #2b4ba3;
-    border-color: #2b4ba3;
+    background-color: var(--button-solid-active);
+    color: var(--text);
+}
+
+.button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
 }
 
 @media screen and (min-width: 768px) {
@@ -86,7 +90,7 @@
     }
 
     .button {
-        display: flex; 
+        display: flex;
     }
 }
 

@@ -36,11 +36,9 @@ export default function Header() {
 
   const handleLogout = async () => {
     try {
-      const res = await logout();
-      if (res?.message) {
-        clearIsAuthenticated();
-        toast.success('Ви успішно вийшли з системи');
-      }
+      await logout();
+      clearIsAuthenticated();
+      toast.success('Ви успішно вийшли з системи');
       setIsOpenConfirmModal(false);
       if (isMobileMenuOpen) {
         setIsMobileMenuOpen(false);
@@ -79,69 +77,70 @@ export default function Header() {
             </Link>
 
             <div className={css.navAndMenuControls}>
-              <nav aria-label="Main Navigation" className={css.navigation}>
-                <ul className={css.navList}>
-                  <li className={css.navigationItem}>
-                    <Link className={css.headerLinkNav} href="/">
-                      Головна
-                    </Link>
-                  </li>
-                  <li className={css.navigationItem}>
-                    <Link className={css.headerLinkNav} href="/stories">
-                      Історії
-                    </Link>
-                  </li>
-                  <li className={css.navigationItem}>
-                    <Link className={css.headerLinkNav} href="/travellers">
-                      Мандрівники
-                    </Link>
-                  </li>
-                </ul>
+              {!isAuthPage && (
+                <nav aria-label="Main Navigation" className={css.navigation}>
+                  <ul className={css.navList}>
+                    <li className={css.navigationItem}>
+                      <Link className={css.headerLinkNav} href="/">
+                        Головна
+                      </Link>
+                    </li>
+                    <li className={css.navigationItem}>
+                      <Link className={css.headerLinkNav} href="/stories">
+                        Історії
+                      </Link>
+                    </li>
+                    <li className={css.navigationItem}>
+                      <Link className={css.headerLinkNav} href="/travellers">
+                        Мандрівники
+                      </Link>
+                    </li>
+                  </ul>
 
-                <ul className={css.navigationItemProfile}>
-                  {mounted && (
-                    isAuthenticated ? (
-                      <>
-                        <AuthNavigation />
-                        <li className={css.LogoutListSvg}>
-                          <button
-                            className={css.logoutButtonSvg}
-                            onClick={() => setIsOpenConfirmModal(true)}
-                            aria-label="Вийти з акаунта"
-                          >
-                            <svg width="24" height="24" aria-hidden="true">
-                              <use href="/sprite.svg#icon-logout" />
-                            </svg>
-                          </button>
-                        </li>
-                      </>
-                    ) : (
-                      <>
-                        <li className={`${css.navigationAuth} ${finalNavigationLog}`}>
-                          <Link
-                            href="/auth/login"
-                            prefetch={false}
-                            className={css.linkAuth}
-                          >
-                            Вхід
-                          </Link>
-                        </li>
-                        <li className={`${css.navigationAuth} ${finalNavigationReg}`}>
-                          <Link
-                            href="/auth/register"
-                            prefetch={false}
-                            className={css.linkAuth}
-                          >
-                            Реєстрація
-                          </Link>
-                        </li>
-                      </>
-                    )
-                  )}
-                </ul>
-              </nav>
+                  <ul className={css.navigationItemProfile}>
+                    {mounted && (
+                      isAuthenticated ? (
+                        <>
+                          <AuthNavigation />
+                          <li className={css.LogoutListSvg}>
+                            <button
+                              className={css.logoutButtonSvg}
+                              onClick={() => setIsOpenConfirmModal(true)}
+                              aria-label="Вийти з акаунта"
+                            >
+                              <svg width="24" height="24" aria-hidden="true">
+                                <use href="/sprite.svg#icon-logout" />
+                              </svg>
+                            </button>
+                          </li>
+                        </>
+                      ) : (
+                        <>
+                          <li className={`${css.navigationAuth} ${finalNavigationLog}`}>
+                            <Link
+                              href="/auth/login"
+                              prefetch={false}
+                              className={css.linkAuth}
+                            >
+                              Вхід
+                            </Link>
+                          </li>
+                          <li className={`${css.navigationAuth} ${finalNavigationReg}`}>
+                            <Link
+                              href="/auth/register"
+                              prefetch={false}
+                              className={css.linkAuth}
+                            >
+                              Реєстрація
+                            </Link>
+                          </li>
+                        </>
+                      )
+                    )}
+                  </ul>
+                </nav>
+              )}
 
-              
               {!isAuthPage && (
                 <button
                   className={`${css.mobileMenuButtonBase} ${finalMenuButton}`}

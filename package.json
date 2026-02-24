@@ -12,7 +12,11 @@
   "dependencies": {
     "@tanstack/react-query": "^5.90.21",
     "axios": "^1.13.5",
+    "crypto": "^1.0.1",
+    "express": "^5.2.1",
+    "express-session": "^1.19.0",
     "formik": "^2.4.9",
+    "googleapis": "^171.4.0",
     "modern": "^1.0.2",
     "modern-normalize": "^3.0.1",
     "next": "16.1.6",

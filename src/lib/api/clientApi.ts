@@ -6,6 +6,7 @@ import {
   LoginCredentials,
   RegisterCredentials,
   SendResetEmailCredentials,
+  AuthResponseRefresh,
 } from "@/types/auth";
 import { ICategory } from "@/types/category";
 import {
@@ -60,8 +61,8 @@ export const logout = async (): Promise<AuthResponseLogout> => {
 export const checkSession = async (): Promise<boolean> => {
   try {
     const { data } =
-      await nextServer.post<AuthResponseRefresh>("/auth/session");
-    return data.success;
+      await nextServer.get<AuthResponseRefresh>("/auth/current");
+    return !!data;
   } catch {
     return false;
   }
@@ -89,7 +90,7 @@ export async function confirmEmail(token: string, newEmail: string) {
 }
 
 export const fetchCurrentUser = async (): Promise<IApiResponse> => {
-  const { data } = await nextServer.get<IApiResponse>("/users/me");
+  const { data } = await nextServer.get<IApiResponse>("/users/current");
   return data;
 };
 
@@ -160,7 +161,7 @@ export const fetchAuthorById = async (
 };
 
 export const updateProfile = async (formData: FormData): Promise<IUser> => {
-  const { data } = await nextServer.patch("/users/me", formData, {
+  const { data } = await nextServer.patch("/users/current", formData, {
     headers: {
       "Content-Type": "multipart/form-data",
     },
@@ -173,7 +174,7 @@ export const addFavorite = async (
   storyId: string,
 ): Promise<IFavoritesResponse> => {
   const { data } = await nextServer.post<IFavoritesResponse>(
-    `/users/me/favorites`,
+    `/users/current/favorites`,
     { storyId },
   );
   return data;
@@ -183,7 +184,7 @@ export const removeFavorite = async (
   storyId: string,
 ): Promise<IFavoritesResponse> => {
   const { data } = await nextServer.delete<IFavoritesResponse>(
-    `/users/me/favorites/${storyId}`,
+    `/users/current/favorites/${storyId}`,
   );
   return data;
 };
@@ -197,7 +198,7 @@ export const fetchUserWithOwnFavorites = async (
   perPage: string,
   page: string,
 ): Promise<IOwnFavoritesResponse> => {
-  const { data } = await nextServer.get("/users/me", {
+  const { data } = await nextServer.get("/users/current", {
     params: { perPage, page },
   });
 
@@ -208,7 +209,7 @@ export const fetchUserWithOwnStories = async (
   perPage: string,
   page: string,
 ): Promise<IOwnStoriesResponse> => {
-  const { data } = await nextServer.get("/users/me/stories", {
+  const { data } = await nextServer.get("/users/current/stories", {
     params: { perPage, page },
   });
 

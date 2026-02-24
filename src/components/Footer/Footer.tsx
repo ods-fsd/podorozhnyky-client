@@ -1,9 +1,24 @@
+'use client';
+
 import Link from "next/link";
+import { usePathname } from 'next/navigation';
 import mainCss from "@/app/Home.module.css";
 import css from "./Footer.module.css";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
+  const pathname = usePathname();
+  const isAuthPage = pathname?.startsWith('/auth') ?? false;
+
+  if (isAuthPage) {
+    return (
+      <div style={{ position: 'absolute', bottom: '24px', left: '0', width: '100%', textAlign: 'center' }}>
+        <p className={css.text} style={{ color: '#8c8c8c', fontSize: '14px' }}>
+          © {currentYear} Подорожники. Усі права захищені.
+        </p>
+      </div>
+    );
+  }
 
   return (
     <footer className={css.footer}>

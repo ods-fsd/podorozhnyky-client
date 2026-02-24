@@ -1,0 +1,214 @@
+.authForm {
+    width: 100%;
+    max-width: 335px;
+    margin: 0 auto;
+    background: var(--background);
+    color: var(--text);
+    transition: all 0.3s ease;
+}
+
+.input:-webkit-autofill,
+.input:-webkit-autofill:hover,
+.input:-webkit-autofill:focus,
+.input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 1000px var(--background) inset !important;
+    -webkit-text-fill-color: var(--text) !important;
+    transition: background-color 9999s ease-in-out 0s;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.title {
+    font-family: var(--second-family);
+    font-size: 28px;
+    line-height: 1.2;
+    font-weight: 700;
+    text-align: center;
+    color: var(--text);
+    letter-spacing: -0.01em;
+    margin-bottom: 24px;
+}
+
+.text {
+    font-size: 16px;
+    line-height: 1.5;
+    text-align: center;
+    margin-bottom: 24px;
+}
+
+.field {
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 24px;
+}
+
+.label {
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+.input {
+    width: 100%;
+    font-size: 16px;
+    line-height: 1.5;
+    padding: 8px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background-color: var(--opacity-transparent);
+    color: var(--text);
+    transition:
+        border-color 0.2s ease,
+        background-color 0.2s ease;
+}
+
+.input:focus {
+    outline: none;
+    border-color: var(--accent);
+}
+
+.error {
+    position: absolute;
+    bottom: -20px;
+    left: 8px;
+    font-size: 13px;
+    color: var(--color-red);
+}
+
+.input.input_error {
+    border-color: var(--color-red);
+    color: var(--color-red);
+}
+
+.passwordWrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.togglePassword {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-12px);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 20px;
+    color: var(--text);
+    transition: scale 0.2s ease;
+}
+
+.togglePassword:hover {
+    scale: 1.1;
+}
+
+.passwordField {
+    margin-bottom: 40px;
+}
+
+.forgotLink {
+    position: absolute;
+    right: 12px;
+    top: 55px;
+    transform: translateY(-12px);
+    font-size: 14px;
+    color: var(--accent);
+    text-decoration: none;
+    transition: scale 0.2s ease;
+}
+
+.forgotLink:hover,
+.forgotLink:focus {
+    scale: 1.05;
+}
+
+.icon_error {
+    color: red;
+}
+
+.submitBtn {
+    width: 100%;
+    padding: 12px;
+    background-color: var(--color-royal-blue);
+    color: var(--color-white);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 1.5;
+    opacity: 1;
+    transition: 0.3s all ease;
+}
+
+.submitBtn:hover:enabled,
+.submitBtn:focus:enabled {
+    background: var(--color-royal-blue-lighter);
+    border: 1px solid var(--color-royal-blue);
+    color: #000;
+}
+
+.submitBtn:disabled {
+    cursor: not-allowed;
+    opacity: 0.3;
+}
+
+/* Styles for Tablet devices */
+@media screen and (min-width: 768px) {
+    .authForm {
+        max-width: 644px;
+    }
+
+    .title {
+        font-size: 44px;
+    }
+
+    .text {
+        margin-bottom: 32px;
+    }
+}
+
+/* Styles for Desktop devices */
+@media screen and (min-width: 1440px) {
+    .title {
+        font-size: 52px;
+    }
+
+    .text {
+        font-size: 20px;
+    }
+
+    .label {
+        font-size: 18px;
+    }
+
+    .input {
+        font-size: 18px;
+    }
+
+    .submitBtn {
+        font-size: 18px;
+    }
+
+    .status {
+        bottom: 150px;
+    }
+
+    .forgotLink {
+        position: absolute;
+        right: 14px;
+        top: 60px;
+
+        font-size: 16px;
+    }
+
+    .passwordField {
+        margin-bottom: 45px;
+    }
+}
