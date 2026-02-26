@@ -1,0 +1,133 @@
+.profilePage {
+  margin: 32px 0;
+}
+
+.travellerInfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  margin-bottom: 32px;
+}
+
+.avatar {
+  width: 199px;
+  height: 199px;
+  border-radius: 100%;
+  object-fit: cover;
+}
+
+.travellerDetails {
+  width: 100%;
+}
+
+.travellerName {
+  font-family: var(--second-family);
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+  color: var(--text);
+  text-align: center;
+  margin-bottom: 8px;
+}
+
+.travellerDescription {
+  font-family: var(--font-family);
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--text);
+  text-align: center;
+}
+
+.tabs {
+  display: inline-flex;
+  gap: 8px;
+  border: 1px solid var(--opacity-transparent);
+  border-radius: 10px;
+  padding: 4px;
+  width: 335px;
+  height: 48px;
+  background: var(--tabs-background);
+  margin-bottom: 40px;
+  box-shadow: none;
+}
+
+.tab {
+  background: transparent;
+  color: var(--text);
+  border: none;
+  padding: 4px 12px;
+  border-radius: 8px;
+  font-weight: 500;
+  font-size: 16px;
+  cursor: pointer;
+  width: 207px;
+  height: 40px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.tab:hover,
+.tab:focus {
+  filter: brightness(0.98);
+}
+
+.active {
+  background: var(--tabs-active-background);
+  color: var(--text);
+  border: 1px solid var(--color-scheme-2-border);
+  border-radius: 8px;
+  box-shadow: none;
+}
+.boxTab {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+* .paginationWrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: 24px;
+}
+
+@media screen and (min-width: 768px) {
+  .travellerInfo {
+    flex-direction: row;
+    gap: 24px;
+  }
+  .travellerImage {
+    flex-shrink: 0;
+  }
+  .travellerName {
+    text-align: left;
+  }
+  .travellerDescription {
+    text-align: left;
+  }
+  .tabs {
+    width: 422px;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .travellerName {
+    font-size: 32px;
+  }
+  .travellerDescription {
+    font-size: 18px;
+  }
+  .tab {
+    font-size: 18px;
+  }
+  .travellerInfo {
+    margin-bottom: 48px;
+  }
+  .profilePage {
+    margin: 48px 0;
+  }
+}

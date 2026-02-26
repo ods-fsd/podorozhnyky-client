@@ -60,8 +60,7 @@ export const logout = async (): Promise<AuthResponseLogout> => {
 
 export const checkSession = async (): Promise<boolean> => {
   try {
-    const { data } =
-      await nextServer.get<AuthResponseRefresh>("/auth/current");
+    const { data } = await nextServer.get<AuthResponseRefresh>("/auth/current");
     return !!data;
   } catch {
     return false;
@@ -104,7 +103,7 @@ export const fetchStories = async (
     params.category = category;
   }
 
-  const { data } = await nextServer.get('/stories', { params });
+  const { data } = await nextServer.get("/stories", { params });
   return data.data;
 };
 
