@@ -7,14 +7,12 @@ interface TravellerInfoProps {
   name: string;
   description?: string;
   avatarUrl?: string | null;
-  isOwnProfile?: boolean;
 }
 
 const TravellerInfo = ({
   name,
   description = "",
   avatarUrl,
-  isOwnProfile = false,
 }: TravellerInfoProps) => {
   const MAX_CHAR_LIMIT = 150;
   const safeDescription =
@@ -26,13 +24,12 @@ const TravellerInfo = ({
     <div className={styles.container}>
       <div className={styles.avatarWrapper}>
         <Image
-          src={avatarUrl || "/default-avatar.png"}
+          src={avatarUrl || "/placeholder-image.png"}
           alt={`Аватар мандрівника ${name}`}
           className={styles.avatar}
-          width={120}
-          height={120}
+          width={150}
+          height={150}
           priority
-          style={{ objectFit: "cover" }}
         />
       </div>
 
@@ -44,17 +41,6 @@ const TravellerInfo = ({
           <p className={styles.noDescription}>Опис відсутній</p>
         )}
       </div>
-
-      {isOwnProfile && (
-        <div className={styles.actions}>
-          <button
-            className={styles.editButton}
-            onClick={() => console.log("Перехід до редагування")}
-          >
-            Редагувати профіль
-          </button>
-        </div>
-      )}
     </div>
   );
 };

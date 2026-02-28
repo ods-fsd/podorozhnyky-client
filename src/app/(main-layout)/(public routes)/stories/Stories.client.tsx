@@ -12,6 +12,7 @@ import {
 import { useEffect, useState } from "react";
 
 import css from "./Stories.module.css";
+import Loader from "@/components/Loader/Loader";
 
 interface OptionType {
   value: string | null;
@@ -110,7 +111,11 @@ const StoriesClient = () => {
         </div>
       )}
 
-      {isLoading && <p>Завантаження...</p>}
+      {isLoading && (
+  <div style={{ display: "flex", justifyContent: "center", marginTop: "40px" }}>
+    <Loader isFullScreen={false} />
+  </div>
+)}
       {error && <p>Щось пішло не так</p>}
 
       {!isLoading && !error && stories.length > 0 && (

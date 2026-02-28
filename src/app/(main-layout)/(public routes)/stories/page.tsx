@@ -10,6 +10,12 @@ import {
 import StoriesClient from "./Stories.client";
 import { ICategory } from "@/types/category";
 
+export const metadata: Metadata = {
+  title: "Історії мандрівників | Подорожники",
+  description:
+    "Публічна стрічка історій мандрівників з фільтрацією за категоріями та пагінацією.",
+};
+
 const StoriesPage = async () => {
   const queryClient = new QueryClient();
 

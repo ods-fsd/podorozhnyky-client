@@ -1,133 +1,75 @@
+/* app/(private routes)/profile/Profile.module.css */
+
 .profilePage {
-  margin: 32px 0;
-}
-
-.travellerInfo {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 24px;
-  margin-bottom: 32px;
-}
-
-.avatar {
-  width: 199px;
-  height: 199px;
-  border-radius: 100%;
-  object-fit: cover;
-}
-
-.travellerDetails {
+  padding-top: 40px;
   width: 100%;
 }
 
+/* Это контейнер для TravellerInfo (аватар + имя + описание) */
+.travellerInfo {
+  display: flex;
+  align-items: center; /* Выравнивает всё по вертикали по центру */
+  gap: 32px; /* Расстояние между аватаркой и текстом */
+  margin-bottom: 40px; /* Отступ вниз до табов */
+}
+
+/* Стили для аватара */
+.travellerImage {
+  flex-shrink: 0;
+  width: 150px; /* Оптимальный размер аватара, как на макете */
+  height: 150px;
+  border-radius: 50%;
+  overflow: hidden;
+  background-color: #f3f4f6; /* Светло-сірий фон, поки картинка вантажиться */
+}
+
+.avatar {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Стили для блока с именем и описанием */
+.travellerDetails {
+  flex-grow: 1; /* Дозволяє блоку з текстом зайняти весь вільний простір по центру */
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
 .travellerName {
-  font-family: var(--second-family);
+  font-size: 32px;
   font-weight: 700;
-  font-size: 20px;
-  line-height: 1.3;
-  letter-spacing: -0.01em;
-  color: var(--text);
-  text-align: center;
-  margin-bottom: 8px;
+  color: var(--text, #111827);
+  margin: 0;
 }
 
 .travellerDescription {
-  font-family: var(--font-family);
-  font-weight: 400;
   font-size: 16px;
+  color: var(--text, #4b5563);
+  margin: 0;
+  max-width: 600px; /* Ограничиваем ширину, чтобы текст не растягивался на всю страницу */
   line-height: 1.5;
-  color: var(--text);
-  text-align: center;
 }
 
-.tabs {
-  display: inline-flex;
-  gap: 8px;
-  border: 1px solid var(--opacity-transparent);
-  border-radius: 10px;
-  padding: 4px;
-  width: 335px;
-  height: 48px;
-  background: var(--tabs-background);
-  margin-bottom: 40px;
-  box-shadow: none;
+/* Стили для кнопки редактирования (если она есть) */
+.actions {
+  margin-left: auto; /* Магія: відштовхує кнопку максимально вправо */
 }
 
-.tab {
-  background: transparent;
-  color: var(--text);
-  border: none;
-  padding: 4px 12px;
+.editButton {
+  padding: 10px 24px;
+  border: 1px solid #3b82f6; /* Колір бордера */
+  color: #3b82f6;
   border-radius: 8px;
+  background: transparent;
   font-weight: 500;
   font-size: 16px;
   cursor: pointer;
-  width: 207px;
-  height: 40px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
+  transition: all 0.2s ease;
 }
 
-.tab:hover,
-.tab:focus {
-  filter: brightness(0.98);
-}
-
-.active {
-  background: var(--tabs-active-background);
-  color: var(--text);
-  border: 1px solid var(--color-scheme-2-border);
-  border-radius: 8px;
-  box-shadow: none;
-}
-.boxTab {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-* .paginationWrapper {
-  display: flex;
-  justify-content: center;
-  margin-top: 24px;
-}
-
-@media screen and (min-width: 768px) {
-  .travellerInfo {
-    flex-direction: row;
-    gap: 24px;
-  }
-  .travellerImage {
-    flex-shrink: 0;
-  }
-  .travellerName {
-    text-align: left;
-  }
-  .travellerDescription {
-    text-align: left;
-  }
-  .tabs {
-    width: 422px;
-  }
-}
-
-@media screen and (min-width: 1440px) {
-  .travellerName {
-    font-size: 32px;
-  }
-  .travellerDescription {
-    font-size: 18px;
-  }
-  .tab {
-    font-size: 18px;
-  }
-  .travellerInfo {
-    margin-bottom: 48px;
-  }
-  .profilePage {
-    margin: 48px 0;
-  }
+.editButton:hover {
+  background: #3b82f6;
+  color: #fff;
 }
