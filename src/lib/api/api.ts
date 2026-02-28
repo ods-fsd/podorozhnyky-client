@@ -6,7 +6,8 @@ export const nextServer = axios.create({
 });
 
 nextServer.interceptors.request.use((config) => {
-  const token = typeof window !== "undefined" ? localStorage.getItem("auth-token") : null;
+  const token =
+    typeof window !== "undefined" ? localStorage.getItem("auth-token") : null;
   if (token && config.headers) {
     config.headers.Authorization = `Bearer ${token}`;
   }

@@ -149,7 +149,11 @@
   width: 48px;
   height: 48px;
   border-radius: 10px;
-  background-color: #1a2a5a; /* Темно-синій фон кнопки */
+  /* Налаштування кольору фону з Figma (Fill 5%) */
+  background-color: rgba(0, 0, 0, 0.05);
+
+  /* Налаштування рамки (Stroke 15%, Weight 1) */
+  border: 1px solid rgba(0, 0, 0, 0.15);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -159,14 +163,18 @@
 }
 
 .bookmarkIcon {
-  fill: #ffffff; /* БІЛА іконка всередині синьої кнопки */
+  fill: #000000; /* БІЛА іконка всередині синьої кнопки */
 }
 
 .actionButton {
   width: 48px;
   height: 48px;
   border-radius: 10px;
-  background-color: #1a2a5a;
+  /* Налаштування кольору фону з Figma (Fill 5%) */
+  background-color: rgba(0, 0, 0, 0.05);
+
+  /* Налаштування рамки (Stroke 15%, Weight 1) */
+  border: 1px solid rgba(0, 0, 0, 0.15);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -176,7 +184,7 @@
 }
 
 .actionIcon {
-  fill: #ffffff;
+  fill: #000000;
 }
 
 .loader {
