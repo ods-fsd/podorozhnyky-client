@@ -6,13 +6,11 @@ import { useRouter } from "next/navigation";
 import { useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 
-import { addFavorite, deleteStory, removeFavorite } from "@/lib/api/clientApi";
+import { addFavorite, removeFavorite } from "@/lib/api/clientApi";
 import { useAuthStore } from "@/lib/store/authStore";
 import { IStory } from "@/types/story";
 import { IFavoritesResponse } from "@/types/user";
 
-import ConfirmDeleteContent from "@/components/ConfirmDeleteContent/ConfirmDeleteContent";
-import Modal from "@/components/Modal/Modal";
 import AuthNavModal from "../AuthNavModal/AuthNavModal";
 import css from "./TravellersStoriesItem.module.css";
 
@@ -32,7 +30,6 @@ export const TravellersStoriesItem = ({
   const [bookmarkCounter, setBookmarkCounter] = useState(
     story?.favoriteCount || 0,
   );
-  const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [showAuthModal, setShowAuthModal] = useState(false);
 
   const user = useAuthStore((state) => state.user);
@@ -41,13 +38,11 @@ export const TravellersStoriesItem = ({
 
   if (!story) return null;
 
-  // Функція форматування дати
-  const ISODateToDate = (isoDate: string) => {
-    // Якщо дата відсутня в об'єкті story, повертаємо текст-заглушку
+  // Форматування дати
+  const ISODateToDate = (isoDate?: string) => {
     if (!isoDate) return "Немає дати";
 
     const date = new Date(isoDate);
-    // Перевірка на валідність формату дати
     if (isNaN(date.getTime())) return "Невідома дата";
 
     const day = String(date.getDate()).padStart(2, "0");
@@ -95,33 +90,12 @@ export const TravellersStoriesItem = ({
     }
   };
 
-  const handleDeleteStory = async () => {
-    try {
-      const res = await deleteStory(story._id);
-      if (res?.message || res?.success) {
-        toast.success("Історію видалено");
-        await queryClient.invalidateQueries({ queryKey: ["ownStories"] });
-        return;
-      }
-      toast.error("Не вдалося видалити історію");
-    } catch {
-      toast.error("Помилка при видаленні");
-    } finally {
-      setShowDeleteModal(false);
-    }
-  };
+  // Отримуємо дату для відображення без помилки 'any'
+  const rawDate =
+    story.date || (story as unknown as { createdAt?: string }).createdAt;
 
   return (
     <>
-      {showDeleteModal && (
-        <Modal onClose={() => setShowDeleteModal(false)}>
-          <ConfirmDeleteContent
-            onConfirm={handleDeleteStory}
-            onCancel={() => setShowDeleteModal(false)}
-          />
-        </Modal>
-      )}
-
       {showAuthModal && (
         <AuthNavModal onClose={() => setShowAuthModal(false)} />
       )}
@@ -162,8 +136,7 @@ export const TravellersStoriesItem = ({
             <div className={css.userInfoWrapper}>
               <p className={css.userName}>{story.ownerId?.name}</p>
               <div className={css.infoWrapper}>
-                {/* ПІДТЯГУВАННЯ ДАТИ ТУТ */}
-                <p className={css.date}>{ISODateToDate(story.date)}</p>
+                <p className={css.date}>{ISODateToDate(rawDate)}</p>
                 <span className={css.separator}>•</span>
                 <div className={css.favoriteWrapper}>
                   <p className={css.favoriteCount}>{bookmarkCounter}</p>
@@ -180,25 +153,30 @@ export const TravellersStoriesItem = ({
               Переглянути статтю
             </button>
 
+            {/* ЛОГІКА ЗГІДНО З ТУ */}
             {isOwn ? (
+              // Кнопка редагування (олівець) для власних історій
               <button
                 className={css.actionButton}
-                onClick={() => setShowDeleteModal(true)}
+                onClick={() => router.push(`/edit-story/${story._id}`)}
+                title="Редагувати статтю"
               >
                 <svg className={css.actionIcon} width="24" height="24">
-                  <use href="/sprite.svg#icon-travel"></use>
+                  <use href="/sprite.svg#icon-edit"></use>
                 </svg>
               </button>
             ) : (
+              // Кнопка збереження (закладка) для чужих історій
               <button
                 className={css.bookmarkButton}
                 onClick={handleBookmarkClick}
+                title="Зберегти статтю"
               >
                 {isLoading ? (
                   <span className={css.loader}></span>
                 ) : (
                   <svg className={css.bookmarkIcon} width="24" height="24">
-                    <use href="/sprite.svg?v=2#icon-bookmarkIcon"></use>
+                    <use href="/sprite.svg?v=2#icon-travel"></use>
                   </svg>
                 )}
               </button>
