@@ -8,7 +8,7 @@ import TravellersStories from "@/components/TravellersStories/TravellersStories"
 
 const fetchOwnStories = async ({ pageParam = 1 }) => {
   const { data } = await nextServer.get(
-    `/users/current/stories?page=${pageParam}&perPage=6`,
+    `/stories/own?page=${pageParam}&perPage=6`,
   );
   return data;
 };

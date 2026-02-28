@@ -53,7 +53,8 @@ export default function RegistrationForm() {
       setStatus(false);
 
       const { data } = await register(values);
-      setUser(data.user);
+      const token = (data.accessToken || data.token) as string | undefined;
+      setUser(data.user, token);
 
       toast.success('Реєстрація успішна!');
       router.push('/');

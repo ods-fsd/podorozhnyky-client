@@ -9,7 +9,6 @@ import toast from "react-hot-toast";
 import { addFavorite, removeFavorite } from "@/lib/api/clientApi";
 import { useAuthStore } from "@/lib/store/authStore";
 import { IStory } from "@/types/story";
-import { IFavoritesResponse } from "@/types/user";
 
 import AuthNavModal from "../AuthNavModal/AuthNavModal";
 import css from "./TravellersStoriesItem.module.css";
@@ -71,17 +70,21 @@ export const TravellersStoriesItem = ({
 
     try {
       setIsLoading(true);
-      let updated: IFavoritesResponse;
+      let newFavorites = user?.favorites ? [...user.favorites] : [];
 
       if (isFavorite) {
-        updated = await removeFavorite(story._id);
+        await removeFavorite(story._id);
         setBookmarkCounter((prev) => Math.max(0, prev - 1));
+        newFavorites = newFavorites.filter((fav) => fav._id !== story._id);
+        toast.success("Видалено зі збережених");
       } else {
-        updated = await addFavorite(story._id);
+        await addFavorite(story._id);
         setBookmarkCounter((prev) => prev + 1);
+        newFavorites.push(story);
+        toast.success("Додано до збережених");
       }
 
-      updateFavorites(updated.favorites);
+      updateFavorites(newFavorites);
       await queryClient.invalidateQueries({ queryKey: ["savedStories"] });
     } catch {
       toast.error("Сталася помилка під час збереження");
@@ -158,7 +161,7 @@ export const TravellersStoriesItem = ({
               // Кнопка редагування (олівець) для власних історій
               <button
                 className={css.actionButton}
-                onClick={() => router.push(`/edit-story/${story._id}`)}
+                onClick={() => router.push(`/stories/${story._id}/edit`)}
                 title="Редагувати статтю"
               >
                 <svg className={css.actionIcon} width="24" height="24">

@@ -25,21 +25,19 @@ export interface AuthResponseLogin {
     accessToken?: string;
     token?: string;
     user: IUser;
-    [key: string]: unknown;
   };
   message?: string;
   status?: number;
-  [key: string]: unknown;
 }
 
 export interface AuthResponseRegister {
   data: {
+    accessToken?: string;
+    token?: string;
     user: IUser;
-    [key: string]: unknown;
   };
   message?: string;
   status?: number;
-  [key: string]: unknown;
 }
 
 export interface AuthResponseLogout {

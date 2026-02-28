@@ -89,7 +89,7 @@ export async function confirmEmail(token: string, newEmail: string) {
 }
 
 export const fetchCurrentUser = async (): Promise<IApiResponse> => {
-  const { data } = await nextServer.get<IApiResponse>("/users/current");
+  const { data } = await nextServer.get<IApiResponse>("/auth/current");
   return data;
 };
 
@@ -173,7 +173,7 @@ export const addFavorite = async (
   storyId: string,
 ): Promise<IFavoritesResponse> => {
   const { data } = await nextServer.post<IFavoritesResponse>(
-    `/users/current/favorites`,
+    `/stories/${storyId}/favorite`,
     { storyId },
   );
   return data;
@@ -183,7 +183,7 @@ export const removeFavorite = async (
   storyId: string,
 ): Promise<IFavoritesResponse> => {
   const { data } = await nextServer.delete<IFavoritesResponse>(
-    `/users/current/favorites/${storyId}`,
+    `/stories/${storyId}/favorite`,
   );
   return data;
 };
@@ -197,7 +197,7 @@ export const fetchUserWithOwnFavorites = async (
   perPage: string,
   page: string,
 ): Promise<IOwnFavoritesResponse> => {
-  const { data } = await nextServer.get("/users/current", {
+  const { data } = await nextServer.get("/stories/saved", {
     params: { perPage, page },
   });
 
@@ -208,7 +208,7 @@ export const fetchUserWithOwnStories = async (
   perPage: string,
   page: string,
 ): Promise<IOwnStoriesResponse> => {
-  const { data } = await nextServer.get("/users/current/stories", {
+  const { data } = await nextServer.get("/stories/own", {
     params: { perPage, page },
   });
 

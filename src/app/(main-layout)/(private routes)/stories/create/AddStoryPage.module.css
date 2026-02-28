@@ -1,0 +1,11 @@
+.page {
+    width: 100%;
+    min-height: 100vh;
+}
+
+.title {
+    text-align: center;
+    margin-bottom: 32px;
+    font-size: 32px;
+    font-weight: bold;
+}

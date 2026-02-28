@@ -6,7 +6,7 @@ import TravellersStories from "@/components/TravellersStories/TravellersStories"
 
 const fetchSavedStories = async ({ pageParam = 1 }) => {
   const { data } = await nextServer.get(
-    `/users/current/favorites?page=${pageParam}&perPage=6`,
+    `/stories/saved?page=${pageParam}&perPage=6`,
   );
   return data;
 };
