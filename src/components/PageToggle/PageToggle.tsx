@@ -7,7 +7,6 @@ import css from "./PageToggle.module.css";
 export const PageToggle = () => {
   const pathname = usePathname();
 
-  // Визначаємо активний таб на основі поточного шляху
   const isSavedActive = pathname === "/profile/saved";
   const isOwnActive = pathname === "/profile/own";
 

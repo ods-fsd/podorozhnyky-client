@@ -1,17 +1,19 @@
 .toggleWrapper {
   display: flex;
-  /* Ширина блоку відповідає ширині картки */
-  width: 420px;
+
+  width: 100%;
+  max-width: 420px;
+
   background-color: #e8eeff;
   padding: 4px;
   border-radius: 12px;
-  /* Зміщуємо блок вліво, прибираючи автоматичні відступи */
   margin: 0 0 32px 0;
   gap: 4px;
+
+  box-sizing: border-box;
 }
 
 .tab {
-  /* flex: 1 робить обидві кнопки рівними за шириною */
   flex: 1;
   padding: 10px 0;
   text-align: center;
@@ -26,7 +28,6 @@
   transition: all 0.2s ease;
 }
 
-/* Активний стан: біла кнопка з легкою тінню та рамкою */
 .active {
   background-color: #f7f9ff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);

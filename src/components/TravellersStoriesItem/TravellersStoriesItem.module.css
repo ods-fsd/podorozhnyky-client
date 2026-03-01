@@ -112,6 +112,13 @@
     object-fit: cover;
 }
 
+.avatarImage {
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  object-fit: cover;
+}
+
 .userName {
     font-weight: 600;
     font-size: 12px;
