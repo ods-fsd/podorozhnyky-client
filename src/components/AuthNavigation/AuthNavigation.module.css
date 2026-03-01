@@ -34,7 +34,7 @@
 }
 
 .storyButtonElAuth {
-  display: block;
+  display: none;
   width: 100%;
   padding: 0;
   background-color: var(--color-royal-blue);
@@ -94,7 +94,19 @@
   stroke: var(--color-royal-blue);
 }
 
+/* --- ПЛАНШЕТ (від 768px) --- */
 @media (min-width: 768px) {
+  .storyButtonElAuth {
+    display: flex;
+    width: auto;
+    flex-shrink: 0;
+    white-space: nowrap;
+    margin-right: 16px;
+  }
+}
+
+/* --- ДЕСКТОП (від 1440px) --- */
+@media (min-width: 1440px) {
   .navigationItem,
   .headerLinkNav {
     display: flex;
@@ -111,14 +123,9 @@
     padding: 4px 0;
     flex-wrap: nowrap;
   }
-}
 
-@media (min-width: 1440px) {
   .storyButtonElAuth {
-    display: flex;
-    width: auto;
-    flex-shrink: 0;
-    white-space: nowrap;
+    margin-right: 0;
     margin-left: 32px;
   }
 }
