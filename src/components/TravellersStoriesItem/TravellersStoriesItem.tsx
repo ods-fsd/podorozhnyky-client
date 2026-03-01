@@ -126,70 +126,67 @@ export const TravellersStoriesItem = ({
             </p>
           </div>
 
-          <div className={css.userWrapper}>
-            <Link
-              href={`/travellers/${story.ownerId?._id}`}
-              className={css.userLink}
-            >
-              <div className={css.avatarWrapper}>
-                <Image
-                  className={css.avatarImage}
-                  src={story.ownerId?.avatarUrl || "/placeholder-image.png"}
-                  alt={story.ownerId?.name || "User"}
-                  width={48}
-                  height={48}
-                />
-              </div>
+          <div className={css.footerWrapper}>
+            <div className={css.userWrapper}>
+              <Link href={`/travellers/${story.ownerId?._id}`} className={css.avatarLink}>
+                <div className={css.avatarWrapper}>
+                  <Image
+                    className={css.avatarImage}
+                    src={story.ownerId?.avatarUrl || "/placeholder-image.png"}
+                    alt={story.ownerId?.name || "User"}
+                    width={48}
+                    height={48}
+                  />
+                </div>
+              </Link>
               <div className={css.userInfoWrapper}>
-                <p className={css.userName}>{story.ownerId?.name}</p>
-              </div>
-            </Link>
-            <div className={css.infoWrapper}>
-              <p className={css.date}>{ISODateToDate(rawDate)}</p>
-              <span className={css.separator}>•</span>
-              <div className={css.favoriteWrapper}>
-                <p className={css.favoriteCount}>{bookmarkCounter}</p>
-                <svg
-                  className={`${css.favoriteIcon} ${isFavorite ? css.favoriteIconActive : ""}`}
-                  width="16"
-                  height="16"
-                >
-                  <use href="/sprite.svg?v=2#icon-travel"></use>
-                </svg>
+                <Link href={`/travellers/${story.ownerId?._id}`} className={css.nameLink}>
+                  <p className={css.userName}>{story.ownerId?.name}</p>
+                </Link>
+                <div className={css.infoWrapper}>
+                  <p className={css.date}>{ISODateToDate(rawDate)}</p>
+                  <span className={css.separator}>•</span>
+                  <div className={css.favoriteWrapper}>
+                    <p className={css.favoriteCount}>{bookmarkCounter}</p>
+                    <svg className={`${css.favoriteIcon} ${isFavorite ? css.favoriteIconActive : ""}`} width="16" height="16">
+                      <use href="/sprite.svg?v=2#icon-travel"></use>
+                    </svg>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
 
-          <div className={css.buttonsWrapper}>
-            <button className={css.showStory} onClick={handleClick}>
-              Переглянути статтю
-            </button>
-
-            {isOwn ? (
-              <button
-                className={css.actionButton}
-                onClick={() => router.push(`/stories/${story._id}/edit`)}
-                title="Редагувати статтю"
-              >
-                <svg className={css.actionIcon} width="24" height="24">
-                  <use href="/sprite.svg#icon-edit"></use>
-                </svg>
+            <div className={css.buttonsWrapper}>
+              <button className={css.showStory} onClick={handleClick}>
+                Переглянути статтю
               </button>
-            ) : (
-              <button
-                className={`${css.bookmarkStory} ${isFavorite ? css.bookmarkStoryActive : ""}`}
-                onClick={handleBookmarkClick}
-                title="Зберегти статтю"
-              >
-                {isLoading ? (
-                  <span className={css.loader}></span>
-                ) : (
-                  <svg className={css.bookmarkIcon} width="24" height="24">
-                    <use href="/sprite.svg?v=2#icon-travel"></use>
+
+              {isOwn ? (
+                <button
+                  className={css.actionButton}
+                  onClick={() => router.push(`/stories/${story._id}/edit`)}
+                  title="Редагувати статтю"
+                >
+                  <svg className={css.actionIcon} width="24" height="24">
+                    <use href="/sprite.svg#icon-edit"></use>
                   </svg>
-                )}
-              </button>
-            )}
+                </button>
+              ) : (
+                <button
+                  className={`${css.bookmarkStory} ${isFavorite ? css.bookmarkStoryActive : ""}`}
+                  onClick={handleBookmarkClick}
+                  title="Зберегти статтю"
+                >
+                  {isLoading ? (
+                    <span className={css.loader}></span>
+                  ) : (
+                    <svg className={css.bookmarkIcon} width="24" height="24">
+                      <use href="/sprite.svg?v=2#icon-travel"></use>
+                    </svg>
+                  )}
+                </button>
+              )}
+            </div>
           </div>
         </div>
       </li>

@@ -8,7 +8,7 @@ import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import * as Yup from 'yup';
-import { register } from '@/lib/api/clientApi';
+import { fetchCurrentUser, register } from '@/lib/api/clientApi';
 import LoginWithGoogle from '@/components/LoginWithGoogle/LoginWithGoogle';
 import AuthTabs from '../AuthTabs/AuthTabs';
 import css from './RegistrationForm.module.css';
@@ -55,6 +55,15 @@ export default function RegistrationForm() {
       const { data } = await register(values);
       const token = (data.accessToken || data.token) as string | undefined;
       setUser(data.user, token);
+
+      try {
+        const fullUserReq = await fetchCurrentUser();
+        if (fullUserReq?.data) {
+          setUser(fullUserReq.data.user, token);
+        }
+      } catch (err) {
+        console.error("Failed to fetch full user info:", err);
+      }
 
       toast.success('Реєстрація успішна!');
       router.push('/');
