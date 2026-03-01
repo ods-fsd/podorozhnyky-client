@@ -97,8 +97,8 @@ export default function Header() {
                     </li>
                   </ul>
 
-                  <ul className={css.navigationItemProfile}>
-                    {mounted && (
+                  <ul className={css.navigationItemProfile} suppressHydrationWarning>
+                    {mounted ? (
                       isAuthenticated ? (
                         <>
                           <AuthNavigation />
@@ -116,6 +116,16 @@ export default function Header() {
                         </>
                       ) : (
                         <>
+                          <li className={css.navigationAuth}>
+                            <Link
+                              href="/auth/login"
+                              prefetch={false}
+                              className={css.linkAuth}
+                              style={{ padding: '4px 0', marginRight: '32px' }}
+                            >
+                              Опублікувати Історію
+                            </Link>
+                          </li>
                           <li className={`${css.navigationAuth} ${finalNavigationLog}`}>
                             <Link
                               href="/auth/login"
@@ -136,9 +146,23 @@ export default function Header() {
                           </li>
                         </>
                       )
+                    ) : (
+                      <div className={css.skeletonAuth} style={{ width: 150, height: 32 }} />
                     )}
                   </ul>
                 </nav>
+              )}
+
+              {!isAuthPage && (
+                <Link
+                  href={isAuthenticated ? '/stories/create' : '/auth/login'}
+                  className={`${css.storyTablet} ${css.storyTabletLink} ${
+                    isHomePage ? css.storyTabTransp : css.storyTabMain
+                  }`}
+                  suppressHydrationWarning
+                >
+                  Опублікувати Історію
+                </Link>
               )}
 
               {!isAuthPage && (

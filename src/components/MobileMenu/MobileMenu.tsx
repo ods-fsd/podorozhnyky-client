@@ -97,18 +97,18 @@ export default function MobileMenu({
           </nav>
 
           <div className={css.authButtonsWrapper}>
-            {isAuthenticated ? (
-              <div className={css.authContent}>
-                <div className={finalStoryButtonEl}>
-                  <Link
-                    href="/stories/create/"
-                    className={css.storyLinkElMob}
-                    onClick={onClose}
-                  >
-                    Опублікувати Історію
-                  </Link>
-                </div>
+            <div className={css.authContent}>
+              <div className={finalStoryButtonEl}>
+                <Link
+                  href={isAuthenticated ? "/stories/create/" : "/auth/login"}
+                  className={css.storyLinkElMob}
+                  onClick={onClose}
+                >
+                  Опублікувати Історію
+                </Link>
+              </div>
 
+              {isAuthenticated ? (
                 <div className={css.navUserWrapper}>
                   <Link
                     href="/user-edit"
@@ -146,26 +146,26 @@ export default function MobileMenu({
                     </svg>
                   </button>
                 </div>
-              </div>
-            ) : (
-              <div className={css.authButtons}>
-                <Link
-                  href="/auth/login"
-                  onClick={onClose}
-                  className={`${css.menuButton} ${css.menuButtonLogin}`}
-                >
-                  Вхід
-                </Link>
+              ) : (
+                <div className={css.authButtons}>
+                  <Link
+                    href="/auth/login"
+                    onClick={onClose}
+                    className={`${css.menuButton} ${css.menuButtonLogin}`}
+                  >
+                    Вхід
+                  </Link>
 
-                <Link
-                  href="/auth/register"
-                  onClick={onClose}
-                  className={`${css.menuButton} ${css.menuButtonRegister}`}
-                >
-                  Реєстрація
-                </Link>
-              </div>
-            )}
+                  <Link
+                    href="/auth/register"
+                    onClick={onClose}
+                    className={`${css.menuButton} ${css.menuButtonRegister}`}
+                  >
+                    Реєстрація
+                  </Link>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>
