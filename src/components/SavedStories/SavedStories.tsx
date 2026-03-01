@@ -18,8 +18,8 @@ const SavedStories = () => {
       queryFn: fetchSavedStories,
       initialPageParam: 1,
       getNextPageParam: (lastPage) =>
-        lastPage?.pagination?.hasNextPage
-          ? lastPage.pagination.currentPage + 1
+        lastPage?.data?.hasNextPage
+          ? lastPage.data.page + 1
           : undefined,
     });
 
@@ -29,10 +29,11 @@ const SavedStories = () => {
   // РОЗУМНИЙ ПОШУК: Шукаємо саме масив (Array), щоб не пропустити об'єкти без історій
   const stories =
     data?.pages.flatMap((page) => {
+      if (Array.isArray(page?.data?.data)) return page.data.data;
       if (Array.isArray(page?.data)) return page.data;
-      if (Array.isArray(page?.data?.favorites)) return page.data.favorites; // Іноді бекенд кладе це у favorites
+      if (Array.isArray(page?.data?.favorites)) return page.data.favorites; 
       if (Array.isArray(page?.favorites)) return page.favorites;
-      return []; // Якщо нічого не підійшло, повертаємо порожній масив, щоб показати заглушку
+      return []; 
     }) || [];
 
   if (stories.length === 0) {
@@ -53,7 +54,7 @@ const SavedStories = () => {
       stories={stories}
       onLoadMore={() => fetchNextPage()}
       hasNextPage={!!hasNextPage}
-      isOwn={false} // isOwn={false} гарантує, що замість олівця буде іконка збереження
+      isOwn={false} 
     />
   );
 };

@@ -1,187 +1,484 @@
-"use client";
+'use client';
 
-import { useState, useRef, useEffect } from "react";
-import { useFormik } from "formik";
-import * as Yup from "yup";
-import { useRouter } from "next/navigation";
-import toast from "react-hot-toast";
-import Image from "next/image";
-import { createStory, updateStory, fetchCategories } from "@/lib/api/clientApi";
-import { ICategory } from "@/types/category";
-import { IStory } from "@/types/story";
-import css from "./AddStoryForm.module.css";
+import { ErrorMessage, Field, Form, Formik, FormikHelpers } from 'formik';
+import Image from 'next/image';
+import { useRouter } from 'next/navigation';
+import React, { useEffect, useId, useRef, useState } from 'react';
+import * as Yup from 'yup';
+import {
+  createStory,
+  fetchCategories,
+  updateStory,
+} from '../../lib/api/clientApi';
+import { ICategory } from '../../types/category';
+import type { CreateStory, IStory } from '../../types/story';
+import ConfirmModal from '../ConfirmModal/ConfirmModal';
+import Loader from '../Loader/Loader';
+import css from './AddStoryForm.module.css';
 
-interface AddStoryFormProps {
-  initialData?: IStory;
-}
+const formValues: CreateStory = {
+  storyImage: null,
+  title: '',
+  category: '',
+  shortDescription: '',
+  article: '',
+};
 
-const validationSchema = Yup.object({
-  title: Yup.string().max(80, "Максимум 80 символів").required("Обов'язкове поле"),
-  category: Yup.string().required("Обов'язкове поле"),
-  article: Yup.string()
-    .max(2500, "Максимум 2500 символів")
-    .required("Обов'язкове поле"),
-});
+const AddStoryForm = ({
+  storyId,
+  story,
+}: {
+  storyId?: string;
+  story?: IStory;
+}) => {
+  const fieldId = useId();
 
-export default function AddStoryForm({ initialData }: AddStoryFormProps) {
-  const router = useRouter();
-  const fileInputRef = useRef<HTMLInputElement>(null);
+  // Create validation schema based on whether we're editing or creating
+  const validationSchema = Yup.object<CreateStory>({
+    storyImage: storyId
+      ? Yup.mixed<File>()
+          .nullable()
+          .test(
+            'fileSize',
+            'Розмір файлу не повинен перевищувати 2 МБ.',
+            value => {
+              return value ? value.size <= 2 * 1024 * 1024 : true;
+            }
+          )
+          .test(
+            'fileType',
+            'Невірний формат файлу',
+            value =>
+              !value ||
+              ['image/webp', 'image/jpeg', 'image/png', 'image/gif'].includes(
+                value.type
+              )
+          )
+      : Yup.mixed<File>()
+          .nullable()
+          .required("Зображення є обов'язковим")
+          .test(
+            'fileSize',
+            'Розмір файлу не повинен перевищувати 2 МБ.',
+            value => {
+              return value ? value.size <= 2 * 1024 * 1024 : true;
+            }
+          )
+          .test(
+            'fileType',
+            'Невірний формат файлу',
+            value =>
+              !value ||
+              ['image/webp', 'image/jpeg', 'image/png', 'image/gif'].includes(
+                value.type
+              )
+          ),
+    title: Yup.string()
+      .required("Заголовок є обов'язковим")
+      .max(80, 'Максимальна довжина заголовка - 80 символів'),
+    category: Yup.string().required("Категорія є обов'язковою"),
+    shortDescription: Yup.string().max(
+      150,
+      'Максимальна довжина опису - 150 символ'
+    ),
+    article: Yup.string()
+      .required("Текст історії є обов'язковим")
+      .max(2500, 'Текст повинен бути не більше 2500 символів'),
+  });
 
   const [categories, setCategories] = useState<ICategory[]>([]);
-  const [selectedImage, setSelectedImage] = useState<File | null>(null);
-  const [previewUrl, setPreviewUrl] = useState<string | null>(
-    initialData?.img || null
+  const [isOpenConfirmModal, setIsOpenConfirmModal] = useState(false);
+  const [preview, setPreview] = useState<string>(story?.img ? story.img : '');
+  const [placeholderImage, setPlaceholderImage] = useState<string>(
+    '/images/createStory/placeholder-image-mb.png'
+  );
+  const previewUrlRef = useRef<string | null>(null);
+  const [mounted, setMounted] = useState(false);
+  const [isSelectOpen, setIsSelectOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [initialValues] = useState<CreateStory>(
+    story
+      ? {
+          storyImage: null,
+          title: story.title,
+          category:
+            typeof story.category === 'string'
+              ? story.category
+              : story.category._id,
+          shortDescription: story.shortDescription,
+          article: story.article,
+        }
+      : formValues
   );
 
   useEffect(() => {
-    fetchCategories()
-      .then((data) => setCategories(data))
-      .catch(() => toast.error("Не вдалося завантажити категорії"));
+    if (story?.img) {
+      setPreview(story.img);
+    }
+  }, [story?.img]);
+
+  const selectRef = useRef<HTMLDivElement>(null);
+
+  const router = useRouter();
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    const updatePlaceholder = () => {
+      const width = window.innerWidth;
+      if (width >= 1440) {
+        setPlaceholderImage('/images/createStory/placeholder-image-dt.png');
+      } else if (width >= 768) {
+        setPlaceholderImage('/images/createStory/placeholder-image-tb.png');
+      } else {
+        setPlaceholderImage('/images/createStory/placeholder-image-mb.png');
+      }
+    };
+
+    updatePlaceholder();
+    window.addEventListener('resize', updatePlaceholder);
+
+    return () => {
+      window.removeEventListener('resize', updatePlaceholder);
+    };
   }, []);
 
-  const formik = useFormik({
-    initialValues: {
-      title: initialData?.title || "",
-      category: initialData?.category?._id || "",
-      article: initialData?.article || "",
-    },
-    validationSchema,
-    enableReinitialize: true,
-    onSubmit: async (values, { setSubmitting }) => {
-      try {
-        const formData = new FormData();
-        formData.append("title", values.title);
-        formData.append("category", values.category);
-        formData.append("article", values.article);
+  const handleSelectToggle = () => {
+    setIsSelectOpen(!isSelectOpen);
+  };
 
-        if (selectedImage) {
-          formData.append("storyImage", selectedImage);
-        }
+  const handleSelectClose = () => {
+    setIsSelectOpen(false);
+  };
 
-        let result;
-        if (initialData?._id) {
-          result = await updateStory(initialData._id, formData);
-          toast.success("Історію змінено!");
-        } else {
-          result = await createStory(formData);
-          toast.success("Історію створено!");
-        }
-
-        const newStoryId = result?.data?._id || initialData?._id;
-        if (newStoryId) {
-          router.push(`/stories/${newStoryId}`);
-        } else {
-          router.push("/profile/own");
-        }
-      } catch (error) {
-        console.error("Story save error", error);
-        toast.error("Помилка збереження. Спробуйте ще раз.");
-      } finally {
-        setSubmitting(false);
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        selectRef.current &&
+        !selectRef.current.contains(event.target as Node)
+      ) {
+        setIsSelectOpen(false);
       }
-    },
-  });
+    };
 
-  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      setSelectedImage(file);
-      setPreviewUrl(URL.createObjectURL(file));
+    if (isSelectOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isSelectOpen]);
+
+  const handleSubmit = async (
+    values: CreateStory,
+    { resetForm }: FormikHelpers<CreateStory>
+  ) => {
+    try {
+      setIsLoading(true);
+
+      const formData = new FormData();
+      if (values.storyImage) {
+        formData.append('storyImage', values.storyImage as File);
+      }
+      formData.append('title', values.title);
+      formData.append('category', values.category);
+      if (values.shortDescription)
+        formData.append('shortDescription', values.shortDescription ?? '');
+      formData.append('article', values.article);
+
+      const response = storyId
+        ? await updateStory(storyId, formData)
+        : await createStory(formData);
+
+      if (response.status === 200 || response.status === 201) {
+        const responseStoryId = response.data?._id;
+
+        if (responseStoryId) {
+          router.push(`/stories/${responseStoryId}`);
+        }
+        resetForm();
+
+        if (previewUrlRef.current) {
+          URL.revokeObjectURL(previewUrlRef.current);
+          previewUrlRef.current = null;
+        }
+        setPreview(placeholderImage);
+      }
+    } catch (error) {
+      console.error('Помилка при збереженні історії:', error);
+      setIsOpenConfirmModal(true);
+    } finally {
+      setIsLoading(false);
     }
   };
 
+  useEffect(() => {
+    const loadCategories = async () => {
+      try {
+        const response = await fetchCategories();
+        setCategories(response);
+      } catch (error) {
+        console.error('Помилка при завантаженні категорій:', error);
+      }
+    };
+    loadCategories();
+  }, []);
+
+  useEffect(() => {
+    if (!story?.img) {
+      setPreview(placeholderImage);
+    }
+  }, [story?.img, placeholderImage]);
+
+  useEffect(() => {
+    setMounted(true);
+    return () => {
+      if (previewUrlRef.current) {
+        URL.revokeObjectURL(previewUrlRef.current);
+        previewUrlRef.current = null;
+      }
+    };
+  }, []);
+
+  if (!mounted) return null;
+
   return (
-    <form onSubmit={formik.handleSubmit} className={css.form} noValidate>
-      <div className={css.coverContainer}>
-        {previewUrl ? (
-          <Image
-            src={previewUrl}
-            alt="Story cover preview"
-            width={600}
-            height={300}
-            className={css.coverImage}
-          />
-        ) : (
-          <div className={css.coverImage}>Плейсхолдер</div>
-        )}
-        <input
-          type="file"
-          accept="image/*"
-          ref={fileInputRef}
-          onChange={handleImageChange}
-          style={{ display: "none" }}
+    <>
+      {isOpenConfirmModal && (
+        <ConfirmModal
+          onConfirm={() => {
+            setIsOpenConfirmModal(false);
+            router.push('/auth/register');
+          }}
+          onCancel={() => {
+            setIsOpenConfirmModal(false);
+            router.push('/auth/login');
+          }}
+          title="Помилка під час збереження"
+          text="Щоб зберегти статтю вам треба увійти, якщо ще немає облікового запису — зареєструйтесь"
+          confirmButtonText="Зареєструватись"
+          cancelButtonText="Увійти"
         />
-        <button
-          type="button"
-          onClick={() => fileInputRef.current?.click()}
-          className={css.btnCancel}
-        >
-          {previewUrl ? "Змінити фото" : "Підвантажити обкладинку"}
-        </button>
-      </div>
+      )}
 
-      <div className={css.field}>
-        <label className={css.label} htmlFor="title">Заголовок</label>
-        <input
-          id="title"
-          type="text"
-          className={css.input}
-          placeholder="Назва історії"
-          {...formik.getFieldProps("title")}
-        />
-        {formik.touched.title && formik.errors.title && (
-          <span className={css.error}>{formik.errors.title}</span>
+      {isLoading && <Loader />}
+
+      <Formik
+        initialValues={initialValues}
+        onSubmit={handleSubmit}
+        enableReinitialize
+        validationSchema={validationSchema}
+        validateOnMount={true}
+      >
+        {({ isValid, setFieldValue, isSubmitting, dirty }) => (
+          <Form noValidate className={css.form}>
+            <div className={css.leftColumn}>
+              <div className={css.imageSection}>
+                <label className={css.label}>Oбкладинка статті</label>
+                <div
+                  className={css.imageWrapper}
+                  onClick={() => fileInputRef.current?.click()}
+                  style={{ cursor: 'pointer' }}
+                >
+                  <Image
+                    src={preview || story?.img || placeholderImage}
+                    alt="Прев'ю"
+                    className={css.coverPreview}
+                    width={865}
+                    height={635}
+                    unoptimized
+                    sizes="(max-width: 767px) 335px, (min-width: 768px) and (max-width: 1439px) 704px, (min-width: 1440px) 865px"
+                    style={{ width: '100%', height: 'auto' }}
+                  />
+                </div>
+
+                <button
+                  type="button"
+                  className={css.uploadBtn}
+                  onClick={() => fileInputRef.current?.click()}
+                >
+                  Завантажити фото
+                </button>
+
+                <input
+                  type="file"
+                  accept="image/*"
+                  style={{ display: 'none' }}
+                  ref={fileInputRef}
+                  onChange={e => {
+                    const fileList = e.currentTarget.files?.[0] ?? null;
+                    if (fileList) {
+                      setFieldValue('storyImage', fileList, true);
+                      if (previewUrlRef.current) {
+                        URL.revokeObjectURL(previewUrlRef.current);
+                      }
+                      const objectUrl = URL.createObjectURL(fileList);
+                      previewUrlRef.current = objectUrl;
+                      setPreview(objectUrl);
+                    }
+                  }}
+                />
+              </div>
+
+              <div className={css.fieldGroup}>
+                <label htmlFor={`${fieldId}-title`} className={css.label}>
+                  Заголовок
+                </label>
+                <Field
+                  type="text"
+                  name="title"
+                  id={`${fieldId}-title`}
+                  className={css.title}
+                  placeholder="Введіть заголовок історії"
+                />
+                <ErrorMessage
+                  name="title"
+                  component="div"
+                  className={css.error}
+                />
+              </div>
+
+              <div className={css.fieldGroup}>
+                <label htmlFor={`${fieldId}-category`} className={css.label}>
+                  Категорія
+                </label>
+                <div
+                  className={`${css.customSelectWrapper} ${isSelectOpen ? css.open : ''}`}
+                  ref={selectRef}
+                >
+                  <div
+                    className={css.customSelectTrigger}
+                    onClick={handleSelectToggle}
+                  >
+                    <Field id={`${fieldId}-category`} name="category">
+                      {({ field }: { field: { value: string } }) => {
+                        const selectedCategory = categories.find(
+                          cat => cat._id === field.value
+                        );
+                        return (
+                          <span className={css.selectedValue}>
+                            {selectedCategory?.name || 'Категорія'}
+                          </span>
+                        );
+                      }}
+                    </Field>
+                    <svg className={css.selectArrow} width="24" height="24">
+                      <use
+                        href={`/sprite.svg#icon-keyboard_arrow_${isSelectOpen ? 'up' : 'down'}`}
+                      />
+                    </svg>
+                  </div>
+
+                  {isSelectOpen && (
+                    <div className={css.customSelectDropdown}>
+                      <Field name="category">
+                        {({
+                          field,
+                          form,
+                        }: {
+                          field: { value: string };
+                          form: {
+                            setFieldValue: (
+                              field: string,
+                              value: string
+                            ) => void;
+                          };
+                        }) => (
+                          <>
+                            <div
+                              className={`${css.selectOption} ${
+                                field.value === '' ? css.selected : ''
+                              }`}
+                              onClick={() => {
+                                form.setFieldValue('category', '');
+                                handleSelectClose();
+                              }}
+                            >
+                              Категорія
+                            </div>
+                            {categories.length > 0 ? (
+                              categories.map(category => (
+                                <div
+                                  key={category._id}
+                                  className={`${css.selectOption} ${
+                                    field.value === category._id
+                                      ? css.selected
+                                      : ''
+                                  }`}
+                                  onClick={() => {
+                                    form.setFieldValue(
+                                      'category',
+                                      category._id
+                                    );
+                                    handleSelectClose();
+                                  }}
+                                >
+                                  {category.name}
+                                </div>
+                              ))
+                            ) : (
+                              <div
+                                className={css.selectOption}
+                                style={{ cursor: 'not-allowed' }}
+                              >
+                                Завантаження категорій...
+                              </div>
+                            )}
+                          </>
+                        )}
+                      </Field>
+                    </div>
+                  )}
+                </div>
+                <ErrorMessage
+                  name="category"
+                  component="div"
+                  className={css.error}
+                />
+              </div>
+
+              <div className={css.fieldGroup}>
+                <label htmlFor={`${fieldId}-description`} className={css.label}>
+                  Текст історії
+                </label>
+                <Field
+                  as="textarea"
+                  name="article"
+                  id={`${fieldId}-article`}
+                  className={css.description}
+                  placeholder="Ваша історія тут"
+                />
+                <ErrorMessage
+                  name="article"
+                  component="div"
+                  className={css.error}
+                />
+              </div>
+            </div>
+
+            <div className={css.rightColumn}>
+              <button
+                type="submit"
+                className={css.submitBtn}
+                disabled={
+                  !isValid || isSubmitting || (storyId ? !dirty : false)
+                }
+              >
+                {isSubmitting ? 'Зберігається...' : 'Зберегти'}
+              </button>
+              <button
+                onClick={() => router.back()}
+                type="button"
+                className={css.cancelBtn}
+              >
+                Відмінити
+              </button>
+            </div>
+          </Form>
         )}
-      </div>
-
-      <div className={css.field}>
-        <label className={css.label} htmlFor="category">Категорія</label>
-        <select
-          id="category"
-          className={css.select}
-          {...formik.getFieldProps("category")}
-        >
-          <option value="" disabled>Оберіть категорію</option>
-          {categories.map((cat) => (
-            <option key={cat._id} value={cat._id}>
-              {cat.name}
-            </option>
-          ))}
-        </select>
-        {formik.touched.category && formik.errors.category && (
-          <span className={css.error}>{formik.errors.category}</span>
-        )}
-      </div>
-
-      <div className={css.field}>
-        <label className={css.label} htmlFor="article">Текст історії</label>
-        <textarea
-          id="article"
-          className={css.textarea}
-          placeholder="Опис мандрівки..."
-          {...formik.getFieldProps("article")}
-        />
-        {formik.touched.article && formik.errors.article && (
-          <span className={css.error}>{formik.errors.article}</span>
-        )}
-      </div>
-
-      <div className={css.buttons}>
-        <button
-          type="button"
-          className={css.btnCancel}
-          onClick={() => router.back()}
-        >
-          Відмінити
-        </button>
-        <button
-          type="submit"
-          className={css.btnSave}
-          disabled={!formik.isValid || (!selectedImage && !previewUrl) || formik.isSubmitting}
-        >
-          {formik.isSubmitting ? "Збереження..." : "Зберегти"}
-        </button>
-      </div>
-    </form>
+      </Formik>
+    </>
   );
-}
+};
+
+export default AddStoryForm;

@@ -18,7 +18,7 @@ export default async function EditStoryPage({
     <section className={css.page}>
       <div className="container" style={{ paddingTop: '40px', paddingBottom: '40px' }}>
         <h1 className={css.title}>Редагувати історію</h1>
-        <AddStoryForm initialData={story || undefined} />
+        <AddStoryForm storyId={storyId} story={story || undefined} />
       </div>
     </section>
   );

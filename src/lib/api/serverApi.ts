@@ -60,7 +60,7 @@ export const fetchServerStories = async (
     params: {
       perPage,
       page,
-      category: category?.name,
+      category: category?._id,
     },
   });
 

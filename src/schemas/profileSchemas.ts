@@ -1,8 +1,11 @@
 import * as Yup from "yup";
 
-const MAX_AVATAR_SIZE = 500 * 1024; // 500kB
+const MAX_AVATAR_SIZE = 500 * 1024; 
 
 export const profileEditSchema = Yup.object({
+  name: Yup.string()
+    .min(2, "Мінімум 2 символи")
+    .max(32, "Максимум 32 символи"),
   email: Yup.string()
     .email("Невірний формат email")
     .max(64, "Максимум 64 символи"),
@@ -11,7 +14,7 @@ export const profileEditSchema = Yup.object({
     "fileSize",
     "Розмір файлу не має перевищувати 500kB",
     (value) => {
-      if (!value) return true; // Аватар не обов'язковий при редагуванні
+      if (!value) return true; 
       return (value as File).size <= MAX_AVATAR_SIZE;
     },
   ),

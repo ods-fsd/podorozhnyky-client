@@ -16,14 +16,13 @@ const SelectInput = ({ options, onChange, value }: SelectInputProps) => {
   return (
     <Select<OptionType>
       options={options}
-      components={{ IndicatorSeparator: () => null }} // Прибирає вертикальну лінію біля стрілочки
-      isSearchable={false} // Вимикає поле вводу (можна тільки вибирати)
+      components={{ IndicatorSeparator: () => null }} 
+      isSearchable={false} 
       defaultValue={options[0]}
       value={value}
       onChange={(option: SingleValue<OptionType>) => {
         onChange(option);
       }}
-      // Детальне налаштування стилів елементів селекта (щоб вони відповідали вашому дизайну)
       styles={{
         control: (base, state) => ({
           ...base,

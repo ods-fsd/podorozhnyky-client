@@ -28,8 +28,7 @@ const TravellersStories = ({
           <TravellersStoriesItem
             story={story}
             isOwn={isOwn}
-            // Якщо story._id порожній, використовуємо індекс, щоб не "ламати" React
-            key={story._id || `story-${index}`}
+            key={`${story._id}-${index}`}
           />
         ))}
       </ul>

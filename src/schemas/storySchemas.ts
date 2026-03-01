@@ -1,6 +1,6 @@
 import * as Yup from "yup";
 
-const MAX_FILE_SIZE = 2 * 1024 * 1024; // 2MB
+const MAX_FILE_SIZE = 2 * 1024 * 1024; 
 
 export const storySchema = Yup.object({
   title: Yup.string()

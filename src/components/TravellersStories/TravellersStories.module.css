@@ -1,55 +1,55 @@
 .storiesList {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 24px;
-  width: 100%;
-  margin-bottom: 40px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+    width: 100%;
+    margin-bottom: 40px;
 }
 
 .paginationButton {
-  border: 1px solid var(--button-solid);
-  border-radius: 8px;
-  padding: 12px;
-  background-color: var(--button-solid);
-  width: 100%;
-  font-weight: 500;
-  font-size: 16px;
-  color: var(--text-invert);
-  margin-bottom: 64px;
+    border: 1px solid var(--button-solid);
+    border-radius: 8px;
+    padding: 12px;
+    background-color: var(--button-solid);
+    width: 100%;
+    font-weight: 500;
+    font-size: 16px;
+    color: var(--text-invert);
+    margin-bottom: 64px;
 }
 
 .paginationButton:hover,
 .paginationButton:focus {
-  background-color: var(--button-solid-hover);
-  color: var(--text);
+    background-color: var(--button-solid-hover);
+    color: var(--text);
 }
 
 .paginationButton:active {
-  background-color: var(--button-solid-active);
-  color: var(--text);
+    background-color: var(--button-solid-active);
+    color: var(--text);
 }
 
 .paginationButton:disabled {
-  opacity: 0.3;
+    opacity: 0.3;
 }
 
 @media screen and (min-width: 768px) {
-  .paginationButton {
-    font-size: 18px;
-    width: auto;
-    display: block;
-    margin: 0 auto;
-    margin-bottom: 64px;
-  }
+    .paginationButton {
+        font-size: 18px;
+        width: auto;
+        display: block;
+        margin: 0 auto;
+        margin-bottom: 64px;
+    }
 }
 
 @media screen and (min-width: 1440px) {
-  .storiesList {
-    width: 1312px;
-  }
+    .storiesList {
+        width: 1312px;
+    }
 
-  .paginationButton {
-    font-size: 18px;
-    margin-bottom: 72px;
-  }
+    .paginationButton {
+        font-size: 18px;
+        margin-bottom: 72px;
+    }
 }

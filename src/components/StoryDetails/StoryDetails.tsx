@@ -8,9 +8,11 @@ import {
 } from "@/lib/api/clientApi";
 import { IStory } from "@/types/story";
 import Image from "next/image";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
+import { useQueryClient } from "@tanstack/react-query";
 import { useAuthStore } from "@/lib/store/authStore";
 import Loader from "../Loader/Loader";
 import FavoriteActions from "./FavoriteActions/FavoriteActions";
@@ -23,6 +25,7 @@ const StoryDetails = ({ storyId }: { storyId: string }) => {
 
   const { user, isAuthenticated, setUser } = useAuthStore();
   const router = useRouter();
+  const queryClient = useQueryClient();
 
   const isFavorite =
     user?.favorites?.some((fav) => fav._id === storyId) ?? false;
@@ -84,16 +87,13 @@ const StoryDetails = ({ storyId }: { storyId: string }) => {
 
   const deleteHandler = async () => {
     try {
-      const res = await deleteStory(storyId);
-
-      if (res?.message || res?.success) {
-        toast.success("Історію видалено");
-        router.push("/stories");
-        router.refresh();
-        return;
-      }
-
-      toast.error("Не вдалося видалити історію");
+      await deleteStory(storyId);
+      await queryClient.invalidateQueries({ queryKey: ["stories"] });
+      await queryClient.invalidateQueries({ queryKey: ["savedStories"] });
+      
+      toast.success("Історію видалено");
+      router.push("/stories");
+      router.refresh();
     } catch {
       toast.error("Помилка під час видалення");
     }
@@ -105,7 +105,9 @@ const StoryDetails = ({ storyId }: { storyId: string }) => {
         <div className={css.infoDetails}>
           <p className={css.value}>
             <strong className={css.label}>Автор статті:</strong>{" "}
-            {story.ownerId.name}
+            <Link href={`/travellers/${story.ownerId._id}`} className={css.authorLink}>
+              {story.ownerId.name}
+            </Link>
           </p>
           <p className={css.value}>
             <strong className={css.label}>Опубліковано:</strong> {formattedDate}

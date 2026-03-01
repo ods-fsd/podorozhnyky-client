@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
@@ -93,7 +94,6 @@ export const TravellersStoriesItem = ({
     }
   };
 
-  // Отримуємо дату для відображення без помилки 'any'
   const rawDate =
     story.date || (story as unknown as { createdAt?: string }).createdAt;
 
@@ -127,26 +127,28 @@ export const TravellersStoriesItem = ({
           </div>
 
           <div className={css.userWrapper}>
-            <div className={css.avatarWrapper}>
-              <Image
-                className={css.avatarImage}
-                src={story.ownerId?.avatarUrl || "/placeholder-image.png"}
-                alt={story.ownerId?.name || "User"}
-                width={48}
-                height={48}
-              />
-            </div>
-            <div className={css.userInfoWrapper}>
-              <p className={css.userName}>{story.ownerId?.name}</p>
-              <div className={css.infoWrapper}>
-                <p className={css.date}>{ISODateToDate(rawDate)}</p>
-                <span className={css.separator}>•</span>
-                <div className={css.favoriteWrapper}>
-                  <p className={css.favoriteCount}>{bookmarkCounter}</p>
-                  <svg className={css.favoriteIcon} width="16" height="16">
-                    <use href="/sprite.svg?v=2#icon-bookmarkIcon"></use>
-                  </svg>
-                </div>
+            <Link href={`/travellers/${story.ownerId?._id}`} className={css.userLink}>
+              <div className={css.avatarWrapper}>
+                <Image
+                  className={css.avatarImage}
+                  src={story.ownerId?.avatarUrl || "/placeholder-image.png"}
+                  alt={story.ownerId?.name || "User"}
+                  width={48}
+                  height={48}
+                />
+              </div>
+              <div className={css.userInfoWrapper}>
+                <p className={css.userName}>{story.ownerId?.name}</p>
+              </div>
+            </Link>
+            <div className={css.infoWrapper}>
+              <p className={css.date}>{ISODateToDate(rawDate)}</p>
+              <span className={css.separator}>•</span>
+              <div className={css.favoriteWrapper}>
+                <p className={css.favoriteCount}>{bookmarkCounter}</p>
+                <svg className={`${css.favoriteIcon} ${isFavorite ? css.favoriteIconActive : ""}`} width="16" height="16">
+                  <use href="/sprite.svg?v=2#icon-travel"></use>
+                </svg>
               </div>
             </div>
           </div>
@@ -156,9 +158,7 @@ export const TravellersStoriesItem = ({
               Переглянути статтю
             </button>
 
-            {/* ЛОГІКА ЗГІДНО З ТУ */}
             {isOwn ? (
-              // Кнопка редагування (олівець) для власних історій
               <button
                 className={css.actionButton}
                 onClick={() => router.push(`/stories/${story._id}/edit`)}
@@ -169,9 +169,8 @@ export const TravellersStoriesItem = ({
                 </svg>
               </button>
             ) : (
-              // Кнопка збереження (закладка) для чужих історій
               <button
-                className={css.bookmarkButton}
+                className={`${css.bookmarkStory} ${isFavorite ? css.bookmarkStoryActive : ""}`}
                 onClick={handleBookmarkClick}
                 title="Зберегти статтю"
               >

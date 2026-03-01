@@ -1,0 +1,155 @@
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 24px;
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: 16px;
+    color: var(--text);
+}
+
+.title {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 24px;
+    color: var(--text);
+    text-align: center;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    position: relative;
+}
+
+.label {
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.input,
+.textarea {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background-color: var(--opacity-transparent);
+    color: var(--text);
+    transition: border-color 0.2s ease;
+}
+
+.textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+.input:focus,
+.textarea:focus {
+    outline: none;
+    border-color: var(--accent);
+}
+
+.input_error,
+.textarea_error {
+    border-color: var(--color-red);
+}
+
+.errorText {
+    font-size: 12px;
+    color: var(--color-red);
+    position: absolute;
+    bottom: -18px;
+    left: 4px;
+}
+
+.avatarSection {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.avatarPreview {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    object-fit: cover;
+    background-color: #dbdbdb;
+    border: 1px solid var(--border);
+}
+
+.avatarPlaceholder {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background-color: var(--button-solid);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-invert);
+    font-size: 24px;
+}
+
+.uploadButtonLabel {
+    display: inline-block;
+    padding: 8px 16px;
+    background-color: var(--button);
+    border: 1px solid var(--button-border);
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 14px;
+    transition: all 0.2s ease;
+}
+
+.uploadButtonLabel:hover {
+    background-color: var(--button-hover);
+    color: var(--button-hover-text);
+}
+
+.fileInput {
+    display: none;
+}
+
+.submitBtn {
+    margin-top: 16px;
+    padding: 14px;
+    background-color: var(--color-royal-blue);
+    color: var(--color-white);
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.submitBtn:hover:not(:disabled) {
+    background-color: var(--color-royal-blue-lighter);
+    color: var(--color-black);
+}
+
+.submitBtn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+@media screen and (min-width: 768px) {
+    .container {
+        padding: 40px;
+        margin-top: 40px;
+        margin-bottom: 40px;
+    }
+
+    .title {
+        font-size: 32px;
+        margin-bottom: 32px;
+    }
+}

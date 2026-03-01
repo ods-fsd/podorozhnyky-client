@@ -63,13 +63,12 @@ const StoriesClient = () => {
   } = useInfiniteQuery({
     queryKey: ["stories", category?._id ?? "all", perPage],
     queryFn: async ({ pageParam = 1 }) => {
-      const data = await fetchStories(perPage, pageParam, category?.value);
+      const data = await fetchStories(perPage, pageParam, category?._id);
       return data;
     },
     initialPageParam: 1,
     getNextPageParam: (lastPage) =>
       lastPage.hasNextPage ? lastPage.page + 1 : undefined,
-    placeholderData: keepPreviousData,
     refetchOnMount: false,
   });
 

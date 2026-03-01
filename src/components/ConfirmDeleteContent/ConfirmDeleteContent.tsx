@@ -1,8 +1,8 @@
 import css from "./ConfirmDeleteContent.module.css";
 
 type Props = {
-  onConfirm: () => void; // Функція, що видаляє історію
-  onCancel: () => void; // Закриття модалки
+  onConfirm: () => void; 
+  onCancel: () => void; 
 };
 
 export default function ConfirmDeleteContent({ onConfirm, onCancel }: Props) {

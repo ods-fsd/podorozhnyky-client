@@ -9,6 +9,7 @@ import {
 } from "@tanstack/react-query";
 import StoriesClient from "./Stories.client";
 import { ICategory } from "@/types/category";
+import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Історії мандрівників | Подорожники",

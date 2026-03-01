@@ -1,0 +1,51 @@
+.pageWrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    width: 100%;
+    padding: 0 20px;
+    margin: 0 auto;
+}
+
+.main {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+/* === Mobile (320–374px) === */
+@media screen and (min-width: 320px) and (max-width: 374px) {
+    .container {
+        max-width: 100%;
+    }
+}
+
+/* === Small devices (375px+) === */
+@media screen and (min-width: 375px) {
+    .container {
+        max-width: 375px;
+    }
+}
+
+/* === Tablet === */
+@media screen and (min-width: 768px) {
+    .container {
+        max-width: 768px;
+        padding: 0 32px;
+    }
+}
+
+/* === Desktop === */
+@media screen and (min-width: 1440px) {
+    .container {
+        max-width: 1440px;
+        padding: 0 64px;
+    }
+}
