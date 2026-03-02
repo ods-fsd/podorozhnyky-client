@@ -1,19 +1,19 @@
-'use client';
+"use client";
 
-import React, { useState, useEffect } from 'react';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import toast from 'react-hot-toast';
+import React, { useState, useEffect } from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import toast from "react-hot-toast";
 
-import { logout } from '@/lib/api/clientApi';
-import { useAuthStore } from '@/lib/store/authStore';
+import { logout } from "@/lib/api/clientApi";
+import { useAuthStore } from "@/lib/store/authStore";
 
-import AuthNavigation from '../AuthNavigation/AuthNavigation';
-import MobileMenu from '../MobileMenu/MobileMenu';
-import ConfirmModal from '../ConfirmModal/ConfirmModal';
+import AuthNavigation from "../AuthNavigation/AuthNavigation";
+import MobileMenu from "../MobileMenu/MobileMenu";
+import ConfirmModal from "../ConfirmModal/ConfirmModal";
 
-import mainCss from '@/app/Home.module.css';
-import css from './Header.module.css';
+import mainCss from "@/app/Home.module.css";
+import css from "./Header.module.css";
 
 export default function Header() {
   const { user, isAuthenticated, clearIsAuthenticated } = useAuthStore();
@@ -22,9 +22,9 @@ export default function Header() {
   const [mounted, setMounted] = useState(false);
 
   const pathname = usePathname();
-  const isHomePage = pathname === '/';
- 
-  const isAuthPage = pathname?.startsWith('/auth') ?? false;
+  const isHomePage = pathname === "/";
+
+  const isAuthPage = pathname?.startsWith("/auth") ?? false;
 
   useEffect(() => {
     const rafId = requestAnimationFrame(() => {
@@ -38,14 +38,14 @@ export default function Header() {
     try {
       await logout();
       clearIsAuthenticated();
-      toast.success('Ви успішно вийшли з системи');
+      toast.success("Ви успішно вийшли з системи");
       setIsOpenConfirmModal(false);
       if (isMobileMenuOpen) {
         setIsMobileMenuOpen(false);
       }
     } catch (error) {
       console.error(error);
-      toast.error('Сталася помилка при виході');
+      toast.error("Сталася помилка при виході");
     }
   };
 
@@ -69,7 +69,12 @@ export default function Header() {
           <div className={css.headerContainer}>
             <Link className={css.headerLinkLogo} href="/">
               <div className={css.logo_icon}>
-                <svg className={css.logo_iconSvg} width="23" height="23" aria-hidden="true">
+                <svg
+                  className={css.logo_iconSvg}
+                  width="23"
+                  height="23"
+                  aria-hidden="true"
+                >
                   <use href="/sprite.svg#icon-plant_logo" />
                 </svg>
               </div>
@@ -97,7 +102,10 @@ export default function Header() {
                     </li>
                   </ul>
 
-                  <ul className={css.navigationItemProfile} suppressHydrationWarning>
+                  <ul
+                    className={css.navigationItemProfile}
+                    suppressHydrationWarning
+                  >
                     {mounted ? (
                       isAuthenticated ? (
                         <>
@@ -116,17 +124,9 @@ export default function Header() {
                         </>
                       ) : (
                         <>
-                          <li className={css.navigationAuth}>
-                            <Link
-                              href="/auth/login"
-                              prefetch={false}
-                              className={css.linkAuth}
-                              style={{ padding: '4px 0', marginRight: '32px' }}
-                            >
-                              Опублікувати Історію
-                            </Link>
-                          </li>
-                          <li className={`${css.navigationAuth} ${finalNavigationLog}`}>
+                          <li
+                            className={`${css.navigationAuth} ${finalNavigationLog}`}
+                          >
                             <Link
                               href="/auth/login"
                               prefetch={false}
@@ -135,7 +135,9 @@ export default function Header() {
                               Вхід
                             </Link>
                           </li>
-                          <li className={`${css.navigationAuth} ${finalNavigationReg}`}>
+                          <li
+                            className={`${css.navigationAuth} ${finalNavigationReg}`}
+                          >
                             <Link
                               href="/auth/register"
                               prefetch={false}
@@ -147,15 +149,18 @@ export default function Header() {
                         </>
                       )
                     ) : (
-                      <div className={css.skeletonAuth} style={{ width: 150, height: 32 }} />
+                      <div
+                        className={css.skeletonAuth}
+                        style={{ width: 150, height: 32 }}
+                      />
                     )}
                   </ul>
                 </nav>
               )}
 
-              {!isAuthPage && (
+              {mounted && isAuthenticated && (
                 <Link
-                  href={isAuthenticated ? '/stories/create' : '/auth/login'}
+                  href="/stories/create"
                   className={`${css.storyTablet} ${css.storyTabletLink} ${
                     isHomePage ? css.storyTabTransp : css.storyTabMain
                   }`}
@@ -181,7 +186,6 @@ export default function Header() {
         </div>
       </header>
 
-      
       {!isAuthPage && (
         <MobileMenu
           isOpen={isMobileMenuOpen}

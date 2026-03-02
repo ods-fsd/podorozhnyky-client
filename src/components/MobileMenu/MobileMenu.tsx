@@ -99,13 +99,15 @@ export default function MobileMenu({
           <div className={css.authButtonsWrapper}>
             <div className={css.authContent}>
               <div className={finalStoryButtonEl}>
-                <Link
-                  href={isAuthenticated ? "/stories/create/" : "/auth/login"}
-                  className={css.storyLinkElMob}
-                  onClick={onClose}
-                >
-                  Опублікувати Історію
-                </Link>
+                {isAuthenticated && ( ///Vlad виправлення кнопки
+                  <Link
+                    href="/stories/create"
+                    className={css.storyLinkElMob}
+                    onClick={onClose}
+                  >
+                    Опублікувати Історію
+                  </Link>
+                )}
               </div>
 
               {isAuthenticated ? (
