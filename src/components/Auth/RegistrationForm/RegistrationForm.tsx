@@ -56,13 +56,15 @@ export default function RegistrationForm() {
       const token = (data.accessToken || data.token) as string | undefined;
       setUser(data.user, token);
 
-      try {
-        const fullUserReq = await fetchCurrentUser();
-        if (fullUserReq?.data) {
-          setUser(fullUserReq.data.user, token);
+      if (token) {
+        try {
+          const fullUserReq = await fetchCurrentUser();
+          if (fullUserReq?.data) {
+            setUser(fullUserReq.data.user, token);
+          }
+        } catch (err) {
+          console.error("Failed to fetch full user info:", err);
         }
-      } catch (err) {
-        console.error("Failed to fetch full user info:", err);
       }
 
       toast.success('Реєстрація успішна!');
