@@ -20,7 +20,6 @@ export const PageToggle = () => {
         Збережені історії
       </Link>
 
-      {/* ДРУГА ВКЛАДКА - Мої історії */}
       <Link
         href="/profile/own"
         className={`${css.tab} ${isOwnActive ? css.active : ""}`}
