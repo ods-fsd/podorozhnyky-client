@@ -5,7 +5,8 @@
 
 .titles {
   text-align: left;
-  margin-bottom: 32px;
+  padding: 32px 0;
+  /* margin-bottom: 32px; */
   font-family: var(--second-family);
   font-weight: 700;
   font-size: 32px;
@@ -17,7 +18,8 @@
 .pageTitle {
   width: 335px;
   height: 70px;
-  margin: 0 auto;
+  padding-bottom: 32px;
+  margin-bottom: 32px;
   font-family: var(--second-family);
   font-weight: 700;
   font-size: 32px;
@@ -28,7 +30,6 @@
 
 .historyWrapper {
   display: flex;
-  gap: 32px;
   flex-direction: column;
   align-items: left;
   background-color: var(--background);
@@ -40,7 +41,7 @@
 @media screen and (min-width: 768px) {
   .titles {
     text-align: left;
-    margin-bottom: 32px;
+
     font-weight: 700;
     font-size: 48px;
     line-height: 110%;
@@ -51,6 +52,8 @@
     font-size: 48px;
     width: 704px;
     height: 53px;
+    padding-bottom: 32px;
+    margin-bottom: 32px;
     font-weight: 700;
     font-size: 48px;
     line-height: 110%;
@@ -59,7 +62,6 @@
   }
   .historyWrapper {
     display: flex;
-    gap: 32px;
     flex-direction: column;
     align-items: center;
     background-color: var(--background);
@@ -72,7 +74,7 @@
 @media screen and (min-width: 1440px) {
   .titles {
     text-align: left;
-    margin-bottom: 48px;
+    padding: 48px 0;
     font-weight: 700;
     font-size: 56px;
     line-height: 110%;
@@ -82,7 +84,8 @@
   .pageTitle {
     text-align: left;
     height: 56px;
-    margin: 0;
+    padding-bottom: 32px;
+    margin-bottom: 32px;
     font-weight: 700;
     font-size: 56px;
     line-height: 110%;
