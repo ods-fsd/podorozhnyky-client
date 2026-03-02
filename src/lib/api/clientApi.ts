@@ -69,11 +69,11 @@ export const checkSession = async (): Promise<boolean> => {
 
 export const getGoogleAuthUrl = async () => {
   const res = await nextServer.get("/auth/google-url");
-  return res.data?.data ?? { url: "" };
+  return res.data?.url ? res.data : { url: "" };
 };
 
 export const loginWithGoogle = (body: { code: string }) =>
-  nextServer.post("/auth/login/google", body);
+  nextServer.post("/auth/google-confirm", body);
 
 export async function updateEmail(newEmail: string) {
   const res = await nextServer.post("/auth/send-change-email", { newEmail });
