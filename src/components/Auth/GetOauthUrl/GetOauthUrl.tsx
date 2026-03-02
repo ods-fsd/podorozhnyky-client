@@ -1,44 +1,30 @@
 'use client';
-
-import { loginWithGoogle } from '@/lib/api/clientApi';
-import { useAuthStore } from '@/lib/store/authStore';
-import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect } from 'react';
-import css from './GetOauthUrl.module.css';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { useAuthStore } from '@/lib/store/authStore';
+import { loginWithGoogle } from '@/lib/api/clientApi';
 
-export default function GetOauthUrl() {
-  const router = useRouter();
+export const GoogleCallback = () => {
   const searchParams = useSearchParams();
-  const setUser = useAuthStore(state => state.setUser);
+  const router = useRouter();
+  const setAuth = useAuthStore((state) => state.setUser);
 
   useEffect(() => {
     const code = searchParams.get('code');
 
-    if (!code) {
-      router.replace('/auth/login');
-      return;
+    if (code) {
+      loginWithGoogle({ code })
+        .then(({ data }) => {
+          setAuth(data.data.user, data.data.token);
+          router.push('/profile');
+        })
+        .catch((err) => {
+          console.error('Помилка авторизації через Google:', err);
+          router.push('/auth/login?error=oauth_failed');
+        });
     }
+  }, [searchParams, router, setAuth]);
 
-    const sendCodeToBackend = async () => {
-      try {
-        const { data } = await loginWithGoogle({ code });
-        setUser(data.data.user, data.data.token);
-        router.push('/');
-      } catch (error) {
-        console.error('Помилка авторизації через Google:', error);
-        router.replace('/auth/login');
-      }
-    };
+  return <div>Авторизація... Будь ласка, зачекайте.</div>;
 
-    sendCodeToBackend();
-  }, [router, searchParams, setUser]);
-
-  return (
-    <div className={css.overlay}>
-      <div className={css.loaderBox}>
-        <span className={css.spinner}></span>
-        <p className={css.text}>Виконується вхід через Google...</p>
-      </div>
-    </div>
-  );
-}
+};

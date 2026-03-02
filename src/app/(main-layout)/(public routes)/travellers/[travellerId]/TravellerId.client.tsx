@@ -27,13 +27,13 @@ async function fetchStoriesPage(
   const json = await res.json();
 
   return {
-    page: json.page,
-    perPage: json.perPage,
-    totalPages: json.totalPages,
-    totalItems: json.totalItems,
-    hasNextPage: json.hasNextPage,
-    hasPreviousPage: json.hasPreviousPage,
-    data: json.data.articles as IStory[],
+    page: json.data.stories.page,
+    perPage: json.data.stories.perPage,
+    totalPages: json.data.stories.totalPages,
+    totalItems: json.data.stories.totalItems,
+    hasNextPage: json.data.stories.hasNextPage,
+    hasPreviousPage: json.data.stories.hasPreviousPage,
+    data: json.data.stories.data as IStory[],
   };
 }
 
@@ -79,6 +79,7 @@ export default function TravellerStoriesWrapper({
       hasNextPage={hasNextPage}
       isFetchingNextPage={query.isFetchingNextPage}
       onLoadMore={handleClick}
+      disableProfileLink={true}
     />
   );
 }

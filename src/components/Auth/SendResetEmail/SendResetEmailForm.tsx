@@ -38,8 +38,8 @@ export default function SendResetEmailForm() {
           return;
         }
         if (status === 404) {
-          toast.error('Користувача з даною поштою не існує.');
-          setMessage('Користувача з даною поштою не існує.');
+          toast.error('Некоректна пошта.');
+          setMessage('Некоректна пошта.');
           return;
         }
         if (status === 500) {
