@@ -1,11 +1,64 @@
-.page {
-    width: 100%;
-    min-height: 100vh;
+.containerOne {
+  margin: 0 auto;
 }
 
-.title {
-    text-align: center;
-    margin-bottom: 32px;
-    font-size: 32px;
-    font-weight: bold;
+.pageTitle {
+  width: 335px;
+  height: 70px;
+  margin: 0 auto;
+  font-size: 32px;
+  font-family: var(--second-family);
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.historyWrapper {
+  display: flex;
+  gap: 32px;
+  flex-direction: column;
+  align-items: center;
+  background-color: var(--background);
+  padding-top: 32x;
+  /* padding-bottom: 48px; */
+}
+
+/* Styles for Tablet devices */
+@media screen and (min-width: 768px) {
+  .pageTitle {
+    font-size: 48px;
+    width: 704px;
+    height: 53px;
+  }
+  .historyWrapper {
+    display: flex;
+    gap: 32px;
+    flex-direction: column;
+    align-items: center;
+    background-color: var(--background);
+    padding-top: 32px;
+    /* padding-bottom: 48px; */
+  }
+}
+
+/* Styles for Desktop devices */
+@media screen and (min-width: 1440px) {
+  .pageTitle {
+    text-align: left;
+    height: 56px;
+    margin: 0;
+  }
+
+  .historyWrapper {
+    align-items: flex-start;
+  }
+
+  .historyWrapper {
+    display: flex;
+    gap: 48px;
+    flex-direction: column;
+    align-items: center;
+    background-color: var(--background);
+    padding-top: 48px;
+    /* padding-bottom: 48px; */
+  }
 }
