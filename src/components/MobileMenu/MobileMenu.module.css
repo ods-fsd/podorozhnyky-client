@@ -93,10 +93,6 @@
   opacity: 0.7;
 }
 
-.authButtonsWrapper {
-  margin-top: auto;
-}
-
 .authButtons {
   display: flex;
   flex-direction: column;
@@ -112,7 +108,7 @@
   cursor: pointer;
   font-size: 16px;
   font-weight: 500;
-  padding: 12px 0;
+  padding: 4px 0;
   transition:
     opacity 0.2s ease,
     background-color 0.2s ease;
@@ -123,7 +119,7 @@
 }
 
 .menuButtonLogin {
-  background-color: var(--color-white);
+  background-color: rgba(0, 0, 0, 0.05);
   color: var(--color-neutral-darkest);
   border: 1px solid var(--border, rgba(0, 0, 0, 0.15));
 }
@@ -161,7 +157,7 @@
 .storyLinkElMob {
   display: block;
   text-align: center;
-  padding: 12px 0;
+  padding: 4px 0;
   border-radius: 8px;
   text-decoration: none;
   font-weight: 500;
