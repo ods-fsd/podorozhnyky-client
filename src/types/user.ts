@@ -70,6 +70,8 @@ export type GetUserByIdResponse = {
   message: string;
   data: {
     user: IUser | null;
-    articles: IStory[];
+    stories: {
+      data: IStory[];
+    } & IPagination;
   };
-} & IPagination;
+};

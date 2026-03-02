@@ -11,6 +11,7 @@ interface TravellersStoriesProps {
   isFetchingNextPage?: boolean;
   isOwn?: boolean;
   isHiddenOnMobileButton?: boolean;
+  disableProfileLink?: boolean;
 }
 
 const TravellersStories = ({
@@ -20,6 +21,7 @@ const TravellersStories = ({
   isFetchingNextPage,
   isOwn,
   isHiddenOnMobileButton,
+  disableProfileLink,
 }: TravellersStoriesProps) => {
   return (
     <>
@@ -28,6 +30,7 @@ const TravellersStories = ({
           <TravellersStoriesItem
             story={story}
             isOwn={isOwn}
+            disableProfileLink={disableProfileLink}
             key={`${story._id}-${index}`}
           />
         ))}

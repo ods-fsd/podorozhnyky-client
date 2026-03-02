@@ -2,6 +2,7 @@
 
 import { getGoogleAuthUrl } from '@/lib/api/clientApi';
 import { useState } from 'react';
+import toast from 'react-hot-toast';
 import css from './LoginWithGoogle.module.css';
 
 export default function LoginWithGoogle() {
@@ -14,7 +15,7 @@ export default function LoginWithGoogle() {
 
       window.location.href = url;
     } catch {
-      alert('Не вдалося отримати Google OAuth URL');
+      toast.error('Не вдалося отримати Google OAuth URL');
     } finally {
       setLoading(false);
     }

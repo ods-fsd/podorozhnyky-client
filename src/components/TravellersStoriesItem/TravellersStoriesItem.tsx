@@ -17,11 +17,13 @@ import css from "./TravellersStoriesItem.module.css";
 interface TravellersStoriesItemProps {
   story: IStory;
   isOwn?: boolean;
+  disableProfileLink?: boolean;
 }
 
 export const TravellersStoriesItem = ({
   story,
   isOwn = false,
+  disableProfileLink = false,
 }: TravellersStoriesItemProps) => {
   const router = useRouter();
   const queryClient = useQueryClient();
@@ -128,21 +130,41 @@ export const TravellersStoriesItem = ({
 
           <div className={css.footerWrapper}>
             <div className={css.userWrapper}>
-              <Link href={`/travellers/${story.ownerId?._id}`} className={css.avatarLink}>
-                <div className={css.avatarWrapper}>
-                  <Image
-                    className={css.avatarImage}
-                    src={story.ownerId?.avatarUrl || "/placeholder-image.png"}
-                    alt={story.ownerId?.name || "User"}
-                    width={48}
-                    height={48}
-                  />
+              {disableProfileLink ? (
+                <div className={css.avatarLink}>
+                  <div className={css.avatarWrapper}>
+                    <Image
+                      className={css.avatarImage}
+                      src={story.ownerId?.avatarUrl || "/placeholder-image.png"}
+                      alt={story.ownerId?.name || "User"}
+                      width={48}
+                      height={48}
+                    />
+                  </div>
                 </div>
-              </Link>
-              <div className={css.userInfoWrapper}>
-                <Link href={`/travellers/${story.ownerId?._id}`} className={css.nameLink}>
-                  <p className={css.userName}>{story.ownerId?.name}</p>
+              ) : (
+                <Link href={`/travellers/${story.ownerId?._id}`} className={css.avatarLink}>
+                  <div className={css.avatarWrapper}>
+                    <Image
+                      className={css.avatarImage}
+                      src={story.ownerId?.avatarUrl || "/placeholder-image.png"}
+                      alt={story.ownerId?.name || "User"}
+                      width={48}
+                      height={48}
+                    />
+                  </div>
                 </Link>
+              )}
+              <div className={css.userInfoWrapper}>
+                {disableProfileLink ? (
+                  <div className={css.nameLink}>
+                    <p className={css.userName}>{story.ownerId?.name}</p>
+                  </div>
+                ) : (
+                  <Link href={`/travellers/${story.ownerId?._id}`} className={css.nameLink}>
+                    <p className={css.userName}>{story.ownerId?.name}</p>
+                  </Link>
+                )}
                 <div className={css.infoWrapper}>
                   <p className={css.date}>{ISODateToDate(rawDate)}</p>
                   <span className={css.separator}>•</span>
