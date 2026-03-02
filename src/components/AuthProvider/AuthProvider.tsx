@@ -16,6 +16,12 @@ export default function AuthProvider({ children }: AuthProviderProps) {
 
   useEffect(() => {
     const fetchUser = async () => {
+      const token = localStorage.getItem("auth-token");
+      if (!token) {
+        clearIsAuthenticated();
+        return;
+      }
+
       try {
         const isAuthenticated = await checkSession();
 
