@@ -114,7 +114,7 @@ const StoryDetails = ({ storyId }: { storyId: string }) => {
           </p>
         </div>
 
-        <p className={css.infoCategory}>{story.category.name}</p>
+        <p className={css.infoCategory}>{story.category?.name}</p>
       </div>
 
       <Image

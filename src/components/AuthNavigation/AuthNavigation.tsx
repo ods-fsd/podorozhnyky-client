@@ -49,7 +49,7 @@ export default function AuthNavigation() {
             <div className={css.userDefaultPhoto} aria-hidden="true" />
           )}
         </Link>
-        <Link href="/user-edit" className={css.headerLinkNav}>
+        <Link href="/edit" className={css.headerLinkNav}>
           {user?.name || "Ім'я"}
         </Link>
         <span className={css.line} aria-hidden="true"></span>

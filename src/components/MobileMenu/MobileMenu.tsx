@@ -113,7 +113,7 @@ export default function MobileMenu({
               {isAuthenticated ? (
                 <div className={css.navUserWrapper}>
                   <Link
-                    href="/user-edit"
+                    href="/edit"
                     className={css.profileLinkMobile}
                     onClick={onClose}
                   >
