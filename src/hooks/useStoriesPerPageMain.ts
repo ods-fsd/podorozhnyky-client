@@ -11,7 +11,7 @@ type PerPageConfig = {
 const DEFAULT_CONFIG: Required<PerPageConfig> = {
   desktop: 3,
   tablet: 4,
-  mobile: 3,
+  mobile: 2,
 };
 
 export function useStoriesPerPageMain(config?: PerPageConfig) {
