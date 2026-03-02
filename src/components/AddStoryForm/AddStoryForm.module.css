@@ -341,11 +341,11 @@
 }
 
 /* Styles for Desktop devices */
-@media (min-width: 768px) and (max-width: 1439px) {
+/* @media (min-width: 768px) and (max-width: 1439px) {
   .form {
     gap: 24px;
   }
-}
+} */
 
 /* Styles for Large Desktop devices */
 @media (min-width: 1440px) {

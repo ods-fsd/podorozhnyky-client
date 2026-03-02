@@ -15,9 +15,12 @@ export default async function EditStoryPage({
   const story = await fetchStoryById(storyId);
 
   return (
-    <section className={css.page}>
-      <div className="container" style={{ paddingTop: '40px', paddingBottom: '40px' }}>
-        <h1 className={css.title}>Редагувати історію</h1>
+    <section className={css.pages}>
+      <div
+        className="containers"
+        style={{ paddingTop: "40px", paddingBottom: "40px" }}
+      >
+        <h1 className={css.titles}>Редагувати історію</h1>
         <AddStoryForm storyId={storyId} story={story || undefined} />
       </div>
     </section>
