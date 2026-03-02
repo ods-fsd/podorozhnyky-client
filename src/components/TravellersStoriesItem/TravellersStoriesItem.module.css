@@ -113,10 +113,10 @@
 }
 
 .avatarImage {
-  border-radius: 50%;
-  width: 48px;
-  height: 48px;
-  object-fit: cover;
+    border-radius: 50%;
+    width: 48px;
+    height: 48px;
+    object-fit: cover;
 }
 
 .userName {
@@ -152,7 +152,8 @@
 }
 
 .favoriteIcon,
-.bookmarkIcon {
+.bookmarkIcon,
+.actionIcon {
     fill: var(--text);
 }
 
@@ -177,6 +178,7 @@
     color: var(--text);
 }
 
+.actionButton,
 .bookmarkStory {
     border: 1px solid var(--button-border);
     border-radius: 8px;
@@ -185,6 +187,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
 }
 
 .bookmarkStoryActive {
@@ -195,11 +198,13 @@
     fill: var(--button-hover-text);
 }
 
+.actionIcon,
 .bookmarkIcon {
     transition: fill 0.2s ease;
 }
 
 .showStory:hover,
+.actionButton:hover,
 .bookmarkStory:hover {
     background-color: var(--button-hover);
     color: var(--button-hover-text);
@@ -209,7 +214,12 @@
     fill: var(--button-hover-text);
 }
 
+.actionButton:hover .actionIcon {
+    fill: var(--button-hover-text);
+}
+
 .showStory:active,
+.actionButton:active,
 .bookmarkStory:active {
     background-color: var(--button-active);
 }
