@@ -136,7 +136,7 @@
   }
 
   .navigation {
-    display: flex;
+    display: none;
     align-items: center;
   }
 
@@ -179,6 +179,7 @@
   }
 
   .navigation {
+    display: flex;
     gap: 32px;
     margin-left: 32px;
   }
