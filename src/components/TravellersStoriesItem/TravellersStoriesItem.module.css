@@ -158,7 +158,7 @@
 }
 
 .favoriteIconActive {
-  fill: var(--color-neutral-darkest, #000000);
+  fill: var(--text);
 }
 
 .buttonsWrapper {
