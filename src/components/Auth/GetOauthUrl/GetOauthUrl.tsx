@@ -1,5 +1,5 @@
 'use client';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useAuthStore } from '@/lib/store/authStore';
 import { loginWithGoogle } from '@/lib/api/clientApi';
@@ -8,11 +8,13 @@ export const GoogleCallback = () => {
   const searchParams = useSearchParams();
   const router = useRouter();
   const setAuth = useAuthStore((state) => state.setUser);
+  const isFetching = useRef(false);
 
   useEffect(() => {
     const code = searchParams.get('code');
 
-    if (code) {
+    if (code && !isFetching.current) {
+      isFetching.current = true;
       loginWithGoogle({ code })
         .then(({ data }) => {
           setAuth(data.user, data.token);
