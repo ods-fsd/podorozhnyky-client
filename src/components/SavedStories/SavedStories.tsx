@@ -28,7 +28,7 @@ const SavedStories = () => {
   if (isLoading) return <p>Завантаження збережених історій...</p>;
   if (isError) return <p>Помилка завантаження.</p>;
 
-  // РОЗУМНИЙ ПОШУК: Шукаємо саме масив (Array), щоб не пропустити об'єкти без історій
+
   const stories =
     data?.pages.flatMap((page) => {
       if (Array.isArray(page?.data?.data)) return page.data.data;

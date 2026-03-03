@@ -8,15 +8,14 @@ export default function TanStackProvider({
 }: {
   children: React.ReactNode;
 }) {
-  // Створюємо клієнт для кешування даних.
-  // useState гарантує, що він не буде перестворюватися при кожному рендері.
+  
   const [queryClient] = useState(
     () =>
       new QueryClient({
         defaultOptions: {
           queries: {
-            refetchOnWindowFocus: false, // щоб не робити зайвих запитів, коли перемикаєш вкладки
-            staleTime: 60 * 1000, // дані вважаються "свіжими" 1 хвилину
+            refetchOnWindowFocus: false, 
+            staleTime: 60 * 1000, 
           },
         },
       }),
