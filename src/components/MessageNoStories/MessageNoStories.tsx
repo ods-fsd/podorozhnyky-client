@@ -7,25 +7,15 @@ import styles from "./MessageNoStories.module.css";
 import { useRouter } from "next/navigation";
 
 export type MessageNoStoriesProps = {
-  /**
-   * Текст сповіщення, який відображається користувачу.
-   */
+ 
   text?: string;
-  /**
-   * Текст на кнопці дії.
-   */
+  
   buttonText?: string;
-  /**
-   * Маршрут для навігації (використовується, якщо не передано onClick).
-   */
+  
   route?: "/stories" | "/stories-create/create" | string;
-  /**
-   * Опціональний обробник кліку. Якщо передано, використовуємо його замість навігації.
-   */
+  
   onClick?: () => void;
-  /**
-   * Опціональний клас для додаткового стилювання контейнера.
-   */
+ 
   className?: string;
 };
 
