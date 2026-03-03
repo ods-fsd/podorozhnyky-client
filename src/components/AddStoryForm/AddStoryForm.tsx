@@ -33,7 +33,6 @@ const AddStoryForm = ({
 }) => {
   const fieldId = useId();
 
-  // Create validation schema based on whether we're editing or creating
   const validationSchema = Yup.object<CreateStory>({
     storyImage: storyId
       ? Yup.mixed<File>()
