@@ -25,7 +25,7 @@ export async function GET(
       logErrorResponse(error.response?.data);
       return NextResponse.json(
         { error: error.message, response: error.response?.data },
-        { status: error.status },
+        { status: error.response?.status || 500 },
       );
     }
 
@@ -55,6 +55,7 @@ export async function PATCH(
     const res = await api.patch(`/stories/${storyId}`, formData, {
       headers: {
         Cookie: cookieStore.toString(),
+        Authorization: `Bearer ${accessToken.value}`,
       },
       validateStatus: () => true,
     });
@@ -65,7 +66,7 @@ export async function PATCH(
       logErrorResponse(error.response?.data);
       return NextResponse.json(
         { error: error.message, response: error.response?.data },
-        { status: error.status },
+        { status: error.response?.status || 500 },
       );
     }
 
@@ -93,17 +94,21 @@ export async function DELETE(
     const res = await api.delete(`/stories/${storyId}`, {
       headers: {
         Cookie: cookieStore.toString(),
+        Authorization: `Bearer ${accessToken.value}`,
       },
       validateStatus: () => true,
     });
 
+    if (res.status === 204) {
+      return new NextResponse(null, { status: 204 });
+    }
     return NextResponse.json(res.data, { status: res.status });
   } catch (error) {
     if (isAxiosError(error)) {
       logErrorResponse(error.response?.data);
       return NextResponse.json(
         { error: error.message, response: error.response?.data },
-        { status: error.status },
+        { status: error.response?.status || 500 },
       );
     }
 

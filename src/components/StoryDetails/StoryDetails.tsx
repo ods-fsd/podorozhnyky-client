@@ -14,6 +14,7 @@ import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useQueryClient } from "@tanstack/react-query";
 import { useAuthStore } from "@/lib/store/authStore";
+import { isAxiosError } from "axios";
 import Loader from "../Loader/Loader";
 import FavoriteActions from "./FavoriteActions/FavoriteActions";
 import css from "./StoryDetails.module.css";
@@ -94,8 +95,16 @@ const StoryDetails = ({ storyId }: { storyId: string }) => {
       toast.success("Історію видалено");
       router.push("/stories");
       router.refresh();
-    } catch {
-      toast.error("Помилка під час видалення");
+    } catch (error) {
+      if (isAxiosError(error) && error.response?.status === 404) {
+        await queryClient.invalidateQueries({ queryKey: ["stories"] });
+        await queryClient.invalidateQueries({ queryKey: ["savedStories"] });
+        toast.success("Історію вже було видалено");
+        router.push("/stories");
+        router.refresh();
+      } else {
+        toast.error("Помилка під час видалення");
+      }
     }
   };
 
