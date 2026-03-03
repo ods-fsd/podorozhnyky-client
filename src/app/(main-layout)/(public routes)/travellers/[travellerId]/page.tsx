@@ -18,13 +18,13 @@ import type { PaginatedStoriesResponse } from '@/types/story';
 
 type PageProps = { params: Promise<{ travellerId: string }> };
 
-const APP_URL = process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:5000';
+const backendUrl = (process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api').replace(/\/$/, '');
 
 async function fetchTravellerFirstPage(
   travellerId: string
 ): Promise<{ user: IUser | null; storiesPage: PaginatedStoriesResponse }> {
   const res = await fetch(
-    `${APP_URL}/api/users/${travellerId}?page=1&perPage=6`,
+    `${backendUrl}/users/${travellerId}?page=1&perPage=6`,
     { next: { revalidate: 60 } }
   );
 
