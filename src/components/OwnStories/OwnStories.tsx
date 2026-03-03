@@ -34,7 +34,7 @@ const OwnStories = () => {
       if (Array.isArray(page?.data)) return page.data;
       if (Array.isArray(page?.data?.stories)) return page.data.stories;
       if (Array.isArray(page?.stories)) return page.stories;
-      return []; // Якщо нічого з цього не є масивом, значить історій нуль
+      return []; 
     }) || [];
 
   return (
