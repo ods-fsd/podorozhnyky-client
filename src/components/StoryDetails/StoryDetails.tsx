@@ -28,7 +28,7 @@ const StoryDetails = ({ storyId }: { storyId: string }) => {
   const queryClient = useQueryClient();
 
   const isFavorite =
-    user?.favorites?.some((fav) => fav._id === storyId) ?? false;
+    user?.favorites?.some((fav) => fav?._id === storyId) ?? false;
 
   useEffect(() => {
     const loadStory = async () => {
@@ -105,8 +105,8 @@ const StoryDetails = ({ storyId }: { storyId: string }) => {
         <div className={css.infoDetails}>
           <p className={css.value}>
             <strong className={css.label}>Автор статті:</strong>{" "}
-            <Link href={`/travellers/${story.ownerId._id}`} className={css.authorLink}>
-              {story.ownerId.name}
+            <Link href={`/travellers/${story.ownerId?._id}`} className={css.authorLink}>
+              {story.ownerId?.name}
             </Link>
           </p>
           <p className={css.value}>
@@ -134,7 +134,7 @@ const StoryDetails = ({ storyId }: { storyId: string }) => {
           isFavorite={isFavorite}
           saving={saving}
           onToggle={toggleFavorite}
-          isOwner={user?._id === story.ownerId._id}
+          isOwner={user?._id === story.ownerId?._id}
           onDelete={deleteHandler}
         />
       </div>

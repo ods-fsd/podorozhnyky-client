@@ -26,14 +26,17 @@ const TravellersStories = ({
   return (
     <>
       <ul className={css.storiesList}>
-        {stories.map((story, index) => (
-          <TravellersStoriesItem
-            story={story}
-            isOwn={isOwn}
-            disableProfileLink={disableProfileLink}
-            key={`${story._id}-${index}`}
-          />
-        ))}
+        {stories.map((story, index) => {
+          if (!story) return null;
+          return (
+            <TravellersStoriesItem
+              story={story}
+              isOwn={isOwn}
+              disableProfileLink={disableProfileLink}
+              key={`${story._id}-${index}`}
+            />
+          );
+        })}
       </ul>
       {onLoadMore && hasNextPage && !isHiddenOnMobileButton && (
         <button

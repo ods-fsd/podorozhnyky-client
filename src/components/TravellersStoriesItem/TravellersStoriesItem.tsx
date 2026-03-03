@@ -58,7 +58,7 @@ export const TravellersStoriesItem = ({
     router.push(`/stories/${story._id}`);
   };
 
-  const isFavorite = user?.favorites?.some((fav) => fav._id === story._id);
+  const isFavorite = user?.favorites?.some((fav) => fav?._id === story._id);
 
   const handleBookmarkClick = async () => {
     if (!isAuthenticated) {
@@ -78,7 +78,7 @@ export const TravellersStoriesItem = ({
       if (isFavorite) {
         await removeFavorite(story._id);
         setBookmarkCounter((prev) => Math.max(0, prev - 1));
-        newFavorites = newFavorites.filter((fav) => fav._id !== story._id);
+        newFavorites = newFavorites.filter((fav) => fav?._id !== story._id);
         toast.success("Видалено зі збережених");
       } else {
         await addFavorite(story._id);
