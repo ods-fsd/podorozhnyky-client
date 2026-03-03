@@ -15,7 +15,7 @@ export const GoogleCallback = () => {
     if (code) {
       loginWithGoogle({ code })
         .then(({ data }) => {
-          setAuth(data.data.user, data.data.token);
+          setAuth(data.user, data.token);
           router.push('/profile');
         })
         .catch((err) => {
