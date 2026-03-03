@@ -12,7 +12,7 @@
   font-size: 32px;
   line-height: 110%;
   letter-spacing: -0.01em;
-  color: var(--color-scheme-2-text);
+  color: var(--text);
 }
 
 .pageTitle {
@@ -25,7 +25,7 @@
   font-size: 32px;
   line-height: 110%;
   letter-spacing: -0.01em;
-  color: var(--color-scheme-2-text);
+  color: var(--text);
 }
 
 .historyWrapper {
@@ -46,7 +46,7 @@
     font-size: 48px;
     line-height: 110%;
     letter-spacing: -0.01em;
-    color: var(--color-scheme-2-text);
+    color: var(--text);
   }
   .pageTitle {
     font-size: 48px;
@@ -58,7 +58,7 @@
     font-size: 48px;
     line-height: 110%;
     letter-spacing: -0.01em;
-    color: var(--color-scheme-2-text);
+    color: var(--text);
   }
   .historyWrapper {
     display: flex;
