@@ -191,11 +191,11 @@
 }
 
 .bookmarkStoryActive {
-  background-color: var(--color-royal-blue-darker, #1a2a5a);
+  background-color: #5872c0;
 }
 
 .bookmarkStoryActive .bookmarkIcon {
-  fill: var(--button-hover-text);
+  fill: var(--text);
 }
 
 .actionIcon,
