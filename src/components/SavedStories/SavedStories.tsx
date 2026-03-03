@@ -3,6 +3,8 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { nextServer } from "@/lib/api/api";
 import TravellersStories from "@/components/TravellersStories/TravellersStories";
+import MessageNoStories from "@/components/MessageNoStories/MessageNoStories";
+
 
 const fetchSavedStories = async ({ pageParam = 1 }) => {
   const { data } = await nextServer.get(
@@ -36,26 +38,23 @@ const SavedStories = () => {
       return []; 
     }) || [];
 
-  if (stories.length === 0) {
-    return (
-      <div style={{ textAlign: "center", padding: "40px 0" }}>
-        <h3 style={{ marginBottom: "16px" }}>
-          У вас ще немає збережених історій...
-        </h3>
-        <button style={{ padding: "10px 20px", cursor: "pointer" }}>
-          До історій
-        </button>
-      </div>
-    );
-  }
-
   return (
-    <TravellersStories
-      stories={stories}
-      onLoadMore={() => fetchNextPage()}
-      hasNextPage={!!hasNextPage}
-      isOwn={false} 
-    />
+    <div style={{ paddingBottom: "80px" }}>
+      {stories.length === 0 ? (
+        <MessageNoStories 
+          text="У вас ще немає збережених історій..." 
+          buttonText="До історій"
+          route="/stories"
+        />
+      ) : (
+        <TravellersStories
+          stories={stories}
+          onLoadMore={() => fetchNextPage()}
+          hasNextPage={!!hasNextPage}
+          isOwn={false} 
+        />
+      )}
+    </div>
   );
 };
 
