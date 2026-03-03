@@ -25,7 +25,7 @@ export const ProfileEditForm = () => {
     validationSchema: profileEditSchema,
     enableReinitialize: true,
     onSubmit: async (values) => {
-      // 1. Перевірка, чи взагалі щось змінилося
+      
       const isNameChanged = values.name !== user?.name;
       const isEmailChanged = values.email !== user?.email;
       const isDescriptionChanged = values.description !== user?.description;
@@ -43,7 +43,7 @@ export const ProfileEditForm = () => {
 
       setLoading(true);
       try {
-        // 2. Логіка зміни Email (згідно з ТЗ рядок 86: запит на верифікацію)
+        
         if (isEmailChanged) {
           await updateEmail(values.email);
           toast.success(
@@ -51,7 +51,7 @@ export const ProfileEditForm = () => {
           );
         }
 
-        // 3. Логіка оновлення профілю (Name, Description, Avatar)
+        
         if (isNameChanged || isDescriptionChanged || isAvatarChanged) {
           const formData = new FormData();
           if (isNameChanged) formData.append("name", values.name);
@@ -175,7 +175,7 @@ export const ProfileEditForm = () => {
           <textarea
             id="description"
             name="description"
-            maxLength={150} // Ліміт з ТЗ
+            maxLength={150} 
             className={`${css.textarea} ${formik.touched.description && formik.errors.description ? css.input_error : ""}`}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
