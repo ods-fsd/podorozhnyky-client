@@ -27,7 +27,7 @@ const OwnStories = () => {
   if (isLoading) return <p>Завантаження ваших історій...</p>;
   if (isError) return <p>Помилка завантаження.</p>;
 
-  // РОЗУМНИЙ ПОШУК ІСТОРІЙ:
+  
   const stories =
     data?.pages.flatMap((page) => {
       if (Array.isArray(page?.data?.data)) return page.data.data;

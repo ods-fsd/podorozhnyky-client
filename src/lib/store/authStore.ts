@@ -2,7 +2,7 @@ import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
 import { IUser } from "@/types/user";
 
-// Тимчасові типи для заглушки
+
 interface AuthState {
   user: IUser | null;
   isAuthenticated: boolean;
@@ -11,7 +11,7 @@ interface AuthState {
   clearIsAuthenticated: () => void;
 }
 
-// Створюємо стор авторизації з persist
+
 export const useAuthStore = create<AuthState>()(
   persist(
     (set) => ({

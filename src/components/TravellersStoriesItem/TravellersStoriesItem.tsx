@@ -40,7 +40,7 @@ export const TravellersStoriesItem = ({
 
   if (!story) return null;
 
-  // Форматування дати
+  
   const ISODateToDate = (isoDate?: string) => {
     if (!isoDate) return "Немає дати";
 
