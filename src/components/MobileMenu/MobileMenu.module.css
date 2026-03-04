@@ -120,7 +120,7 @@
 
 .menuButtonLogin {
   background-color: rgba(0, 0, 0, 0.05);
-  color: var(--color-neutral-darkest);
+  color: var(--text);
   border: 1px solid var(--border, rgba(0, 0, 0, 0.15));
 }
 
