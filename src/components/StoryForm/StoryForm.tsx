@@ -13,7 +13,7 @@ export const StoryForm = () => {
     },
     validationSchema: storySchema,
     onSubmit: async (values) => {
-      // Для відправки файлів потрібно використовувати FormData!
+      
       const formData = new FormData();
       formData.append("title", values.title);
       formData.append("description", values.description);
