@@ -6,6 +6,7 @@ import TravellersStories from '@/components/TravellersStories/TravellersStories'
 import type { PaginatedStoriesResponse, IStory } from '@/types/story';
 import type { IUser } from '@/types/user';
 import { useStoriesPerPage } from '@/hooks/useStoriesPerPage';
+import toast from 'react-hot-toast';
 
 type Props = {
   travellerId: string;
@@ -19,7 +20,7 @@ async function fetchStoriesPage(
   perPage: number
 ): Promise<PaginatedStoriesResponse> {
   const res = await fetch(
-    `/api/users/${encodeURIComponent(travellerId)}?page=${page}&perPage=${perPage}`,
+    `/app/api/users/${encodeURIComponent(travellerId)}?page=${page}&perPage=${perPage}`,
     { credentials: 'same-origin' }
   );
 
@@ -66,11 +67,14 @@ export default function TravellerStoriesWrapper({
     return allStories.slice(0, maxVisible);
   }, [allStories, uiPerPage, loadedPagesCount]);
 
-  const hasNextPage = query.hasNextPage ?? initialStories.hasNextPage;
+  const hasNextPage = (query.hasNextPage ?? initialStories.hasNextPage) && !query.isError;
 
   const handleClick = async () => {
     if (!hasNextPage || query.isFetchingNextPage) return;
-    await query.fetchNextPage();
+    const result = await query.fetchNextPage();
+    if (result.isError) {
+      toast.error("Помилка при завантаженні історій");
+    }
   };
 
   return (
