@@ -128,8 +128,8 @@ export default async function TravellerPage({ params }: PageProps) {
           ) : (
             <MessageNoStories
               text="Цей користувач ще не публікував історій"
-              buttonText="Назад до історій"
-              route="/stories"
+              buttonText="Назад до мандрівників"
+              route="/travellers"
               className={css.no_message}
             />
           )}

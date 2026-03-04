@@ -91,6 +91,7 @@ const StoryDetails = ({ storyId }: { storyId: string }) => {
       await deleteStory(storyId);
       await queryClient.invalidateQueries({ queryKey: ["stories"] });
       await queryClient.invalidateQueries({ queryKey: ["savedStories"] });
+      await queryClient.invalidateQueries({ queryKey: ["ownStories"] });
       
       toast.success("Історію видалено");
       router.push("/stories");
@@ -99,6 +100,7 @@ const StoryDetails = ({ storyId }: { storyId: string }) => {
       if (isAxiosError(error) && error.response?.status === 404) {
         await queryClient.invalidateQueries({ queryKey: ["stories"] });
         await queryClient.invalidateQueries({ queryKey: ["savedStories"] });
+        await queryClient.invalidateQueries({ queryKey: ["ownStories"] });
         toast.success("Історію вже було видалено");
         router.push("/stories");
         router.refresh();
