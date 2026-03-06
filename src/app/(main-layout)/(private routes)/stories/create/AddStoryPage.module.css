@@ -1,108 +1,114 @@
 .containerOne,
 .pages {
-  margin: 0 auto;
+    width: 100%;
+    padding: 0 20px;
+    margin: 0 auto;
 }
 
 .titles {
-  text-align: left;
-  padding: 32px 0;
-  /* margin-bottom: 32px; */
-  font-family: var(--second-family);
-  font-weight: 700;
-  font-size: 32px;
-  line-height: 110%;
-  letter-spacing: -0.01em;
-  color: var(--text);
+    text-align: left;
+    padding: 32px 0;
+    /* margin-bottom: 32px; */
+    font-family: var(--second-family);
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 110%;
+    letter-spacing: -0.01em;
+    color: var(--text);
 }
 
 .pageTitle {
-  width: 335px;
-  height: 70px;
-  padding-bottom: 32px;
-  margin-bottom: 32px;
-  font-family: var(--second-family);
-  font-weight: 700;
-  font-size: 32px;
-  line-height: 110%;
-  letter-spacing: -0.01em;
-  color: var(--text);
+    width: 100%;
+    max-width: 335px;
+    height: auto;
+    min-height: 70px;
+    padding-bottom: 32px;
+    margin-bottom: 32px;
+    font-family: var(--second-family);
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 110%;
+    letter-spacing: -0.01em;
+    color: var(--text);
 }
 
 .historyWrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: left;
-  background-color: var(--background);
-  padding-top: 32x;
-  /* padding-bottom: 48px; */
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    background-color: var(--background);
+    padding-top: 32px;
+    /* padding-bottom: 48px; */
 }
 
 /* Styles for Tablet devices */
 @media screen and (min-width: 768px) {
-  .titles {
-    text-align: left;
+    .titles {
+        text-align: left;
 
-    font-weight: 700;
-    font-size: 48px;
-    line-height: 110%;
-    letter-spacing: -0.01em;
-    color: var(--text);
-  }
-  .pageTitle {
-    font-size: 48px;
-    width: 704px;
-    height: 53px;
-    padding-bottom: 32px;
-    margin-bottom: 32px;
-    font-weight: 700;
-    font-size: 48px;
-    line-height: 110%;
-    letter-spacing: -0.01em;
-    color: var(--text);
-  }
-  .historyWrapper {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-color: var(--background);
-    padding-top: 32px;
-    /* padding-bottom: 48px; */
-  }
+        font-weight: 700;
+        font-size: 48px;
+        line-height: 110%;
+        letter-spacing: -0.01em;
+        color: var(--text);
+    }
+
+    .pageTitle {
+        font-size: 48px;
+        width: 704px;
+        height: 53px;
+        padding-bottom: 32px;
+        margin-bottom: 32px;
+        font-weight: 700;
+        font-size: 48px;
+        line-height: 110%;
+        letter-spacing: -0.01em;
+        color: var(--text);
+    }
+
+    .historyWrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background-color: var(--background);
+        padding-top: 32px;
+        /* padding-bottom: 48px; */
+    }
 }
 
 /* Styles for Desktop devices */
 @media screen and (min-width: 1440px) {
-  .titles {
-    text-align: left;
-    padding: 48px 0;
-    font-weight: 700;
-    font-size: 56px;
-    line-height: 110%;
-    letter-spacing: -0.01em;
-  }
+    .titles {
+        text-align: left;
+        padding: 48px 0;
+        font-weight: 700;
+        font-size: 56px;
+        line-height: 110%;
+        letter-spacing: -0.01em;
+    }
 
-  .pageTitle {
-    text-align: left;
-    height: 56px;
-    padding-bottom: 32px;
-    margin-bottom: 32px;
-    font-weight: 700;
-    font-size: 56px;
-    line-height: 110%;
-    letter-spacing: -0.01em;
-  }
+    .pageTitle {
+        text-align: left;
+        height: 56px;
+        padding-bottom: 32px;
+        margin-bottom: 32px;
+        font-weight: 700;
+        font-size: 56px;
+        line-height: 110%;
+        letter-spacing: -0.01em;
+    }
 
-  .historyWrapper {
-    align-items: flex-start;
-  }
+    .historyWrapper {
+        align-items: flex-start;
+    }
 
-  .historyWrapper {
-    display: flex;
-    gap: 48px;
-    flex-direction: column;
-    align-items: left;
-    background-color: var(--background);
-    padding-top: 48px;
-    /* padding-bottom: 48px; */
-  }
+    .historyWrapper {
+        display: flex;
+        gap: 48px;
+        flex-direction: column;
+        align-items: left;
+        background-color: var(--background);
+        padding-top: 48px;
+        /* padding-bottom: 48px; */
+    }
 }
