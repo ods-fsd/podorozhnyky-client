@@ -1,5 +1,6 @@
 'use client';
 
+import { useQueryClient } from '@tanstack/react-query';
 import { ErrorMessage, Field, Form, Formik, FormikHelpers } from 'formik';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
@@ -119,6 +120,7 @@ const AddStoryForm = ({
   const selectRef = useRef<HTMLDivElement>(null);
 
   const router = useRouter();
+  const queryClient = useQueryClient();
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -190,6 +192,9 @@ const AddStoryForm = ({
         : await createStory(formData);
 
       if (response.status === 200 || response.status === 201) {
+        queryClient.invalidateQueries({ queryKey: ['stories'] });
+        queryClient.invalidateQueries({ queryKey: ['ownStories'] });
+        queryClient.invalidateQueries({ queryKey: ['storiesForTraveller'] });
         const responseStoryId = response.data?._id;
 
         if (responseStoryId) {
